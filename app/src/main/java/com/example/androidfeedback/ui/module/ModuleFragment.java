@@ -1,4 +1,4 @@
-package com.example.androidfeedback.ui.home;
+package com.example.androidfeedback.ui.module;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,9 +13,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.androidfeedback.R;
+import com.example.androidfeedback.ui.home.HomeViewModel;
 
-public class HomeFragment extends Fragment {
-
+public class ModuleFragment extends Fragment {
     private HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -24,10 +24,10 @@ public class HomeFragment extends Fragment {
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.  getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+                textView.setText("this is module page");
             }
         });
         return root;

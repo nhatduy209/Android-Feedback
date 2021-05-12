@@ -10,21 +10,35 @@
         android:name="com.example.androidfeedback.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.androidfeedback.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.androidfeedback.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
     <fragment
         android:id="@+id/nav_assignment"
         android:name="com.example.androidfeedback.ui.assignment.AssignmentFragment"
         android:label="@string/menu_assignment"
         tools:layout="@layout/fragment_assignment" />
+    <fragment
+        android:id="@+id/nav_class"
+        android:name="com.example.androidfeedback.ui.uiclass.ClassFragment"
+        android:label="@string/menu_class"
+        tools:layout="@layout/fragment_class" />
+    <fragment
+        android:id="@+id/nav_enrollment"
+        android:name="com.example.androidfeedback.ui.enrollment.EnrollmentFragment"
+        android:label="@string/menu_enrollment"
+        tools:layout="@layout/fragment_enrollment" />
+    <fragment
+        android:id="@+id/nav_result"
+        android:name="com.example.androidfeedback.ui.result.ResultFragment"
+        android:label="@string/menu_result"
+        tools:layout="@layout/fragment_result" />
+    <fragment
+        android:id="@+id/nav_question"
+        android:name="com.example.androidfeedback.ui.question.QuestionFragment"
+        android:label="@string/menu_question"
+        tools:layout="@layout/fragment_question" />
+    <fragment
+        android:id="@+id/nav_contact"
+        android:name="com.example.androidfeedback.ui.contact.ContactFragment"
+        android:label="@string/menu_contact"
+        tools:layout="@layout/fragment_contact" />
+
 </navigation>
