@@ -8,9 +8,9 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="181dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="70dp"
+        android:layout_width="221dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="56dp"
         android:layout_marginTop="8dp"
         android:text="Module List"
         android:textColor="@color/design_default_color_on_secondary"
@@ -21,7 +21,7 @@
         tools:textAlignment="center" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerCategoryView"
+        android:id="@+id/recyclerModuleView"
         android:layout_width="410dp"
         android:layout_height="671dp"
         android:visibility="visible"
