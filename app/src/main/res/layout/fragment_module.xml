@@ -22,8 +22,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerModuleView"
-        android:layout_width="410dp"
+        android:layout_width="match_parent"
         android:layout_height="671dp"
+        android:layout_marginTop="8dp"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"

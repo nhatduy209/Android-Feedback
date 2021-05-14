@@ -9,12 +9,13 @@
     android:foregroundTint="#00972727">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="369dp"
-        android:layout_height="248dp"
-        android:layout_marginEnd="30dp"
+        android:layout_width="350dp"
+        android:layout_height="262dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/module_item"
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -216,9 +217,10 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginTop="56dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/ic_edit"
         android:backgroundTint="#00ED0E0E"
         android:backgroundTintMode="add"
@@ -229,9 +231,10 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/ic_delete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
