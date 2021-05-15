@@ -6,11 +6,13 @@
     android:layout_height="wrap_content"
     android:background="@drawable/icon_delete"
     android:backgroundTint="#FFFFFF"
+    android:foreground="@drawable/icon_edit"
     android:foregroundTint="#00972727">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="350dp"
-        android:layout_height="262dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
@@ -26,9 +28,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="4dp"
             android:fontFamily="serif"
-            android:text="Module ID:"
+            android:text="Topic ID:"
             android:textColor="@color/design_default_color_on_secondary"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -41,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="serif"
-            android:text="Module Name:"
+            android:text="Topic Name:"
             android:textColor="@color/design_default_color_on_secondary"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -54,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="serif"
-            android:text="Admin ID:"
+            android:text="Question ID:"
             android:textColor="@color/design_default_color_on_secondary"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -67,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="serif"
-            android:text="Start Date:"
+            android:text="Question Content"
             android:textColor="@color/design_default_color_on_secondary"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -75,62 +77,10 @@
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="serif"
-            android:text="End Date:"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="serif"
-            android:text="Feedback Title:"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="serif"
-            android:text="Feedbeck StartTime:"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" />
-
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="serif"
-            android:text="Feedback EndTime:"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-        <TextView
             android:id="@+id/txtTopicID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="4dp"
             android:fontFamily="serif"
             android:text="TextView"
             android:textColor="@color/design_default_color_on_secondary"
@@ -172,57 +122,13 @@
             app:layout_constraintStart_toEndOf="@+id/textView8"
             app:layout_constraintTop_toTopOf="@+id/textView8" />
 
-        <TextView
-            android:id="@+id/txtAssignmentRegistrationCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="serif"
-            android:text="TextView"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView9"
-            app:layout_constraintTop_toTopOf="@+id/textView9" />
-
-        <TextView
-            android:id="@+id/text6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:fontFamily="serif"
-            android:text="TextView"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView10"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-        <TextView
-            android:id="@+id/text7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="serif"
-            android:text="TextView"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView11"
-            app:layout_constraintTop_toTopOf="@+id/textView11" />
-
-        <TextView
-            android:id="@+id/text8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="serif"
-            android:text="TextView"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView12"
-            app:layout_constraintTop_toTopOf="@+id/textView12" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/btnEditQuestion"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="45dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/ic_edit"
         android:foreground="@drawable/icon_edit"
@@ -234,7 +140,7 @@
         android:id="@+id/btnDeleteQuestion"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/ic_delete"
         android:foreground="@drawable/icon_delete"

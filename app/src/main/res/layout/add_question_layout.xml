@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textViewEditQuestion"
+        android:layout_width="314dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="32dp"
+        android:text="Add Question"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="45sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:fontFamily="sans-serif-condensed-medium"
+        tools:textAlignment="center" />
+
+    <Spinner
+        android:id="@+id/spnEditTopicName"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/edittext"
+        android:hint="Topic Name"
+        android:spinnerMode="dropdown"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEditQuestion">
+
+    </Spinner>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="serif"
+        android:text="Topic Name"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEditQuestion" />
+
+    <TextView
+        android:id="@+id/textViewQC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="serif"
+        android:text="Topic Name"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spnEditTopicName" />
+
+    <EditText
+        android:id="@+id/txtEditQuestionContent"
+        android:layout_width="280dp"
+        android:layout_height="215dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spnEditTopicName" />
+
+    <TextView
+        android:id="@+id/text6"
+        android:layout_width="206dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="16dp"
+        android:text="Please enter question"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEditQuestionContent" />
+
+    <Button
+        android:id="@+id/btnSaveEditQuestion"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/btn_save"
+        android:fontFamily="serif"
+        android:text="Save"
+        android:textAllCaps="false"
+        android:textColor="@color/design_default_color_background"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEditQuestionContent" />
+
+    <Button
+        android:id="@+id/btnBackEditQuestion"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/btn_back"
+        android:text="Back"
+        android:textAllCaps="false"
+        android:textColor="@color/design_default_color_background"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/btnSaveEditQuestion"
+        app:layout_constraintTop_toBottomOf="@+id/txtEditQuestionContent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

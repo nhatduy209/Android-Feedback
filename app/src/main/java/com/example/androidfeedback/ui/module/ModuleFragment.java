@@ -42,6 +42,8 @@ public class ModuleFragment extends Fragment {
         module.setFbStartDate("111");
         module.setFbEndDate("222");
         moduleList.add(module);
+        moduleList.add(module);
+        moduleList.add(module);
         reload(moduleList,root);
         return root;
     }

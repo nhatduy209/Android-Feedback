@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidfeedback.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder>{
     private Context context;
@@ -34,11 +33,11 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
-            text1 = itemView.findViewById(R.id.text1);
-            text2 = itemView.findViewById(R.id.text2);
-            text3 = itemView.findViewById(R.id.text3);
-            text4 = itemView.findViewById(R.id.text4);
-            text5 = itemView.findViewById(R.id.text5);
+            text1 = itemView.findViewById(R.id.txtTopicID);
+            text2 = itemView.findViewById(R.id.txtTopicName);
+            text3 = itemView.findViewById(R.id.txtQuestionID);
+            text4 = itemView.findViewById(R.id.txtQuestionContent);
+            text5 = itemView.findViewById(R.id.txtAssignmentRegistrationCode);
             text6 = itemView.findViewById(R.id.text6);
             text7 = itemView.findViewById(R.id.text7);
             text8 = itemView.findViewById(R.id.text8);

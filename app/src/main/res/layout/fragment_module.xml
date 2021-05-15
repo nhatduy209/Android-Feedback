@@ -7,7 +7,7 @@
     tools:context=".ui.module.ModuleFragment">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewEditQuestion"
         android:layout_width="221dp"
         android:layout_height="46dp"
         android:layout_marginStart="56dp"
@@ -28,14 +28,14 @@
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewEditQuestion" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btnAddQuestion"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:background="@mipmap/ic_add_module"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toEndOf="@+id/textViewEditQuestion"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
