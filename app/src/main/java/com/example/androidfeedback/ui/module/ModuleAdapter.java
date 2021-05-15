@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidfeedback.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder>{
     private Context context;
