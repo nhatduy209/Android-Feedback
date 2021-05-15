@@ -28,12 +28,12 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder
     }
 
     //create view holder
-    class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView text1, text2,text3, text4,text5, text6,text7, text8;
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
-            text1 = itemView.findViewById(R.id.text1);
+            text1 = itemView.findViewById(R.id.classID);
             text2 = itemView.findViewById(R.id.text2);
             text3 = itemView.findViewById(R.id.text3);
             text4 = itemView.findViewById(R.id.text4);
