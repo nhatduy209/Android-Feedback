@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModuleFragment extends Fragment {
-    private HomeViewModel homeViewModel;
     private RecyclerView recyclerCategoryView;
     ModuleAdapter moduleAdapter;
     ArrayList<ModuleViewModel> moduleList;

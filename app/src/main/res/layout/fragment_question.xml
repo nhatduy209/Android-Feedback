@@ -21,14 +21,15 @@
         tools:textAlignment="center" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerAssignmentView"
-        android:layout_width="410dp"
-        android:layout_height="617dp"
-        android:layout_marginTop="8dp"
+        android:id="@+id/recyclerQuestionView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="150dp"
+        android:paddingBottom="150dp"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spnEditTopicName" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnAddQuestion"
@@ -44,7 +45,7 @@
         android:layout_width="279dp"
         android:layout_height="50dp"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="45dp"
         android:background="@drawable/edittext"
         android:hint="Topic Name"
         android:spinnerMode="dropdown"
@@ -58,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="serif"
         android:text="Topic Name"
         android:textSize="18dp"

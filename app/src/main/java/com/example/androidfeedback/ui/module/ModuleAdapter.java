@@ -28,7 +28,7 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder
     }
 
     //create view holder
-    class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView text1, text2,text3, text4,text5, text6,text7, text8;
 
         public ViewHolder(@NonNull View itemView){
@@ -57,9 +57,9 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull final ModuleAdapter.ViewHolder holder, final int position){
         ModuleViewModel module = listModule.get(position);
-        holder.text1.setText(module.getModuleName());
+        holder.text1.setText(String.valueOf(module.getModuleId()));
         holder.text2.setText(module.getModuleName());
-        holder.text3.setText(module.getModuleName());
+        holder.text3.setText(String.valueOf(module.getAdminId()));
         holder.text4.setText(module.getStartDate());
         holder.text5.setText(module.getEndDate());
         holder.text6.setText(module.getFbTitle());
