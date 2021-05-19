@@ -1,6 +1,7 @@
 package com.example.androidfeedback.ui.uiclass;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +21,9 @@ import com.example.androidfeedback.R;
 import com.example.androidfeedback.ui.module.ModuleAdapter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
-public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder>{
+public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> {
 
     private int position;
     private Context context;
@@ -47,14 +50,20 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder>{
     }
 
     //create view holder
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView classId, className,startDate, endDate;
+    public class ViewHolder extends RecyclerView.ViewHolder implements DatePickerDialog.OnDateSetListener {
+        private TextView classId, className,startDate, endDate ;
+
         public ViewHolder(@NonNull View itemView){
         super(itemView);
             classId = itemView.findViewById(R.id.classIDView);
             className = itemView.findViewById(R.id.className);
             startDate = itemView.findViewById(R.id.startDate);
             endDate = itemView.findViewById(R.id.endDate);
+        }
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
         }
     }
 
