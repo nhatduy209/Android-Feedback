@@ -46,9 +46,11 @@
         android:layout_height="50dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="45dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/edittext"
         android:hint="Topic Name"
         android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerQuestionView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewEditQuestion">
 
@@ -60,9 +62,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="serif"
         android:text="Topic Name"
         android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/spnEditTopicName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewEditQuestion" />
 
