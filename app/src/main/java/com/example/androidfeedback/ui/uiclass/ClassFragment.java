@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,16 +33,16 @@ public class ClassFragment extends Fragment{
     ClassAdapter classAdapter;
     ArrayList<ClassViewModel> listClass;
     private Button btnAdd ;
+    private ImageView btnEdit  ;
     private Context finalContext;
-    private TextView datePicker;
-    private TextView datePicker1;
     public View onCreateView(@NonNull  LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_class, null  );
-        final View smallRoot  = inflater.inflate(R.layout.fragment_add_class, null);
+        final View smallRoot  = inflater.inflate(R.layout.class_recycler_view_item, null );
         listClass = new ArrayList<ClassViewModel>();
         recyclerClass = root.findViewById(R.id.recyclerClassView);
         btnAdd = root.findViewById(R.id.btn_add);
+
         btnAdd.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -52,12 +53,14 @@ public class ClassFragment extends Fragment{
             }
         });
 
+
         ClassViewModel classes = new ClassViewModel("","Name","tt",
-                "11");
+                "11","40");
         classes.setClassId("idne");
         classes.setClassName("duy");
         classes.setStartDate("11");
         classes.setEndDate("22");
+        classes.setCapacity("40");
         listClass.add(classes);
         reload(listClass,root);
         return root ;

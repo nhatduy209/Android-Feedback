@@ -1,27 +1,21 @@
 package com.example.androidfeedback.ui.uiclass;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.os.Bundle;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
-import com.example.androidfeedback.ui.module.ModuleAdapter;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> {
 
@@ -37,11 +31,26 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull final ClassAdapter.ViewHolder holder,final int position) {
-        ClassViewModel classes = listClass.get(position);
+        final ClassViewModel classes = listClass.get(position);
         holder.classId.setText(classes.getClassId());
         holder.className.setText(classes.getClassName());
         holder.startDate.setText(classes.getStartDate());
         holder.endDate.setText(classes.getEndDate());
+        holder.capacity.setText(classes.getCapacity());
+        holder.btnEdit.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                    Intent intent = new Intent(context.getApplicationContext(), AddClass.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);    // if not , error throw
+                    intent.putExtra("className",classes.getClassName());
+                    intent.putExtra("classId",classes.getClassName());
+                    intent.putExtra("startDate",classes.getStartDate());
+                    intent.putExtra("endDate",classes.getEndDate());
+                    intent.putExtra("capacity",classes.getCapacity());
+                    context.startActivity(intent);
+            }
+        });
     }
 
     public ClassAdapter(Context context, ArrayList<ClassViewModel> listClass){
@@ -51,7 +60,8 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
 
     //create view holder
     public class ViewHolder extends RecyclerView.ViewHolder implements DatePickerDialog.OnDateSetListener {
-        private TextView classId, className,startDate, endDate ;
+        private TextView classId, className,startDate, endDate , capacity ;
+        private ImageView btnEdit;
 
         public ViewHolder(@NonNull View itemView){
         super(itemView);
@@ -59,6 +69,8 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
             className = itemView.findViewById(R.id.className);
             startDate = itemView.findViewById(R.id.startDate);
             endDate = itemView.findViewById(R.id.endDate);
+            btnEdit = itemView.findViewById(R.id.btn_edit);
+            capacity = itemView.findViewById(R.id.Capacity);
         }
 
         @Override

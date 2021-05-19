@@ -5,17 +5,18 @@ public class ClassViewModel {
     private String className;
     private String startDate;
     private String endDate;
-
+    private String Capacity;
     public ClassViewModel( String classId,
                            String className,
                            String startDate,
-                           String endDate
+                           String endDate,
+                           String Capacity
     ){
         this.classId = classId;
         this.className=className;
         this.startDate = startDate;
         this.endDate =endDate;
-
+        this.Capacity = Capacity;
     }
 
     public String getClassId() {
@@ -24,6 +25,10 @@ public class ClassViewModel {
 
     public String getClassName() {
         return className;
+    }
+
+    public String getCapacity() {
+        return Capacity;
     }
 
     public String getStartDate() {
@@ -45,6 +50,10 @@ public class ClassViewModel {
 
     public void setStartDate(String startDate) {
         this.startDate = startDate;
+    }
+
+    public void setCapacity(String Capacity) {
+        this.Capacity = Capacity;
     }
 
     public void setEndDate(String endDate) {
