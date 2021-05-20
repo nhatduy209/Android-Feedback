@@ -6,13 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/mobile_navigation"
+        android:layout_height="0dp"
+        android:layout_width="0dp"
+        tools:ignore="MissingConstraints" />
     <TextView
         android:id="@+id/textViewEditQuestion"
         android:layout_width="314dp"
         android:layout_height="62dp"
         android:layout_marginStart="52dp"
         android:layout_marginTop="32dp"
-        android:text="Edit Question"
+        android:text="Add Question"
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="45sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +80,7 @@
         app:layout_constraintTop_toBottomOf="@+id/spnEditTopicName" />
 
     <TextView
-        android:id="@+id/text6"
+        android:id="@+id/txtModuleFBTitle"
         android:layout_width="206dp"
         android:layout_height="24dp"
         android:layout_marginStart="64dp"
@@ -84,7 +92,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtEditQuestionContent" />
 
     <Button
-        android:id="@+id/btnSaveEditQuestion"
+        android:id="@+id/btnSaveQuestion"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginStart="164dp"
@@ -99,7 +107,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtEditQuestionContent" />
 
     <Button
-        android:id="@+id/btnBackEditQuestion"
+        android:id="@+id/btnBackQuestion"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginStart="24dp"
@@ -109,6 +117,6 @@
         android:textAllCaps="false"
         android:textColor="@color/design_default_color_background"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/btnSaveEditQuestion"
+        app:layout_constraintStart_toEndOf="@+id/btnSaveQuestion"
         app:layout_constraintTop_toBottomOf="@+id/txtEditQuestionContent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

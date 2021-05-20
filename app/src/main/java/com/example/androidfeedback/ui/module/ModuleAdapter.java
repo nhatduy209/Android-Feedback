@@ -1,9 +1,11 @@
 package com.example.androidfeedback.ui.module;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,19 +30,24 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder
     }
 
     //create view holder
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView text1, text2,text3, text4,text5, text6,text7, text8;
+    public class ViewHolder extends RecyclerView.ViewHolder implements DatePickerDialog.OnDateSetListener{
+        private TextView txtModuleID, txtModuleName,txtModuleAdminID, txtModuleStartDate;
+        private TextView txtModuleEndDate, txtModuleFBTitle,txtModuleFBStartDate, txtModuleFBEndDate;
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
-            text1 = itemView.findViewById(R.id.txtTopicID);
-            text2 = itemView.findViewById(R.id.txtTopicName);
-            text3 = itemView.findViewById(R.id.txtQuestionID);
-            text4 = itemView.findViewById(R.id.txtQuestionContent);
-            text5 = itemView.findViewById(R.id.txtAssignmentRegistrationCode);
-            text6 = itemView.findViewById(R.id.text6);
-            text7 = itemView.findViewById(R.id.text7);
-            text8 = itemView.findViewById(R.id.text8);
+            txtModuleID = itemView.findViewById(R.id.txtModuleID);
+            txtModuleName = itemView.findViewById(R.id.txtModuleName);
+            txtModuleAdminID = itemView.findViewById(R.id.txtModuleAdminID);
+            txtModuleStartDate = itemView.findViewById(R.id.txtModuleStartDate);
+            txtModuleEndDate = itemView.findViewById(R.id.txtModuleEndDate);
+            txtModuleFBTitle = itemView.findViewById(R.id.txtModuleFBTitle);
+            txtModuleFBStartDate = itemView.findViewById(R.id.txtModuleFBStartDate);
+            txtModuleFBEndDate = itemView.findViewById(R.id.txtModuleFBEndDate);
+        }
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
         }
     }
     public ModuleAdapter(Context context, ArrayList<ModuleViewModel> listModule){
@@ -57,14 +64,14 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull final ModuleAdapter.ViewHolder holder, final int position){
         ModuleViewModel module = listModule.get(position);
-        holder.text1.setText(String.valueOf(module.getModuleId()));
-        holder.text2.setText(module.getModuleName());
-        holder.text3.setText(String.valueOf(module.getAdminId()));
-        holder.text4.setText(module.getStartDate());
-        holder.text5.setText(module.getEndDate());
-        holder.text6.setText(module.getFbTitle());
-        holder.text7.setText(module.getFbStartDate());
-        holder.text8.setText(module.getFbEndDate());
+        holder.txtModuleID.setText(String.valueOf(module.getModuleId()));
+        holder.txtModuleName.setText(module.getModuleName());
+        holder.txtModuleAdminID.setText(String.valueOf(module.getAdminId()));
+        holder.txtModuleStartDate.setText(module.getStartDate());
+        holder.txtModuleEndDate.setText(module.getEndDate());
+        holder.txtModuleFBTitle.setText(module.getFbTitle());
+        holder.txtModuleFBStartDate.setText(module.getFbStartDate());
+        holder.txtModuleFBEndDate.setText(module.getFbEndDate());
     }
 
     @Override

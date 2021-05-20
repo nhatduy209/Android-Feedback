@@ -23,6 +23,15 @@
         <activity android:name=".ui.uiclass.AddClass">
 
         </activity>
+        <activity android:name=".ui.module.AddModule">
+
+        </activity>
+        <activity android:name=".ui.question.AddQuestion">
+
+        </activity>
+        <activity android:name=".ui.assignment.AddAssignment">
+
+        </activity>
     </application>
 
 </manifest>

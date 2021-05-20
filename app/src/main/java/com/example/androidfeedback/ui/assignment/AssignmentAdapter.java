@@ -17,6 +17,16 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.Vi
 
     private Context context;
     ArrayList<AssignmentModel> listAssignment;
+    private int position;
+
+    //get position of item
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
 
     public AssignmentAdapter(Context context, ArrayList<AssignmentModel> listAssignment){
         this.context = context;
@@ -61,12 +71,13 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.Vi
 
 
 
-            txtId =itemView.findViewById(R.id.txtId);
-            txtModuleName =itemView.findViewById(R.id.txtModuleName);
-            txtClassName =itemView.findViewById(R.id.txtClassName);
-            txtTrainerName =itemView.findViewById(R.id.txtTrainerName);
+            txtId =itemView.findViewById(R.id.txtAssId);
+            txtModuleName =itemView.findViewById(R.id.txtAssModuleName);
+            txtClassName =itemView.findViewById(R.id.txtAssClassName);
+            txtTrainerName =itemView.findViewById(R.id.txtAssTrainerName);
             txtRegistrationCode =itemView.findViewById(R.id.txtRegistrationCode);
 
         }
     }
+
 }
