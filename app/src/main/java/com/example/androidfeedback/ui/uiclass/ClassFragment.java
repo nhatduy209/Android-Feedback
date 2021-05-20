@@ -1,36 +1,75 @@
 package com.example.androidfeedback.ui.uiclass;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
-import com.example.androidfeedback.ui.gallery.GalleryViewModel;
 
-public class ClassFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Objects;
 
-    private GalleryViewModel galleryViewModel;
+public class ClassFragment extends Fragment{
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
+    private RecyclerView recyclerClass;
+    ClassAdapter classAdapter;
+    ArrayList<ClassViewModel> listClass;
+    private Button btnAdd ;
+    private ImageView btnEdit  ;
+    private Context finalContext;
+    public View onCreateView(@NonNull  LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                ViewModelProviders.of(this).get(GalleryViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
-        final TextView textView = root.findViewById(R.id.text_gallery);
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        final View root = inflater.inflate(R.layout.fragment_class, null  );
+        final View smallRoot  = inflater.inflate(R.layout.class_recycler_view_item, null );
+        listClass = new ArrayList<ClassViewModel>();
+        recyclerClass = root.findViewById(R.id.recyclerClassView);
+        btnAdd = root.findViewById(R.id.btn_add);
+
+        btnAdd.setOnClickListener(new View.OnClickListener(){
+
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText("this is class fragment");
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddClass.class);
+                startActivity(intent);
+
             }
         });
-        return root;
+
+
+        ClassViewModel classes = new ClassViewModel("","Name","tt",
+                "11","40");
+        classes.setClassId("idne");
+        classes.setClassName("duy");
+        classes.setStartDate("11");
+        classes.setEndDate("22");
+        classes.setCapacity("40");
+        listClass.add(classes);
+        reload(listClass,root);
+        return root ;
+    }
+
+    public void reload(ArrayList<ClassViewModel> listClass, View view){
+        classAdapter = new ClassAdapter(getActivity().getApplicationContext(), listClass);
+        // recyclerCategoryView.setHasFixedSize(true);
+        recyclerClass.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerClass.setAdapter(classAdapter);
     }
 }
