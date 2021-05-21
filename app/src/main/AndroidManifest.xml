@@ -35,6 +35,15 @@
         <activity android:name=".ui.assignment.EditAssignment">
 
         </activity>
+        <activity android:name=".ui.enrollment.AddEnrollment">
+
+        </activity>
+        <activity android:name=".ui.enrollment.EditEnrollment">
+
+        </activity>
+        <activity android:name=".ui.enrollment.DetailEnrollment">
+
+        </activity>
     </application>
 
 </manifest>

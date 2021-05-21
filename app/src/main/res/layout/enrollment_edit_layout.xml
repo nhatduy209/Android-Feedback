@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/mobile_navigation"
+        android:layout_height="0dp"
+        android:layout_width="0dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvEditEnrollment"
+        android:layout_width="300dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="16dp"
+        android:text="Edit Enrollment"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:fontFamily="sans-serif-condensed-medium"
+        tools:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/tvEnEditTraineeName"
+        android:layout_width="150dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="16dp"
+        android:text="Trainee Name"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEnEditTraineeID"
+        tools:fontFamily="serif" />
+
+    <TextView
+        android:id="@+id/tvEnTraineeId"
+        android:layout_width="150dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="45dp"
+        android:text="Trainee ID"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEditEnrollment"
+        tools:fontFamily="serif" />
+
+    <EditText
+        android:id="@+id/txtEnEditTraineeID"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEnTraineeId" />
+
+    <Button
+        android:id="@+id/btnEnSaveEdit"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/btn_save"
+        android:fontFamily="serif"
+        android:text="Save"
+        android:textAllCaps="false"
+        android:textColor="@color/design_default_color_background"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEnEditClassName" />
+
+    <Button
+        android:id="@+id/btnEnBackEdit"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/btn_back"
+        android:text="Back"
+        android:textAllCaps="false"
+        android:textColor="@color/design_default_color_background"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/btnEnSaveEdit"
+        app:layout_constraintTop_toBottomOf="@+id/txtEnEditClassName" />
+
+    <TextView
+        android:id="@+id/tvEnEditClassName"
+        android:layout_width="150dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="16dp"
+        android:text="Class ID"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEnEditTraineeName"
+        tools:fontFamily="serif" />
+
+    <EditText
+        android:id="@+id/txtEnEditClassName"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="16dp"
+        android:enabled="true"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEnEditClassName" />
+
+    <EditText
+        android:id="@+id/txtEnEditTraineeName"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEnEditTraineeName" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
