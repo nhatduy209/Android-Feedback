@@ -219,7 +219,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/btnEditQuestion"
+        android:id="@+id/btnEditModule"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="80dp"
@@ -231,7 +231,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnDeleteQuestion"
+        android:id="@+id/btnDeleteModule"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
@@ -240,6 +240,6 @@
         android:foreground="@drawable/icon_delete"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnEditQuestion" />
+        app:layout_constraintTop_toBottomOf="@+id/btnEditModule" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

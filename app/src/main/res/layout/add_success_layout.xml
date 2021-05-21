@@ -7,7 +7,7 @@
     android:paddingBottom="18dp">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imgDelete"
         android:layout_width="115dp"
         android:layout_height="112dp"
         android:layout_marginStart="148dp"
@@ -24,7 +24,7 @@
         android:layout_marginTop="16dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imgDelete" />
 
     <Button
         android:id="@+id/addsuccess"
@@ -37,5 +37,5 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imgDelete" />
 </androidx.constraintlayout.widget.ConstraintLayout>

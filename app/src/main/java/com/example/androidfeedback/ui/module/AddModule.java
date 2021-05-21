@@ -17,7 +17,7 @@ import com.example.androidfeedback.R;
 import java.util.Calendar;
 
 public class AddModule extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-    private TextView datePickerEnd , txtAddModuleName,txtAdminID,txtFBTitle, datePickerStart, fbDatePickerStart,fbDatePickerEnd;
+    private TextView datePickerEnd , txtAddModuleName,txtAdminID,txtFBTitle, datePickerStart, fbDatePickerStart,fbDatePickerEnd,tvAddModule;
     private Context context = this ;
     private Button btnBack ;
     private Button btnSave ;
@@ -26,64 +26,74 @@ public class AddModule extends AppCompatActivity implements DatePickerDialog.OnD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.module_add_layout);
         final NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        txtAddModuleName = findViewById(R.id.txtModuleName);
+        txtAddModuleName = findViewById(R.id.txtAddModuleName);
         txtAdminID = findViewById(R.id.txtAddModuleAdmin);
         txtFBTitle = findViewById(R.id.txtAddFBModuleTitle);
+        tvAddModule = findViewById(R.id.tvAddModule);
 
-//        datePickerStart = findViewById(R.id.date_picker_start);
-//        datePickerStart.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dateAdd = 1;
-//                Calendar calendar = Calendar.getInstance();
-//                int year = calendar.get(Calendar.YEAR);
-//                int month = calendar.get(Calendar.MONTH);
-//                int day = calendar.get(Calendar.DAY_OF_MONTH);
-//                DatePickerDialog datePickerDialog = new DatePickerDialog(context, AddModule.this, year, month, day);
-//                datePickerDialog.show();
-//            }
-//        });
-//
-//        datePickerEnd = findViewById(R.id.date_picker_end);
-//        datePickerEnd.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dateAdd = 2;
-//                Calendar calendar = Calendar.getInstance();
-//                int year = calendar.get(Calendar.YEAR);
-//                int month = calendar.get(Calendar.MONTH);
-//                int day = calendar.get(Calendar.DAY_OF_MONTH);
-//                DatePickerDialog datePickerDialog = new DatePickerDialog(context, AddModule.this, year, month, day);
-//                datePickerDialog.show();
-//            }
-//        });
-//
-//        fbDatePickerStart = findViewById(R.id.txtAddFBModuleSD);
-//        fbDatePickerStart.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                dateAdd = 3;
-//                Calendar calendar = Calendar.getInstance();
-//                int year = calendar.get(Calendar.YEAR);
-//                int month = calendar.get(Calendar.MONTH);
-//                int day = calendar.get(Calendar.DAY_OF_MONTH);
-//                DatePickerDialog datePickerDialog = new DatePickerDialog(context, AddModule.this, year, month, day);
-//                datePickerDialog.show();
-//            }
-//        });
-//
-//        fbDatePickerEnd = findViewById(R.id.txtAddFBModuleED);
-//        fbDatePickerEnd.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Calendar calendar = Calendar.getInstance();
-//                int year = calendar.get(Calendar.YEAR);
-//                int month = calendar.get(Calendar.MONTH);
-//                int day = calendar.get(Calendar.DAY_OF_MONTH);
-//                DatePickerDialog datePickerDialog = new DatePickerDialog(context, AddModule.this, year, month, day);
-//                datePickerDialog.show();
-//            }
-//        });
+        datePickerStart = findViewById(R.id.txtAddModuleStartDate);
+        datePickerStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dateAdd = 1;
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(context, AddModule.this, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
+        datePickerEnd = findViewById(R.id.txtAddModuleEndDate);
+        datePickerEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dateAdd = 2;
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(context, AddModule.this, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
+        fbDatePickerStart = findViewById(R.id.txtAddFBModuleSD);
+        fbDatePickerStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dateAdd = 3;
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(context, AddModule.this, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
+        fbDatePickerEnd = findViewById(R.id.txtAddFBModuleED);
+        fbDatePickerEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(context, AddModule.this, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
+        btnSave = findViewById(R.id.btnSaveAddModule);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                navController.navigate(R.id.nav_class);
+            }
+        });
 
         btnBack = findViewById(R.id.btnBackAddModule);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +121,7 @@ public class AddModule extends AppCompatActivity implements DatePickerDialog.OnD
             fbDatePickerEnd.setText(fbDateEnd);
             String fbDateStart = b.getString("fbStartDate");  // get data passing from other activity
             fbDatePickerStart.setText(fbDateStart);
+            tvAddModule.setText("Edit Module List");
         } catch (Exception e) {
             return;
         }
@@ -118,12 +129,12 @@ public class AddModule extends AppCompatActivity implements DatePickerDialog.OnD
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//        if (dateAdd == 1) {
-//            datePickerStart.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
-//            dateAdd = 0;  // return default value
-//        }
-//        else{
-//            datePickerEnd.setText(dayOfMonth +"-" + (month + 1) + "-" + year);
-//        }
+        if (dateAdd == 1) {
+            datePickerStart.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+            dateAdd = 0;  // return default value
+        }
+        else{
+            datePickerEnd.setText(dayOfMonth +"-" + (month + 1) + "-" + year);
+        }
     }
 }

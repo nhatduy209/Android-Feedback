@@ -15,7 +15,7 @@
         android:layout_width="0dp"
         tools:ignore="MissingConstraints" />
     <TextView
-        android:id="@+id/textViewEditQuestion"
+        android:id="@+id/tvAddModule"
         android:layout_width="300dp"
         android:layout_height="51dp"
         android:layout_marginStart="52dp"
@@ -39,7 +39,7 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEditQuestion" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAddModule" />
 
     <EditText
         android:id="@+id/txtAddModuleStartDate"

@@ -32,6 +32,9 @@
         <activity android:name=".ui.assignment.AddAssignment">
 
         </activity>
+        <activity android:name=".ui.assignment.EditAssignment">
+
+        </activity>
     </application>
 
 </manifest>

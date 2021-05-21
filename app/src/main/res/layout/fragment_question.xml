@@ -7,7 +7,7 @@
     tools:context=".ui.question.QuestionFragment">
 
     <TextView
-        android:id="@+id/textViewEditQuestion"
+        android:id="@+id/tvAddQuestion"
         android:layout_width="245dp"
         android:layout_height="47dp"
         android:layout_marginStart="56dp"
@@ -37,11 +37,11 @@
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:background="@mipmap/ic_add_module"
-        app:layout_constraintStart_toEndOf="@+id/textViewEditQuestion"
+        app:layout_constraintStart_toEndOf="@+id/tvAddQuestion"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spnEditTopicName"
+        android:id="@+id/spQuestionAddTopicName"
         android:layout_width="279dp"
         android:layout_height="50dp"
         android:layout_marginStart="64dp"
@@ -52,7 +52,7 @@
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toTopOf="@+id/recyclerQuestionView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEditQuestion">
+        app:layout_constraintTop_toBottomOf="@+id/tvAddQuestion">
 
     </Spinner>
 
@@ -66,8 +66,8 @@
         android:fontFamily="serif"
         android:text="Topic Name"
         android:textSize="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/spnEditTopicName"
+        app:layout_constraintBottom_toTopOf="@+id/spQuestionAddTopicName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEditQuestion" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAddQuestion" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

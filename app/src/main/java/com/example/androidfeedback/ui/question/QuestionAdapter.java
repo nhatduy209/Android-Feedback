@@ -1,9 +1,12 @@
 package com.example.androidfeedback.ui.question;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,13 +34,15 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
     }
     class ViewHolder extends RecyclerView.ViewHolder{
         private TextView txtQuestionContent, txtQuestionID,txtTopicId,txtTopicName;
-
+        private Button btnEdit,btnDelete;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
             txtQuestionID = itemView.findViewById(R.id.txtQuestionID);
             txtQuestionContent = itemView.findViewById(R.id.txtQuestionContent);
             txtTopicId = itemView.findViewById(R.id.txtTopicID);
             txtTopicName = itemView.findViewById(R.id.txtTopicName);
+            btnEdit = itemView.findViewById(R.id.btnEditQuestion);
+            btnDelete=itemView.findViewById(R.id.btnDeleteQuestion);
         }
     }
     public QuestionAdapter(Context context, ArrayList<QuestionViewModel> listQuestion){
@@ -53,11 +58,50 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
     }
     @Override
     public void onBindViewHolder(@NonNull final QuestionAdapter.ViewHolder holder, final int position){
-        QuestionViewModel question = listQuestion.get(position);
+        final QuestionViewModel question = listQuestion.get(position);
         holder.txtTopicId.setText(String.valueOf(question.getTopicID()));
         holder.txtTopicName.setText(question.getTopicName());
         holder.txtQuestionID.setText(String.valueOf(question.getQuestionID()));
         holder.txtQuestionContent.setText(question.getQuestionContent());
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context.getApplicationContext(),AddQuestion.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("topicId",question.getTopicID());
+                intent.putExtra("topicName",question.getTopicName());
+                intent.putExtra("questionID",question.getQuestionID());
+                intent.putExtra("questionContent",question.getQuestionContent());
+                context.startActivity(intent);
+            }
+        });
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());//khởi tạo alert
+                View v = View.inflate(context,R.layout.delete_layout,null);
+                Button btnYes = v.findViewById(R.id.btnYes);
+                Button btnCancel = v.findViewById(R.id.btnCancel);
+                TextView txtMessage = v.findViewById(R.id.txtDeleteMessageSmall);
+
+                alert.setView(v);
+                final AlertDialog dialog = alert.create();
+                txtMessage.setText("Do you want to delete this question?");
+                btnYes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+            }
+        });
     }
 
     @Override
