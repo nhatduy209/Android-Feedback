@@ -9,14 +9,17 @@
     android:foregroundTint="#00972727">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="392dp"
-        android:layout_height="224dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:background="@drawable/module_item"
         android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
             android:id="@+id/textView3"
@@ -25,7 +28,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:fontFamily="serif"
-            android:text="Class ID:"
+            android:text="FeedBack ID:"
             android:textColor="@color/design_default_color_on_secondary"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -38,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="serif"
-            android:text="Name:"
+            android:text="FeedBack Title:"
             android:textColor="@color/design_default_color_on_secondary"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -51,38 +54,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="serif"
-            android:text="Capacity :"
+            android:text="Admin ID :"
             android:textColor="@color/design_default_color_on_secondary"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="serif"
-            android:text="Start Date:"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="serif"
-            android:text="End Date:"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
         <TextView
             android:id="@+id/feedbackIDView"
@@ -118,37 +95,14 @@
             app:layout_constraintStart_toEndOf="@+id/textView7"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-        <TextView
-            android:id="@+id/startDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:fontFamily="serif"
-            android:text="TextView"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView8"
-            app:layout_constraintTop_toTopOf="@+id/textView8" />
-
-        <TextView
-            android:id="@+id/endDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="serif"
-            android:text="TextView"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView9"
-            app:layout_constraintTop_toTopOf="@+id/textView9" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/btn_edit"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="4dp"
         android:background="@drawable/ic_edit"
         android:backgroundTint="#00ED0E0E"
         android:backgroundTintMode="add"
@@ -162,7 +116,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="4dp"
         android:background="@drawable/ic_delete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
