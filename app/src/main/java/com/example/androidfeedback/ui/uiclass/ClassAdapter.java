@@ -65,12 +65,12 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
 
         public ViewHolder(@NonNull View itemView){
         super(itemView);
-            classId = itemView.findViewById(R.id.classIDView);
-            className = itemView.findViewById(R.id.className);
+            classId = itemView.findViewById(R.id.feedbackIDView);
+            className = itemView.findViewById(R.id.feedbackTitle);
             startDate = itemView.findViewById(R.id.startDate);
             endDate = itemView.findViewById(R.id.endDate);
             btnEdit = itemView.findViewById(R.id.btn_edit);
-            capacity = itemView.findViewById(R.id.Capacity);
+            capacity = itemView.findViewById(R.id.adminID);
         }
 
         @Override

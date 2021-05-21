@@ -25,6 +25,10 @@
             android:icon="@drawable/ic_menu_calendar"
             android:title="@string/menu_enrollment" />
         <item
+            android:id="@+id/nav_feedback"
+            android:icon="@drawable/ic_menu_result"
+            android:title="@string/menu_feedback" />
+        <item
             android:id="@+id/nav_result"
             android:icon="@drawable/ic_menu_result"
             android:title="@string/menu_result" />
