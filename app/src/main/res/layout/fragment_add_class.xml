@@ -18,14 +18,14 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="287dp"
-        android:layout_height="323dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/textView13">
 
         <TextView
             android:id="@+id/textView14"
@@ -44,6 +44,16 @@
             tools:layout_editor_absoluteY="470dp" />
 
         <TextView
+            android:id="@+id/errorTextClassName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/error_add_class_name"
+            android:textColor="#ED0A0A"
+            android:textSize="12sp"
+            android:visibility="invisible" />
+
+        <TextView
             android:id="@+id/textView16"
             android:layout_width="match_parent"
             android:layout_height="25dp"
@@ -56,6 +66,16 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
             android:hint="Capacity" />
+
+        <TextView
+            android:id="@+id/errorTextCapacity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/error_add_class_capacity"
+            android:textColor="#ED0A0A"
+            android:textSize="12sp"
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/textView17"
@@ -75,6 +95,16 @@
             android:gravity="center" />
 
         <TextView
+            android:id="@+id/errorTextClassDateStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/error_add_class_date"
+            android:textColor="#ED0A0A"
+            android:textSize="12sp"
+            android:visibility="invisible" />
+
+        <TextView
             android:id="@+id/textEnd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,13 +121,23 @@
             android:drawableRight="@drawable/ic_menu_calendar"
             android:gravity="center" />
 
+        <TextView
+            android:id="@+id/errorTextClassDateEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/error_add_class_date"
+            android:textColor="#ED0A0A"
+            android:textSize="12sp"
+            android:visibility="invisible" />
+
     </LinearLayout>
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="291dp"
         android:layout_height="45dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="32dp"
         android:height="40dp"
         android:gravity="center"
         android:text="Add Class"

@@ -19,4 +19,7 @@
     <string name="menu_question">QUESTION</string>
     <string name="menu_contact">CONTACT</string>
     <string name="menu_logout">LOGOUT</string>
+    <string name="error_add_class_name">Please enter class name and less than 255 characters</string>
+    <string name="error_add_class_capacity">Please enter capacity is integer and larger than 0</string>
+    <string name="error_add_class_date">Please choose date or fill full mm/dd/yyyy</string>
 </resources>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,8 @@ import androidx.navigation.Navigation;
 import com.example.androidfeedback.R;
 
 import java.util.Calendar;
+
+import common.ValidationEditText;
 
 public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private TextView datePickerEnd , classNameEditText, capacityEditText , datePickerStart ;
@@ -62,6 +65,16 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
             }
         });
 
+        // press btn save
+        btnSave = findViewById(R.id.btn_Save_Class);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // validation error
+                validationError();
+            }
+        });
+
         // get current data if edit
         classNameEditText = findViewById(R.id.editTextClassName);
         capacityEditText = findViewById(R.id.EditTextCapacity);
@@ -78,6 +91,8 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
         }catch(Exception e){
             return ;
         }
+
+
     }
 
     @Override
@@ -89,5 +104,28 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
         else{
             datePickerEnd.setText(dayOfMonth +"-" + (month + 1) + "-" + year);
         }
+    }
+
+    public void validationError(){
+        EditText className , Capacity ;
+        TextView   dateEnd , dateStart;
+        className = findViewById(R.id.editTextClassName);
+        Capacity  = findViewById(R.id.EditTextCapacity);
+        dateEnd = findViewById(R.id.date_picker_end);
+        dateStart = findViewById(R.id.date_picker_start);
+        TextView errorClassName , errorEmptyDateEnd , errorCapacity,errorEmptyDateStart;
+        errorClassName = findViewById(R.id.errorTextClassName);
+        errorCapacity = findViewById(R.id.errorTextCapacity);
+        errorEmptyDateEnd = findViewById(R.id.errorTextClassDateEnd);
+        errorEmptyDateStart = findViewById(R.id.errorTextClassDateStart);
+        ValidationEditText validate = new ValidationEditText();
+
+        // validate
+
+        validate.validateEditText(className ,errorClassName );
+        validate.validateEditText(Capacity , errorCapacity );
+        validate.validateTextView(dateEnd , errorEmptyDateEnd);
+        validate.validateTextView(dateEnd , errorEmptyDateStart);
+
     }
 }
