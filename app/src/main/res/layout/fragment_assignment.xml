@@ -18,11 +18,12 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:fontFamily="sans-serif-condensed-medium"
         tools:textAlignment="center" />
+
     <Button
         android:id="@+id/btnAddAssignment"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="48dp"
         android:background="@mipmap/ic_add_module"
         app:layout_constraintStart_toEndOf="@+id/textView4"

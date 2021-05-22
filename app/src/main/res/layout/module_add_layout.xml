@@ -6,8 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/mobile_navigation"
+        android:layout_height="0dp"
+        android:layout_width="0dp"
+        tools:ignore="MissingConstraints" />
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvAddModule"
         android:layout_width="300dp"
         android:layout_height="51dp"
         android:layout_marginStart="52dp"
@@ -21,7 +29,7 @@
         tools:textAlignment="center" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/txtAddModuleName"
         android:layout_width="368dp"
         android:layout_height="45dp"
         android:layout_marginStart="20dp"
@@ -31,10 +39,10 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAddModule" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/txtAddModuleStartDate"
         android:layout_width="368dp"
         android:layout_height="45dp"
         android:layout_marginStart="20dp"
@@ -44,10 +52,10 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+        app:layout_constraintTop_toBottomOf="@+id/txtAddModuleName" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/txtAddModuleEndDate"
         android:layout_width="368dp"
         android:layout_height="45dp"
         android:layout_marginStart="20dp"
@@ -57,10 +65,10 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintTop_toBottomOf="@+id/txtAddModuleStartDate" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName6"
+        android:id="@+id/txtAddFBModuleTitle"
         android:layout_width="368dp"
         android:layout_height="45dp"
         android:layout_marginStart="20dp"
@@ -70,10 +78,10 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
+        app:layout_constraintTop_toBottomOf="@+id/txtAddModuleAdmin" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName7"
+        android:id="@+id/txtAddFBModuleSD"
         android:layout_width="368dp"
         android:layout_height="45dp"
         android:layout_marginStart="20dp"
@@ -83,10 +91,10 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6" />
+        app:layout_constraintTop_toBottomOf="@+id/txtAddFBModuleTitle" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName8"
+        android:id="@+id/txtAddFBModuleED"
         android:layout_width="368dp"
         android:layout_height="45dp"
         android:layout_marginStart="20dp"
@@ -96,10 +104,10 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName7" />
+        app:layout_constraintTop_toBottomOf="@+id/txtAddFBModuleSD" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName5"
+        android:id="@+id/txtAddModuleAdmin"
         android:layout_width="368dp"
         android:layout_height="45dp"
         android:layout_marginStart="20dp"
@@ -109,7 +117,7 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4" />
+        app:layout_constraintTop_toBottomOf="@+id/txtAddModuleEndDate" />
 
     <TextView
         android:id="@+id/textView5"
@@ -125,7 +133,7 @@
         tools:fontFamily="serif" />
 
     <TextView
-        android:id="@+id/classID"
+        android:id="@+id/txtTopicID"
         android:layout_width="366dp"
         android:layout_height="22dp"
         android:layout_marginStart="20dp"
@@ -133,7 +141,7 @@
         android:textColor="@android:color/holo_red_light"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+        app:layout_constraintTop_toBottomOf="@+id/txtAddModuleName" />
 
     <TextView
         android:id="@+id/text11"
@@ -144,10 +152,10 @@
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/classID" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTopicID" />
 
     <TextView
-        android:id="@+id/text2"
+        android:id="@+id/txtTopicName"
         android:layout_width="366dp"
         android:layout_height="22dp"
         android:layout_marginStart="20dp"
@@ -155,21 +163,21 @@
         android:textColor="@android:color/holo_red_light"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintTop_toBottomOf="@+id/txtAddModuleStartDate" />
 
     <TextView
         android:id="@+id/text22"
         android:layout_width="150dp"
         android:layout_height="22dp"
         android:layout_marginStart="40dp"
-        android:text="Start Date"
+        android:text="End Date"
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text2" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTopicName" />
 
     <TextView
-        android:id="@+id/text3"
+        android:id="@+id/txtQuestionID"
         android:layout_width="366dp"
         android:layout_height="22dp"
         android:layout_marginStart="20dp"
@@ -177,21 +185,21 @@
         android:textColor="@android:color/holo_red_light"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4" />
+        app:layout_constraintTop_toBottomOf="@+id/txtAddModuleEndDate" />
 
     <TextView
         android:id="@+id/text33"
         android:layout_width="150dp"
         android:layout_height="22dp"
         android:layout_marginStart="40dp"
-        android:text="Start Date"
+        android:text="Admin ID"
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text3" />
+        app:layout_constraintTop_toBottomOf="@+id/txtQuestionID" />
 
     <TextView
-        android:id="@+id/text4"
+        android:id="@+id/txtQuestionContent"
         android:layout_width="366dp"
         android:layout_height="22dp"
         android:layout_marginStart="20dp"
@@ -199,21 +207,21 @@
         android:textColor="@android:color/holo_red_light"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
+        app:layout_constraintTop_toBottomOf="@+id/txtAddModuleAdmin" />
 
     <TextView
         android:id="@+id/text44"
         android:layout_width="150dp"
         android:layout_height="22dp"
         android:layout_marginStart="40dp"
-        android:text="Start Date"
+        android:text="Feedback Title"
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text4" />
+        app:layout_constraintTop_toBottomOf="@+id/txtQuestionContent" />
 
     <TextView
-        android:id="@+id/text5"
+        android:id="@+id/txtModuleEndDate"
         android:layout_width="366dp"
         android:layout_height="22dp"
         android:layout_marginStart="20dp"
@@ -221,21 +229,21 @@
         android:textColor="@android:color/holo_red_light"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6" />
+        app:layout_constraintTop_toBottomOf="@+id/txtAddFBModuleTitle" />
 
     <TextView
         android:id="@+id/text55"
-        android:layout_width="150dp"
-        android:layout_height="22dp"
+        android:layout_width="213dp"
+        android:layout_height="23dp"
         android:layout_marginStart="40dp"
-        android:text="Start Date"
+        android:text="Feedback Start Date"
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text5" />
+        app:layout_constraintTop_toBottomOf="@+id/txtModuleEndDate" />
 
     <TextView
-        android:id="@+id/text6"
+        android:id="@+id/txtModuleFBTitle"
         android:layout_width="366dp"
         android:layout_height="22dp"
         android:layout_marginStart="20dp"
@@ -243,21 +251,21 @@
         android:textColor="@android:color/holo_red_light"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName7" />
+        app:layout_constraintTop_toBottomOf="@+id/txtAddFBModuleSD" />
 
     <TextView
         android:id="@+id/text66"
-        android:layout_width="150dp"
+        android:layout_width="213dp"
         android:layout_height="22dp"
         android:layout_marginStart="40dp"
-        android:text="Start Date"
+        android:text="Feedback End Date"
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text6" />
+        app:layout_constraintTop_toBottomOf="@+id/txtModuleFBTitle" />
 
     <TextView
-        android:id="@+id/text7"
+        android:id="@+id/txtModuleFBStartDate"
         android:layout_width="366dp"
         android:layout_height="22dp"
         android:layout_marginStart="20dp"
@@ -265,10 +273,10 @@
         android:textColor="@android:color/holo_red_light"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName8" />
+        app:layout_constraintTop_toBottomOf="@+id/txtAddFBModuleED" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnSaveAddModule"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginStart="202dp"
@@ -280,10 +288,10 @@
         android:textColor="@color/design_default_color_background"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text7" />
+        app:layout_constraintTop_toBottomOf="@+id/txtModuleFBStartDate" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnBackAddModule"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
@@ -293,7 +301,7 @@
         android:textAllCaps="false"
         android:textColor="@color/design_default_color_background"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/text7" />
+        app:layout_constraintStart_toEndOf="@+id/btnSaveAddModule"
+        app:layout_constraintTop_toBottomOf="@+id/txtModuleFBStartDate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

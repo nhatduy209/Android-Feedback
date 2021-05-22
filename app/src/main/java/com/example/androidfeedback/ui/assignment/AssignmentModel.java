@@ -4,15 +4,15 @@ public class AssignmentModel {
     int id;
     String moduleName;
     String className;
-    String trainerName;
+    String trainerID;
     String registrationCode;
 
-    public AssignmentModel(int id, String moduleName, String className, String trainerName, String registrationCode)
+    public AssignmentModel(int id, String moduleName, String className, String trainerID, String registrationCode)
     {
         this.id = id;
         this.moduleName = moduleName;
         this.className = className;
-        this.trainerName = trainerName;
+        this.trainerID = trainerID;
         this.registrationCode = registrationCode;
     }
 
@@ -37,11 +37,11 @@ public class AssignmentModel {
         this.className = className;
     }
 
-    public String getTrainerName(){
-        return trainerName;
+    public String getTrainerID(){
+        return trainerID;
     }
-    public void setTrainerName(String trainerName){
-        this.trainerName = trainerName;
+    public void setTrainerID(String trainerID){
+        this.trainerID = trainerID;
     }
 
     public String getRegistrationCode(){

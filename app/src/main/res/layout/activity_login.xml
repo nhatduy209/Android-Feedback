@@ -24,7 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.364"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imgDelete" />
 
     <EditText
         android:id="@+id/txtUsername"
@@ -115,7 +115,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cbRememberMe" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imgDelete"
         android:layout_width="145dp"
         android:layout_height="96dp"
         android:layout_marginStart="164dp"

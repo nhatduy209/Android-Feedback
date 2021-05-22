@@ -1,9 +1,12 @@
 package com.example.androidfeedback.ui.assignment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +21,7 @@ public class AssignmentFragment extends Fragment {
     private RecyclerView recyclerAssignment;
     private AssignmentAdapter assignmentAdapter ;
 
+    private Button btnAdd;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_assignment, container, false);
@@ -28,6 +32,14 @@ public class AssignmentFragment extends Fragment {
         //Create Assignment Adapter
         assignmentAdapter = new AssignmentAdapter(getActivity().getApplicationContext(),listAssignment);
 
+        btnAdd = root.findViewById(R.id.btnAddAssignment);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),AddAssignment.class);
+                startActivity(intent);
+            }
+        });
         //Set adapter to RecyclerView
         recyclerAssignment.setHasFixedSize(true);
         recyclerAssignment.setAdapter(assignmentAdapter);
