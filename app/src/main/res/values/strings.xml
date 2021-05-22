@@ -22,4 +22,8 @@
     <string name="error_add_class_name">Please enter class name and less than 255 characters</string>
     <string name="error_add_class_capacity">Please enter capacity is integer and larger than 0</string>
     <string name="error_add_class_date">Please choose date or fill full mm/dd/yyyy</string>
+    <string name="error_add_module_name">Please enter class name and less than 255 characters</string>
+    <string name="error_add_module_date_end">Please choose date end or fill full mm/dd/yyyy</string>
+    <string name="error_add_module_date_start">Please choose date start or fill full mm/dd/yyyy</string>
+
 </resources>

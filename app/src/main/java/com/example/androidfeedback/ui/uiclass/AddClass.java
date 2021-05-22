@@ -126,6 +126,5 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
         validate.validateEditText(Capacity , errorCapacity );
         validate.validateTextView(dateEnd , errorEmptyDateEnd);
         validate.validateTextView(dateEnd , errorEmptyDateStart);
-
     }
 }
