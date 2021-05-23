@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.androidfeedback.ui.uiclass.ClassViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -16,6 +17,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.List;
+
+import common.serviceAPI.CallPost;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import common.ModelTestAPI;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -38,6 +48,32 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
+        // call API
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://jsonplaceholder.typicode.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        CallPost callPost = retrofit.create(CallPost.class);
+
+        Call<List<ModelTestAPI>> testAPI = callPost.getClassAPI();
+        testAPI.enqueue(new Callback<List<ModelTestAPI>>() {
+            @Override
+            public void onResponse(Call<List<ModelTestAPI>> call, Response<List<ModelTestAPI>> response) {
+                String aa = response.message();
+            }
+
+            @Override
+            public void onFailure(Call<List<ModelTestAPI>> call, Throwable t) {
+                        String aa = t.getMessage();
+                        int aaa = 11;
+            }
+        });
+
+
+
     }
 
     @Override
