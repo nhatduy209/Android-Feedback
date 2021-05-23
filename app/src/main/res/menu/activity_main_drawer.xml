@@ -37,6 +37,10 @@
             android:icon="@drawable/ic_menu_contact"
             android:title="@string/menu_contact" />
         <item
+            android:id="@+id/nav_join"
+            android:icon="@drawable/ic_menu_logout"
+            android:title="@string/menu_join" />
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_menu_logout"
             android:title="@string/menu_logout" />

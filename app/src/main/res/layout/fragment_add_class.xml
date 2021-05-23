@@ -19,7 +19,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="304dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -52,7 +52,7 @@
             android:text="@string/error_add_class_name"
             android:textColor="#ED0A0A"
             android:textSize="12sp"
-            android:visibility="invisible" />
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textView16"
@@ -76,7 +76,7 @@
             android:text="@string/error_add_class_capacity"
             android:textColor="#ED0A0A"
             android:textSize="12sp"
-            android:visibility="invisible" />
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textView17"
@@ -97,13 +97,13 @@
 
         <TextView
             android:id="@+id/errorTextClassDateStart"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="@string/error_add_class_date"
             android:textColor="#ED0A0A"
             android:textSize="12sp"
-            android:visibility="invisible" />
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textEnd"
@@ -130,7 +130,7 @@
             android:text="@string/error_add_class_date"
             android:textColor="#ED0A0A"
             android:textSize="12sp"
-            android:visibility="invisible" />
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -138,14 +138,14 @@
         android:id="@+id/textView13"
         android:layout_width="291dp"
         android:layout_height="45dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="92dp"
         android:height="40dp"
         android:gravity="center"
         android:text="Add Class"
         android:textFontWeight="10"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.558"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:textFontWeight="0" />
