@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class ModelTestAPI {
     private int userID , id ;
-    private String title ;
+    private String titleTestAPITTTT ;
 
     @SerializedName("body")
     private String text;
@@ -18,7 +18,7 @@ public class ModelTestAPI {
     }
 
     public String getTitle() {
-        return title;
+        return titleTestAPITTTT;
     }
 
     public String getText() {

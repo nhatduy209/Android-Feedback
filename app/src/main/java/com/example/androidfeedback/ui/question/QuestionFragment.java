@@ -19,11 +19,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidfeedback.MainActivity;
 import com.example.androidfeedback.R;
 import com.example.androidfeedback.ui.home.HomeViewModel;
+import com.example.androidfeedback.ui.login.LoginModel;
 import com.example.androidfeedback.ui.module.ModuleAdapter;
 import com.example.androidfeedback.ui.module.ModuleViewModel;
 import com.example.androidfeedback.ui.uiclass.AddClass;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import common.serviceAPI.CallGet;
+import common.serviceAPI.CallPost;
+import common.serviceAPI.RetrofitInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class QuestionFragment extends Fragment {
     private RecyclerView recyclerQuestionView;
@@ -46,7 +56,29 @@ public class QuestionFragment extends Fragment {
             }
         });
 
-        QuestionViewModel question = new QuestionViewModel(1,"11",1,"22");
+        // call api to get list quesiton
+        Retrofit retrofit = RetrofitInstance.getClient();
+
+        CallGet callGet = retrofit.create(CallGet.class);
+
+        Call<List<QuestionViewModel>> getListQuestions = callGet.getListQuestion();
+
+        getListQuestions.enqueue(new Callback<List<QuestionViewModel>>() {
+            @Override
+            public void onResponse(Call<List<QuestionViewModel>> call, Response<List<QuestionViewModel>> response) {
+                String aa = response.message();
+                questionList = (ArrayList<QuestionViewModel>) response.body();
+                int a= 11 ;
+                reload(questionList, root );
+            }
+
+            @Override
+            public void onFailure(Call<List<QuestionViewModel>> call, Throwable t) {
+
+            }
+        });
+
+        /* QuestionViewModel question = new QuestionViewModel(1,"11",1,"22");
         question.setQuestionID(1);
         question.setQuestionContent("111");
         question.setTopicID(1);
@@ -54,7 +86,10 @@ public class QuestionFragment extends Fragment {
         questionList.add(question);
         questionList.add(question);
         questionList.add(question);
-        reload(questionList,root);
+        reload(questionList,root);*/
+
+
+
         return root;
     }
     public void reload(ArrayList<QuestionViewModel> listQuestion, View view){

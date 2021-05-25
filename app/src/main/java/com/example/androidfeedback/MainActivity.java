@@ -50,27 +50,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
 
-        // call API
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://jsonplaceholder.typicode.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        CallPost callPost = retrofit.create(CallPost.class);
-
-        Call<List<ModelTestAPI>> testAPI = callPost.getClassAPI();
-        testAPI.enqueue(new Callback<List<ModelTestAPI>>() {
-            @Override
-            public void onResponse(Call<List<ModelTestAPI>> call, Response<List<ModelTestAPI>> response) {
-                String aa = response.message();
-            }
-
-            @Override
-            public void onFailure(Call<List<ModelTestAPI>> call, Throwable t) {
-                        String aa = t.getMessage();
-                        int aaa = 11;
-            }
-        });
 
 
 
@@ -89,4 +68,5 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
 }

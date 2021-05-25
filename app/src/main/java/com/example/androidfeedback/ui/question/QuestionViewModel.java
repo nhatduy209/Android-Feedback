@@ -1,10 +1,22 @@
 package com.example.androidfeedback.ui.question;
 
+import com.google.gson.annotations.SerializedName;
+
 public class QuestionViewModel {
+
+    @SerializedName("questionID")
     private int questionID;
+
+    @SerializedName("questionContent")
     private String questionContent;
+
+    @SerializedName("topicID")
     private int topicID;
+
+    @SerializedName("topicName")
     private String topicName;
+
+
     public QuestionViewModel(int questionID,String questionContent, int topicID, String topicName){
         this.questionID = questionID;
         this.questionContent = questionContent;
