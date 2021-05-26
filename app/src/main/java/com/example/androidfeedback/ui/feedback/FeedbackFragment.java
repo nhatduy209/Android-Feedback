@@ -44,7 +44,7 @@ public class FeedbackFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddClass.class);
+                Intent intent = new Intent(getActivity(), AddFeedback.class);
                 startActivity(intent);
             }
         });

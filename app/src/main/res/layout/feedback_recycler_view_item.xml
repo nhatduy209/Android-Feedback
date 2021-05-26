@@ -9,24 +9,21 @@
     android:foregroundTint="#00972727">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/module_item"
         android:padding="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="serif"
             android:text="FeedBack ID:"
             android:textColor="@color/design_default_color_on_secondary"
@@ -40,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="serif"
             android:text="FeedBack Title:"
             android:textColor="@color/design_default_color_on_secondary"
@@ -53,6 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="serif"
             android:text="Admin ID :"
             android:textColor="@color/design_default_color_on_secondary"
@@ -65,7 +64,7 @@
             android:id="@+id/feedbackIDView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="serif"
             android:text="TextView"
             android:textColor="@color/design_default_color_on_secondary"
@@ -77,6 +76,7 @@
             android:id="@+id/feedbackTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:fontFamily="serif"
             android:text="TextView"
             android:textColor="@color/design_default_color_on_secondary"
@@ -88,6 +88,7 @@
             android:id="@+id/adminID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:fontFamily="serif"
             android:text="TextView"
             android:textColor="@color/design_default_color_on_secondary"
@@ -97,29 +98,38 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
+    <Button
+        android:id="@+id/btn_feebackDetail"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_detail"
+        android:foreground="@drawable/ic_baseline_remove_red_eye_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_delete_"
+        tools:srcCompat="@drawable/icon_delete" />
+
+    <Button
         android:id="@+id/btn_edit"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="4dp"
         android:background="@drawable/ic_edit"
         android:backgroundTint="#00ED0E0E"
         android:backgroundTintMode="add"
+        android:foreground="@drawable/icon_delete"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_delete"
         app:srcCompat="@drawable/icon_edit"
         tools:srcCompat="@drawable/icon_edit" />
 
-    <ImageView
+    <Button
         android:id="@+id/btn_delete"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="4dp"
         android:background="@drawable/ic_delete"
+        android:foreground="@drawable/icon_edit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/btn_feebackDetail"
         app:srcCompat="@drawable/icon_delete_"
         tools:srcCompat="@drawable/icon_delete" />
 

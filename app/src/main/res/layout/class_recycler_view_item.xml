@@ -9,8 +9,9 @@
     android:foregroundTint="#00972727">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="392dp"
-        android:layout_height="224dp"
+        android:id="@+id/constraintLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:background="@drawable/module_item"
         android:padding="20dp"
@@ -23,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="serif"
             android:text="Class ID:"
             android:textColor="@color/design_default_color_on_secondary"
@@ -88,7 +89,7 @@
             android:id="@+id/feedbackIDView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="serif"
             android:text="TextView"
             android:textColor="@color/design_default_color_on_secondary"
@@ -141,32 +142,55 @@
             app:layout_constraintStart_toEndOf="@+id/textView9"
             app:layout_constraintTop_toTopOf="@+id/textView9" />
 
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cbtest"
+            android:background="@drawable/checkbox"
+            android:layout_width="270dp"
+            android:layout_height="61dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/btn_edit"
+    <Button
+        android:id="@+id/btn_classDetail"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="56dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/ic_detail"
+        android:backgroundTint="#00ED0E0E"
+        android:backgroundTintMode="add"
+        android:foreground="@drawable/ic_baseline_remove_red_eye_24"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_edit"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="36dp"
         android:background="@drawable/ic_edit"
         android:backgroundTint="#00ED0E0E"
         android:backgroundTintMode="add"
+        android:visibility="visible"
+        android:foreground="@drawable/icon_edit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_edit"
-        tools:srcCompat="@drawable/icon_edit" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <Button
         android:id="@+id/btn_delete"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="visible"
         android:background="@drawable/ic_delete"
+        android:foreground="@drawable/icon_delete"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgDelete"
-        app:srcCompat="@drawable/icon_delete_"
-        tools:srcCompat="@drawable/icon_delete" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_edit" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
