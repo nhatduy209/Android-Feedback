@@ -9,6 +9,7 @@
         android:id="@+id/cbQuestionItemInTopic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="serif"
         android:text="Check box"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

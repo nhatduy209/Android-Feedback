@@ -44,6 +44,9 @@
         <activity android:name=".ui.enrollment.DetailEnrollment">
 
         </activity>
+        <activity android:name=".ui.feedback.EditFeedBack">
+
+        </activity>
         <activity android:name=".ui.feedback.AddFeedback">
 
         </activity>
