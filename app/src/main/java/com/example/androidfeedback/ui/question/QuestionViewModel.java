@@ -16,8 +16,21 @@ public class QuestionViewModel {
     @SerializedName("topicName")
     private String topicName;
 
+    @SerializedName("message")
+    private String message ;
 
-    public QuestionViewModel(int questionID,String questionContent, int topicID, String topicName){
+    @SerializedName("success")
+    private String success ;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getSuccess() {
+        return success;
+    }
+
+    public QuestionViewModel(int questionID, String questionContent, int topicID, String topicName){
         this.questionID = questionID;
         this.questionContent = questionContent;
         this.topicID = topicID;
