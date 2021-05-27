@@ -66,19 +66,15 @@ public class ClassFragment extends Fragment{
 
         // get seesion
         SharedPreferences pref = getActivity().getSharedPreferences("GetSession",Context.MODE_PRIVATE);
-
-        if(pref!= null) {
             String userId = pref.getString("userId", "");
             String userName = pref.getString("userName", "");
             String role  = pref.getString("role", "");
-        }
-
         // call api to get list question
         Retrofit retrofit = RetrofitInstance.getClient();
 
         CallGet callGet = retrofit.create(CallGet.class);
 
-        Call<List<ClassViewModel>> getListClass = callGet.getListClass();
+        Call<List<ClassViewModel>> getListClass = callGet.getListClass(role,userId);
 
         getListClass.enqueue(new Callback<List<ClassViewModel>>() {
             @Override

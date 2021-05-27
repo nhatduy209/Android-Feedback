@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("userId", response.body().getUserId() );
                         editor.putString("userName", response.body().getUsername() );
-                        editor.putString("role", response.body().getRole() );
+                        editor.putString("role", response.body().getRoleManager() );
                         editor.apply();
 
                         Intent intent = new Intent(LoginActivity.this , MainActivity.class);

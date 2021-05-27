@@ -8,14 +8,16 @@ import java.util.List;
 
 import common.ModelTestAPI;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface CallGet {
     @GET("api/question")
     Call<List<QuestionViewModel>> getListQuestion();
 
     @GET("api/classes")
-    Call<List<ClassViewModel>> getListClass();
+    Call<List<ClassViewModel>> getListClass( @Query("role") String role ,  @Query("userId") String userId);
 
     @GET("api/enrollment")
     Call<List<EnrollmentViewModel>> getListEnrollment();

@@ -4,14 +4,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class ClassViewModel {
 
+    @SerializedName("classID")
     private String  classId;
     @SerializedName("className")
     private String className;
 
-    @SerializedName("startTime")
+    @SerializedName("startDate")
     private String startDate;
 
-    @SerializedName("endTime")
+    @SerializedName("endDate")
     private String endDate;
 
     @SerializedName("capacity")
@@ -24,24 +25,39 @@ public class ClassViewModel {
         return userId;
     }
 
+    @SerializedName("message")
+    private String message ;
+
+    @SerializedName("success")
+    private String success ;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getSuccess() {
+        return success;
+    }
+
     @SerializedName("isDeleted")
-    private boolean isDeleted = false ;
+    private boolean isDeleted ;
 
     public boolean isDeleted() {
         return isDeleted;
     }
 
-    public ClassViewModel(String classId,
+    public ClassViewModel(
                           String className,
                           String startDate,
                           String endDate,
-                          String Capacity
+                          String Capacity,
+                          boolean isDeleted
     ){
-        this.classId = classId;
         this.className=className;
         this.startDate = startDate;
         this.endDate =endDate;
         this.Capacity = Capacity;
+        this.isDeleted = isDeleted;
     }
 
     public String getClassId() {

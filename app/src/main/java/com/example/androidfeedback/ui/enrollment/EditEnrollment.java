@@ -38,7 +38,7 @@ public class EditEnrollment extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    
+
 
 
                 //load current fragment

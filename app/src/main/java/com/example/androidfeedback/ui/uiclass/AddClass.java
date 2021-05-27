@@ -20,7 +20,13 @@ import com.example.androidfeedback.R;
 import com.example.androidfeedback.ui.question.AddQuestion;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import common.ValidationEditText;
 import common.serviceAPI.CallPost;
@@ -36,6 +42,7 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
     private Button btnBack ;
     private Button btnSave ;
     private int dateAdd = 0 ;    // choose which date pick is press by user
+    private String dateStartAdd , dateEndAdd ;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_add_class);
@@ -47,6 +54,8 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
         capacityEditText = findViewById(R.id.EditTextCapacity);
         datePickerEnd = findViewById(R.id.date_picker_end);
         datePickerStart = findViewById(R.id.date_picker_start);
+
+
 
         datePickerStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,8 +103,10 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
                if(canAdd == false ){
                    return;
                }
-                ClassViewModel classModel = new ClassViewModel(null,classNameEditText.getText().toString()
-                ,datePickerStart.getText().toString() ,datePickerEnd.getText().toString() , capacityEditText.getText().toString());
+
+
+                ClassViewModel classModel = new ClassViewModel(classNameEditText.getText().toString()
+                , dateStartAdd,dateEndAdd , capacityEditText.getText().toString(),false);
 
                 Retrofit retrofit = RetrofitInstance.getClient();
 
@@ -153,10 +164,12 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         if (dateAdd == 1) {
             datePickerStart.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+            dateStartAdd = year + "-" + (month + 1) + "-" + dayOfMonth;
             dateAdd = 0;  // return default value
         }
         else{
             datePickerEnd.setText(dayOfMonth +"-" + (month + 1) + "-" + year);
+            dateEndAdd = year + "-" + (month + 1) + "-" + dayOfMonth;
         }
     }
 
@@ -180,7 +193,7 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
         canAddClassName = validate.validateEditText(className ,errorClassName );
         canAddCapacity =  validate.validateEditText(Capacity , errorCapacity );
         canAddDateEnd = validate.validateTextView(dateEnd , errorEmptyDateEnd);
-        canAddDateStart = validate.validateTextView(dateEnd , errorEmptyDateStart);
+        canAddDateStart = validate.validateTextView(dateStart , errorEmptyDateStart);
 
         if(canAddClassName == false || canAddCapacity == false ||  canAddDateEnd == false || canAddDateStart == false )
         {

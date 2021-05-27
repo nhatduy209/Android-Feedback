@@ -68,7 +68,6 @@ public class EnrollmentFragment extends Fragment {
             @Override
             public void onFailure(Call<List<EnrollmentViewModel>> call, Throwable t) {
                 String a = t.getMessage();
-                int aa = 11 ;
             }
         });
 
