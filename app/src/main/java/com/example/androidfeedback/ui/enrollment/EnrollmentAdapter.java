@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,8 +20,18 @@ import com.example.androidfeedback.R;
 import com.example.androidfeedback.ui.enrollment.EnrollmentViewModel;
 import com.example.androidfeedback.ui.module.ModuleAdapter;
 import com.example.androidfeedback.ui.module.ModuleViewModel;
+import com.example.androidfeedback.ui.question.AddQuestion;
+import com.example.androidfeedback.ui.question.QuestionViewModel;
 
 import java.util.ArrayList;
+
+import common.serviceAPI.CallDelete;
+import common.serviceAPI.CallPost;
+import common.serviceAPI.RetrofitInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class EnrollmentAdapter extends RecyclerView.Adapter<EnrollmentAdapter.ViewHolder>{
     private Context context;
@@ -95,14 +108,33 @@ public class EnrollmentAdapter extends RecyclerView.Adapter<EnrollmentAdapter.Vi
                 Button btnYes = v.findViewById(R.id.btnYes);
                 Button btnCancel = v.findViewById(R.id.btnCancel);
                 TextView txtMessage = v.findViewById(R.id.txtDeleteMessageSmall);
-
                 alert.setView(v);
                 final AlertDialog dialog = alert.create();
                 txtMessage.setText("Do you want to delete this enrollment?");
                 btnYes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        dialog.dismiss();
+                        Retrofit retrofit = RetrofitInstance.getClient();
+
+                        CallDelete callDelete = retrofit.create(CallDelete.class);
+
+                        Call<EnrollmentViewModel> deleteEnrollment = callDelete
+                                .deleteEnrollment(Integer.parseInt(enrollment.getClassID().toString()),enrollment.getTraineeID().toString());
+
+                        // call callback
+                        deleteEnrollment.enqueue(new Callback<EnrollmentViewModel>() {
+                            @Override
+                            public void onResponse(Call<EnrollmentViewModel> call, Response<EnrollmentViewModel> response) {
+                                String res = response.message();
+                                removeItem(enrollment);
+                                dialog.dismiss();
+                            }
+
+                            @Override
+                            public void onFailure(Call<EnrollmentViewModel> call, Throwable t) {
+
+                            }
+                        });
                     }
                 });
                 btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -125,5 +157,13 @@ public class EnrollmentAdapter extends RecyclerView.Adapter<EnrollmentAdapter.Vi
     @Override
     public int getItemCount() {
         return listEnrollmnent.size();
+    }
+
+    // This removes the data from our Dataset and Updates the Recycler View.
+    private void removeItem(EnrollmentViewModel enrollment) {
+
+        int currPosition = listEnrollmnent.indexOf(enrollment);
+        listEnrollmnent.remove(currPosition);
+        notifyItemRemoved(currPosition);
     }
 }

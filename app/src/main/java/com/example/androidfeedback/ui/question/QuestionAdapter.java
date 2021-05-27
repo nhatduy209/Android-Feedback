@@ -68,7 +68,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         holder.txtQuestionID.setText(String.valueOf(question.getQuestionID()));
         holder.txtQuestionContent.setText(question.getQuestionContent());
 
-
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +77,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                 intent.putExtra("topicName",question.getTopicName());
                 intent.putExtra("questionID",question.getQuestionID());
                 intent.putExtra("questionContent",question.getQuestionContent());
+                intent.putExtra("isEditing", true);
                 context.startActivity(intent);
             }
         });

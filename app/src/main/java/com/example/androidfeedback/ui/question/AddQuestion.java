@@ -24,6 +24,7 @@ import java.util.List;
 
 import common.serviceAPI.CallGet;
 import common.serviceAPI.CallPost;
+import common.serviceAPI.CallPut;
 import common.serviceAPI.RetrofitInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,6 +38,8 @@ public class AddQuestion extends AppCompatActivity{
     private Button btnBack ;
     private Button btnSave ;
     private int dateAdd = 0 ;    // choose which date pick is press by user
+    private boolean isEdit  = false ;
+    private String questionID , questionContent ;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -49,51 +52,92 @@ public class AddQuestion extends AppCompatActivity{
         tvAddQuestion = findViewById(R.id.tvAddQuestion);
 
         // user press save => call api add question
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // get value from user input
-                QuestionViewModel questionModel = new QuestionViewModel(0,
-                        txtQuestionContent.getText().toString(), 1,"");
 
-                Retrofit retrofit = RetrofitInstance.getClient();
+            btnSave.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(isEdit == false )   // check if user edit or add
+                    {
+                        // get value from user input
+                        QuestionViewModel questionModel = new QuestionViewModel(0,
+                                txtQuestionContent.getText().toString(), 1,"");
 
-                CallPost callPost = retrofit.create(CallPost.class);
+                        Retrofit retrofit = RetrofitInstance.getClient();
 
-                Call<QuestionViewModel> addQuestion = callPost.addQuestionAPI(questionModel);
+                        CallPost callPost = retrofit.create(CallPost.class);
 
-                // call callback
-                addQuestion.enqueue(new Callback<QuestionViewModel>() {
-                    @Override
-                    public void onResponse(Call<QuestionViewModel> call, Response<QuestionViewModel> response) {
-                        String res = response.message();
+                        Call<QuestionViewModel> addQuestion = callPost.addQuestionAPI(questionModel);
 
-                        // load fragment again
-                        FragmentManager manager = AddQuestion.this.getSupportFragmentManager();
-                        Fragment currentFragment = manager.findFragmentByTag("QuestionFragment");
-                        FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                        fragmentTransaction.detach(currentFragment);
-                        fragmentTransaction.attach(currentFragment);
-                        fragmentTransaction.commit();
+                        // call callback
+                        addQuestion.enqueue(new Callback<QuestionViewModel>() {
+                            @Override
+                            public void onResponse(Call<QuestionViewModel> call, Response<QuestionViewModel> response) {
+                                String res = response.message();
+
+                                // load fragment again
+                                FragmentManager manager = AddQuestion.this.getSupportFragmentManager();
+                                Fragment currentFragment = manager.findFragmentByTag("QuestionFragment");
+                                FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                                fragmentTransaction.detach(currentFragment);
+                                fragmentTransaction.attach(currentFragment);
+                                fragmentTransaction.commit();
 
 
-                        finish();
-                        navController.navigate(R.id.nav_question);
+                                finish();
+                                navController.navigate(R.id.nav_question);
 
+                            }
+
+                            @Override
+                            public void onFailure(Call<QuestionViewModel> call, Throwable t) {
+
+                            }
+                        });
+                    }else{
+
+                        Retrofit retrofit = RetrofitInstance.getClient();
+
+                        CallPut callPut = retrofit.create(CallPut.class);
+
+                        Call<QuestionViewModel> updateQuestion = callPut.updateQuestionAPI(Integer.parseInt(questionID),questionContent);
+
+                        // call callback
+                        updateQuestion.enqueue(new Callback<QuestionViewModel>() {
+                            @Override
+                            public void onResponse(Call<QuestionViewModel> call, Response<QuestionViewModel> response) {
+                                String res = response.message();
+
+                                // load fragment again
+                                FragmentManager manager = AddQuestion.this.getSupportFragmentManager();
+                                Fragment currentFragment = manager.findFragmentByTag("QuestionFragment");
+                                FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                                fragmentTransaction.detach(currentFragment);
+                                fragmentTransaction.attach(currentFragment);
+                                fragmentTransaction.commit();
+
+
+                                finish();
+                                navController.navigate(R.id.nav_question);
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<QuestionViewModel> call, Throwable t) {
+
+                            }
+                        });
                     }
 
-                    @Override
-                    public void onFailure(Call<QuestionViewModel> call, Throwable t) {
+                }
+            });
 
-                    }
-                });
-            }
-        });
+
 
         btnBack = findViewById(R.id.btnBackQuestion);
         btnBack.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
                 finish();
                 navController.navigate(R.id.nav_question);
 
@@ -105,9 +149,12 @@ public class AddQuestion extends AppCompatActivity{
         try{
             String topicName = b.getString("topicName");  // get data passing from other activity
             txtTopicName.setText(topicName);
-            String questionContent = b.getString("questionContent");  // get data passing from other activity
+            questionContent = b.getString("questionContent");  // get data passing from other activity
             txtQuestionContent.setText(questionContent);
             tvAddQuestion.setText("Edit Question");
+            questionID = b.getString("questionID");
+            isEdit = b.getBoolean("isEditing");
+            int a = 11 ;
         }catch(Exception e){
             return ;
         }

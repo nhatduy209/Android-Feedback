@@ -30,6 +30,7 @@ import java.util.TimeZone;
 
 import common.ValidationEditText;
 import common.serviceAPI.CallPost;
+import common.serviceAPI.CallPut;
 import common.serviceAPI.RetrofitInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,7 +43,9 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
     private Button btnBack ;
     private Button btnSave ;
     private int dateAdd = 0 ;    // choose which date pick is press by user
-    private String dateStartAdd , dateEndAdd ;
+    private String dateStartAdd , dateEndAdd , classId ;
+    private boolean isEditting = false ;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_add_class);
@@ -105,38 +108,76 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
                }
 
 
-                ClassViewModel classModel = new ClassViewModel(classNameEditText.getText().toString()
-                , dateStartAdd,dateEndAdd , capacityEditText.getText().toString(),false);
+               // check if user click add or edit
+               if(!isEditting){
+                   ClassViewModel classModel = new ClassViewModel(classNameEditText.getText().toString()
+                           , dateStartAdd,dateEndAdd , capacityEditText.getText().toString(),false);
 
-                Retrofit retrofit = RetrofitInstance.getClient();
+                   Retrofit retrofit = RetrofitInstance.getClient();
 
-                CallPost callPost = retrofit.create(CallPost.class);
+                   CallPost callPost = retrofit.create(CallPost.class);
 
-                Call<ClassViewModel> addClass  = callPost.addClassAPI(classModel);
+                   Call<ClassViewModel> addClass  = callPost.addClassAPI(classModel);
 
-                // call callback
-                addClass.enqueue(new Callback<ClassViewModel>() {
-                    @Override
-                    public void onResponse(Call<ClassViewModel> call, Response<ClassViewModel> response) {
-                        String res = response.message();
+                   // call callback
+                   addClass.enqueue(new Callback<ClassViewModel>() {
+                       @Override
+                       public void onResponse(Call<ClassViewModel> call, Response<ClassViewModel> response) {
+                           String res = response.message();
 
-                        // load fragment again
-                        FragmentManager manager = AddClass.this.getSupportFragmentManager();
-                        Fragment currentFragment = manager.findFragmentByTag("ClassFragment");
-                        FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                        fragmentTransaction.detach(currentFragment);
-                        fragmentTransaction.attach(currentFragment);
-                        fragmentTransaction.commit();
-                        finish();
-                        navController.navigate(R.id.nav_class);
+                           // load fragment again
+                           FragmentManager manager = AddClass.this.getSupportFragmentManager();
+                           Fragment currentFragment = manager.findFragmentByTag("ClassFragment");
+                           FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                           fragmentTransaction.detach(currentFragment);
+                           fragmentTransaction.attach(currentFragment);
+                           fragmentTransaction.commit();
+                           finish();
+                           navController.navigate(R.id.nav_class);
 
-                    }
+                       }
 
-                    @Override
-                    public void onFailure(Call<ClassViewModel> call, Throwable t) {
+                       @Override
+                       public void onFailure(Call<ClassViewModel> call, Throwable t) {
 
-                    }
-                });
+                       }
+                   });
+               }
+               else {
+                   ClassViewModel classModel = new ClassViewModel(classNameEditText.getText().toString()
+                           , dateStartAdd,dateEndAdd , capacityEditText.getText().toString(),false);
+
+                   Retrofit retrofit = RetrofitInstance.getClient();
+
+                   CallPut callPost = retrofit.create(CallPut.class);
+
+                   Call<ClassViewModel> updateClass  = callPost.updateClassAPI(Integer.parseInt(classId));
+
+                   // call callback
+                   updateClass.enqueue(new Callback<ClassViewModel>() {
+                       @Override
+                       public void onResponse(Call<ClassViewModel> call, Response<ClassViewModel> response) {
+                           String res = response.message();
+
+                           // load fragment again
+                           FragmentManager manager = AddClass.this.getSupportFragmentManager();
+                           Fragment currentFragment = manager.findFragmentByTag("ClassFragment");
+                           FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                           fragmentTransaction.detach(currentFragment);
+                           fragmentTransaction.attach(currentFragment);
+                           fragmentTransaction.commit();
+                           finish();
+                           navController.navigate(R.id.nav_class);
+
+                       }
+
+                       @Override
+                       public void onFailure(Call<ClassViewModel> call, Throwable t) {
+
+                       }
+                   });
+               }
+
 
 
             }
@@ -145,6 +186,7 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
         // get current data if edit
         Bundle b = getIntent().getExtras();
         try{
+
             String className = b.getString("className");  // get data passing from other activity
             classNameEditText.setText(className);
             String capacity = b.getString("capacity");  // get data passing from other activity
@@ -153,6 +195,10 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
             datePickerEnd.setText(dateEnd);
             String dateStart  = b.getString("startDate");  // get data passing from other activity
             datePickerStart.setText(dateStart);
+            classId = b.getString("classId");
+
+            isEditting = true;
+
         }catch(Exception e){
             return ;
         }
