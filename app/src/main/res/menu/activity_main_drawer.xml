@@ -26,7 +26,7 @@
             android:title="@string/menu_enrollment" />
         <item
             android:id="@+id/nav_feedback"
-            android:icon="@drawable/ic_menu_result"
+            android:icon="@drawable/ic_feedback"
             android:title="@string/menu_feedback" />
         <item
             android:id="@+id/nav_result"

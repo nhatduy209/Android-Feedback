@@ -31,15 +31,14 @@ public class FeedbackFragment extends Fragment {
     FeedbackAdapter feedbackAdapter;
     ArrayList<FeedbackViewModel> listFeedback;
     private Button btnAdd ;
-    private ImageView btnEdit  ;
     private Context finalContext;
     public View onCreateView(@NonNull  LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_feedback, null  );
         listFeedback = new ArrayList<FeedbackViewModel>();
         recyclerFeedback = root.findViewById(R.id.recyclerFeedbackView);
-        btnAdd = root.findViewById(R.id.btn_add);
 
+        btnAdd = root.findViewById(R.id.btn_add);
         btnAdd.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -48,7 +47,6 @@ public class FeedbackFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
 
         FeedbackViewModel feedback = new FeedbackViewModel("123","Test 1 ","nhatduyamind");
         feedback.setFeedbackId("123");

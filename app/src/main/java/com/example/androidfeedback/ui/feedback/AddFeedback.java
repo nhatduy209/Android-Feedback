@@ -46,6 +46,15 @@ public class AddFeedback extends AppCompatActivity{
         txtFBTitle = findViewById(R.id.txtAddFeedbackTitle);
         recyclerTopic = findViewById(R.id.recyclerFBTopic);
         listTopic = new int[]{1,2,3};
+
+//        Bundle b = getIntent().getExtras();
+//        try{
+//            String feedbackTitle = b.getString("feedbackTitle");
+//            txtFBTitle.setText(feedbackTitle);
+//        }catch(Exception e){
+//            String AdminId = b.getString("AdminID");
+//        }
+
         feedbackTopicAdapter = new FeedbackTopicAdapter(getApplicationContext(),listTopic);
         recyclerTopic.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerTopic.setAdapter(feedbackTopicAdapter);

@@ -1,9 +1,12 @@
 package com.example.androidfeedback.ui.feedback;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,11 +28,80 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final FeedbackViewModel classes = listFeedback.get(position);
-        holder.feedbackID.setText(classes.getFeedbackId());
-        holder.feedbackTitle.setText(classes.getFeedbackTitle());
-        holder.adminId.setText(classes.getAdminId());
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        final FeedbackViewModel feedbackes = listFeedback.get(position);
+        holder.feedbackID.setText(feedbackes.getFeedbackId());
+        holder.feedbackTitle.setText(feedbackes.getFeedbackTitle());
+        holder.adminId.setText(feedbackes.getAdminId());
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());//khởi tạo alert
+                View v = View.inflate(context,R.layout.delete_layout,null);
+                Button btnYes = v.findViewById(R.id.btnYes);
+                Button btnCancel = v.findViewById(R.id.btnCancel);
+                TextView txtMessage = v.findViewById(R.id.txtDeleteMessageSmall);
+
+                alert.setView(v);
+                final AlertDialog dialog = alert.create();
+                txtMessage.setText("Do you want to delete this item?");
+                btnYes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+//                        AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());//khởi tạo alert
+//                        View v = View.inflate(context,R.layout.delete_layout,null);
+//                        Button btnYes = v.findViewById(R.id.btnYes);
+//                        Button btnCancel = v.findViewById(R.id.btnCancel);
+//                        TextView txtMessage = v.findViewById(R.id.txtDeleteMessageSmall);
+//
+//                        alert.setView(v);
+//                        final AlertDialog dialog = alert.create();
+//                        txtMessage.setText("Feedback is being used by 2 module. Do you really want to delete this feedback?");
+//                        btnYes.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                dialog.dismiss();
+//                            }
+//                        });
+//                        btnCancel.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                dialog.dismiss();
+//                            }
+//                        });
+//                        dialog.show();
+                        dialog.show();
+                    }
+                });
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+            }
+        });
+        holder.btnDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String AdminID = feedbackes.getAdminId();
+                Intent intent = new Intent(context, EditFeedBack.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("AdminID",AdminID);
+                context.startActivity(intent);
+            }
+        });
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String AdminID = feedbackes.getAdminId();
+                Intent intent = new Intent(context, AddFeedback.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("li",AdminID);
+                context.startActivity(intent);
+            }
+        });
     }
 
 
@@ -41,9 +113,12 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.ViewHo
     //create view holder
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView feedbackID, feedbackTitle, adminId ;
-
+        private Button btnEdit,btnDetail,btnDelete;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
+            btnDetail = itemView.findViewById(R.id.btn_feebackDetail);
+            btnEdit = itemView.findViewById(R.id.btn_editFeedback);
+            btnDelete = itemView.findViewById(R.id.btn_deleteFeedback);
             feedbackID = itemView.findViewById(R.id.feedbackIDView);
             feedbackTitle = itemView.findViewById(R.id.feedbackTitle);
             adminId = itemView.findViewById(R.id.adminID);

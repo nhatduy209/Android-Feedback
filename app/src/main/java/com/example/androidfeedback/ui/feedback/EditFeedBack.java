@@ -20,17 +20,17 @@ public class EditFeedBack extends AppCompatActivity {
     private Context context = this ;
     private Button btnSave ;
     private Button btnBack ;
-    private TextView txtAdminID,txtFBTitle,txtQuestions;
+    private TextView txtAdminID,txtFBTitle,txtQuestions,tvTitle;
     private int[] listTopic;
 
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState);
         setContentView(R.layout.feedback_review_edit_layout);
         final NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         txtFBTitle = findViewById(R.id.txtReviewFeedbackTitle);
         txtAdminID = findViewById(R.id.txtReviewAdminID);
         txtQuestions = findViewById(R.id.txtReviewListQuestion);
+        tvTitle = findViewById(R.id.tvAddFeedback);
 
         btnBack = findViewById(R.id.btnReviewFeedbackBack);
         btnBack.setOnClickListener( new View.OnClickListener(){
@@ -54,11 +54,12 @@ public class EditFeedBack extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         try{
              listQuestionchecked = b.getIntArray("listQuestion");  // get data passing from other activity
-
             String feedbackTitle = b.getString("feedbackTitle");
             txtFBTitle.setText(feedbackTitle);
+            tvTitle.setText("Edit New Feedback");
         }catch(Exception e){
-            return ;
+            String AdminId = b.getString("AdminID");
+            tvTitle.setText("Edit New Feedback");
         }
 
         listTopic = new int[]{1,2,3};
