@@ -25,8 +25,17 @@ import com.example.androidfeedback.ui.home.HomeViewModel;
 import com.example.androidfeedback.ui.module.ModuleAdapter;
 import com.example.androidfeedback.ui.module.ModuleViewModel;
 import com.example.androidfeedback.ui.uiclass.AddClass;
+import com.example.androidfeedback.ui.uiclass.ClassViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import common.serviceAPI.CallGet;
+import common.serviceAPI.RetrofitInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class EnrollmentFragment extends Fragment {
     private RecyclerView recyclerEnrollmentView;
@@ -41,22 +50,29 @@ public class EnrollmentFragment extends Fragment {
         recyclerEnrollmentView = root.findViewById(R.id.recyclerEnrollmentView);
 
         btnAdd = root.findViewById(R.id.btnAddEnrollment);
-//        btnAdd.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), AddEnrollment.class);
-//                startActivity(intent);
-//            }
-//        });
 
-        EnrollmentViewModel enrollment = new EnrollmentViewModel("1","11","1","22");
-        enrollment.setTraineeID("1");
-        enrollment.setTrainerName("111");
-        enrollment.setClassID("1");
-        enrollment.setClassName("222");
-        enrollmentList.add(enrollment);
-        enrollmentList.add(enrollment);
-        enrollmentList.add(enrollment);
+        // call api to get list question
+        Retrofit retrofit = RetrofitInstance.getClient();
+
+        CallGet callGet = retrofit.create(CallGet.class);
+
+        Call<List<EnrollmentViewModel>> getListClass = callGet.getListEnrollment();
+
+        getListClass.enqueue(new Callback<List<EnrollmentViewModel>>() {
+            @Override
+            public void onResponse(Call<List<EnrollmentViewModel>> call, Response<List<EnrollmentViewModel>> response) {
+                enrollmentList = (ArrayList<EnrollmentViewModel>) response.body();
+                reload(enrollmentList, root );
+            }
+
+            @Override
+            public void onFailure(Call<List<EnrollmentViewModel>> call, Throwable t) {
+                String a = t.getMessage();
+                int aa = 11 ;
+            }
+        });
+
+
         reload(enrollmentList,root);
         return root;
     }

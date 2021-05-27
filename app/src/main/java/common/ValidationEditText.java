@@ -10,24 +10,28 @@ public class ValidationEditText {
 
     };
 
-    public void validateEditText(EditText idEditText , TextView Error){
+    public boolean validateEditText(EditText idEditText , TextView Error){
         if (idEditText.length() == 0)
         {
             Error.setVisibility(View.VISIBLE);
+            return false ;
         }
-        else
-        {
-            Error.setVisibility(View.INVISIBLE);
+        else   {
+            Error.setVisibility(View.GONE);
         }
+
+        return true;
     }
 
-    public void validateTextView(TextView idTextView , TextView Error){
+    public boolean validateTextView(TextView idTextView , TextView Error){
         if(idTextView.length() == 0)
         {
             Error.setVisibility(View.VISIBLE);
+            return false;
         }
         else   {
-            Error.setVisibility(View.INVISIBLE);
+            Error.setVisibility(View.GONE);
         }
+        return true;
     }
 }

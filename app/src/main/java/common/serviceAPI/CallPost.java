@@ -2,15 +2,11 @@ package common.serviceAPI;
 
 import com.example.androidfeedback.ui.login.LoginModel;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
+import com.example.androidfeedback.ui.uiclass.ClassViewModel;
 
-import java.util.List;
-
-import common.ModelTestAPI;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 
 public interface CallPost {
 
@@ -19,5 +15,8 @@ public interface CallPost {
 
     @POST("api/question/add")
     Call<QuestionViewModel> addQuestionAPI(@Body QuestionViewModel questinViewModel );
+
+    @POST("api/classes")
+    Call<ClassViewModel> addClassAPI(@Body ClassViewModel classViewModel );
 
 }

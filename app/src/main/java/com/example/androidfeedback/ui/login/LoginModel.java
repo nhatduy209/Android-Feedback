@@ -7,12 +7,17 @@ public class LoginModel {
     @SerializedName("userName")
     private String username ;
 
-    @SerializedName("userId")
+    @SerializedName("userID")
     private String userId ;
 
     public String getUserId() {
         return userId;
     }
+
+    @SerializedName("roleManager")
+    private String roleManager ;
+
+
 
     @SerializedName("password")
     private String password ;
@@ -21,7 +26,7 @@ public class LoginModel {
     private String role;
 
     @SerializedName("success")
-    private String success ;
+    private boolean success ;
 
     @SerializedName("message")
     private String message ;
@@ -56,11 +61,16 @@ public class LoginModel {
         this.role = role;
     }
 
-    public String getSuccess() {
+    public boolean getSuccess() {
         return success;
     }
 
     public String getMessage() {
         return message;
     }
+
+    public String getRoleManager() {
+        return roleManager;
+    }
+
 }

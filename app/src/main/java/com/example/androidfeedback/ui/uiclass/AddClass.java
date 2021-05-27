@@ -10,14 +10,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.androidfeedback.R;
+import com.example.androidfeedback.ui.question.AddQuestion;
+import com.example.androidfeedback.ui.question.QuestionViewModel;
 
 import java.util.Calendar;
 
 import common.ValidationEditText;
+import common.serviceAPI.CallPost;
+import common.serviceAPI.RetrofitInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private TextView datePickerEnd , classNameEditText, capacityEditText , datePickerStart ;
@@ -29,7 +40,14 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_add_class);
         final NavController navController = Navigation.findNavController(this ,R.id.nav_host_fragment);
+
+
+        // assign variable
+        classNameEditText = findViewById(R.id.editTextClassName);
+        capacityEditText = findViewById(R.id.EditTextCapacity);
+        datePickerEnd = findViewById(R.id.date_picker_end);
         datePickerStart = findViewById(R.id.date_picker_start);
+
         datePickerStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +61,7 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
             }
         });
 
-        datePickerEnd = findViewById(R.id.date_picker_end);
+
         datePickerEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,13 +89,49 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
             @Override
             public void onClick(View v) {
                 // validation error
-                validationError();
+               boolean canAdd =  validationError();
+
+               if(canAdd == false ){
+                   return;
+               }
+                ClassViewModel classModel = new ClassViewModel(null,classNameEditText.getText().toString()
+                ,datePickerStart.getText().toString() ,datePickerEnd.getText().toString() , capacityEditText.getText().toString());
+
+                Retrofit retrofit = RetrofitInstance.getClient();
+
+                CallPost callPost = retrofit.create(CallPost.class);
+
+                Call<ClassViewModel> addClass  = callPost.addClassAPI(classModel);
+
+                // call callback
+                addClass.enqueue(new Callback<ClassViewModel>() {
+                    @Override
+                    public void onResponse(Call<ClassViewModel> call, Response<ClassViewModel> response) {
+                        String res = response.message();
+
+                        // load fragment again
+                        FragmentManager manager = AddClass.this.getSupportFragmentManager();
+                        Fragment currentFragment = manager.findFragmentByTag("ClassFragment");
+                        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                        fragmentTransaction.detach(currentFragment);
+                        fragmentTransaction.attach(currentFragment);
+                        fragmentTransaction.commit();
+                        finish();
+                        navController.navigate(R.id.nav_class);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ClassViewModel> call, Throwable t) {
+
+                    }
+                });
+
+
             }
         });
 
         // get current data if edit
-        classNameEditText = findViewById(R.id.editTextClassName);
-        capacityEditText = findViewById(R.id.EditTextCapacity);
         Bundle b = getIntent().getExtras();
         try{
             String className = b.getString("className");  // get data passing from other activity
@@ -106,9 +160,10 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
         }
     }
 
-    public void validationError(){
+    public boolean validationError(){
         EditText className , Capacity ;
         TextView   dateEnd , dateStart;
+        boolean canAddClassName,canAddCapacity,canAddDateEnd,canAddDateStart;
         className = findViewById(R.id.editTextClassName);
         Capacity  = findViewById(R.id.EditTextCapacity);
         dateEnd = findViewById(R.id.date_picker_end);
@@ -122,10 +177,16 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
 
         // validate
 
-        validate.validateEditText(className ,errorClassName );
-        validate.validateEditText(Capacity , errorCapacity );
-        validate.validateTextView(dateEnd , errorEmptyDateEnd);
-        validate.validateTextView(dateEnd , errorEmptyDateStart);
+        canAddClassName = validate.validateEditText(className ,errorClassName );
+        canAddCapacity =  validate.validateEditText(Capacity , errorCapacity );
+        canAddDateEnd = validate.validateTextView(dateEnd , errorEmptyDateEnd);
+        canAddDateStart = validate.validateTextView(dateEnd , errorEmptyDateStart);
+
+        if(canAddClassName == false || canAddCapacity == false ||  canAddDateEnd == false || canAddDateStart == false )
+        {
+            return false;
+        }
+        return true;
 
     }
 }

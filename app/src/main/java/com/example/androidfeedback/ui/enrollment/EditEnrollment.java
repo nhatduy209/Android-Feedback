@@ -8,10 +8,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.androidfeedback.R;
+import com.example.androidfeedback.ui.question.AddQuestion;
 import com.example.androidfeedback.ui.uiclass.AddClass;
 
 import java.util.Calendar;
@@ -28,14 +32,25 @@ public class EditEnrollment extends AppCompatActivity {
 
         txtEnTraineeName = findViewById(R.id.txtEnEditTraineeName);
         txtEnTraineeId = findViewById(R.id.txtEnEditTraineeID);
-        txtEnClassName = findViewById(R.id.txtEnEditTraineeName);
+        txtEnClassName = findViewById(R.id.txtEnEditClassName);
 
         btnSave = findViewById(R.id.btnEnSaveEdit);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                    
+
+
+                //load current fragment
+                // load fragment again
+                FragmentManager manager = EditEnrollment.this.getSupportFragmentManager();
+                Fragment currentFragment = manager.findFragmentByTag("EnrollmentFragment");
+                FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                fragmentTransaction.detach(currentFragment);
+                fragmentTransaction.attach(currentFragment);
+                fragmentTransaction.commit();
                 finish();
-                navController.navigate(R.id.nav_class);
+                navController.navigate(R.id.nav_enrollment);
             }
         });
 
@@ -43,6 +58,17 @@ public class EditEnrollment extends AppCompatActivity {
         btnBack.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
+                //load current fragment
+                // load fragment again
+                FragmentManager manager = EditEnrollment.this.getSupportFragmentManager();
+                Fragment currentFragment = manager.findFragmentByTag("EnrollmentFragment");
+                FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                fragmentTransaction.detach(currentFragment);
+                fragmentTransaction.attach(currentFragment);
+                fragmentTransaction.commit();
+
+
                 finish();
                 navController.navigate(R.id.nav_class);
             }

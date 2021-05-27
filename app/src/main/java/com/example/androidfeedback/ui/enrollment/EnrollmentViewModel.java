@@ -1,10 +1,21 @@
 package com.example.androidfeedback.ui.enrollment;
 
+import com.google.gson.annotations.SerializedName;
+
 public class EnrollmentViewModel {
+
+    @SerializedName("traineeId")
     private String TraineeID;
+
+    @SerializedName("traineeUserName")
     private String TrainerName;
+
+    @SerializedName("classId")
     private String ClassID;
+
+    @SerializedName("className")
     private String ClassName;
+
     public EnrollmentViewModel(String TraineeID,String TraineeName, String ClassID, String ClassName){
         this.TraineeID = TraineeID;
         this.ClassName = ClassName;
