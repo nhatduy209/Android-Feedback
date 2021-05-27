@@ -19,7 +19,7 @@ public class FeedbackTopicAdapter  extends RecyclerView.Adapter<FeedbackTopicAda
     private int[] listTopic;
     Context context;
     private int position;
-    private ArrayList<QuestionViewModel> listQuestionChecked;
+    private ArrayList<QuestionViewModel>  listReview;
     private FeedbackQuestionAdapter feedbackQuestionAdapter;
 
     //get position of item
@@ -31,13 +31,12 @@ public class FeedbackTopicAdapter  extends RecyclerView.Adapter<FeedbackTopicAda
         this.position = position;
     }
 
-    public ArrayList<QuestionViewModel> getListQuestion(){
-        if(!feedbackQuestionAdapter.getListQuestionID().isEmpty()){
-            QuestionViewModel q = feedbackQuestionAdapter.getListQuestionID().get(0);
-            listQuestionChecked.add(q);
-            return listQuestionChecked;
-        }
-        return listQuestionChecked;
+    public ArrayList<QuestionViewModel> getListReview(){
+        return listReview;
+    }
+
+    public void setListReview(QuestionViewModel questionViewModel){
+        listReview.add(questionViewModel);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -52,20 +51,17 @@ public class FeedbackTopicAdapter  extends RecyclerView.Adapter<FeedbackTopicAda
     public FeedbackTopicAdapter(Context context, int[] listTopic){
         this.context = context;
         this.listTopic = listTopic;
-        feedbackQuestionAdapter = new FeedbackQuestionAdapter(context,null);
-        listQuestionChecked = new ArrayList<QuestionViewModel>();
     }
     @Override
     public void onBindViewHolder(@NonNull final FeedbackTopicAdapter.ViewHolder holder, final int position){
         //truyền id của topic vào để truy vấn cho đúng luôn chứ mệt mủi
         final int topic = listTopic[position];
-        listQuestionChecked = new ArrayList<QuestionViewModel>();
         ArrayList<QuestionViewModel> listQuestion = new ArrayList<QuestionViewModel>();
         QuestionViewModel question = new QuestionViewModel(1,"dui dẻ hong quạo",topic,"ai biết");
         listQuestion.add(question);
         listQuestion.add(question);
         listQuestion.add(question);
-        feedbackQuestionAdapter = new FeedbackQuestionAdapter(context,listQuestion);
+        feedbackQuestionAdapter = new FeedbackQuestionAdapter(context,listQuestion,this);
         holder.txtTopicName.setText(String.valueOf(topic));
         holder.recyclerListQuestion.setLayoutManager(new LinearLayoutManager(context));
         holder.recyclerListQuestion.setAdapter(feedbackQuestionAdapter);
@@ -75,6 +71,7 @@ public class FeedbackTopicAdapter  extends RecyclerView.Adapter<FeedbackTopicAda
 
     public FeedbackTopicAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.question_in_topic_view, parent, false);
+        listReview = new ArrayList<QuestionViewModel>();
         return new FeedbackTopicAdapter.ViewHolder(view);
     }
 

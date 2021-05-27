@@ -18,37 +18,58 @@ import java.util.ArrayList;
 
 public class EditFeedBack extends AppCompatActivity {
     private Context context = this ;
-    private Button btnReview ;
+    private Button btnSave ;
     private Button btnBack ;
-    private TextView txtFBType,txtFBTitle;
-    private RecyclerView recyclerTopic;
-    private FeedbackTopicAdapter feedbackTopicAdapter;
+    private TextView txtAdminID,txtFBTitle,txtQuestions;
+    private int[] listTopic;
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.feedback_review_edit_layout);
         final NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        txtFBTitle = findViewById(R.id.txtReviewFeedbackTitle);
+        txtAdminID = findViewById(R.id.txtReviewAdminID);
+        txtQuestions = findViewById(R.id.txtReviewListQuestion);
 
-//        btnBack = findViewById(R.id.btnAddFeedbackBack);
-//        btnBack.setOnClickListener( new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//                navController.navigate(R.id.nav_feedback);
-//            }
-//        });
+        btnBack = findViewById(R.id.btnReviewFeedbackBack);
+        btnBack.setOnClickListener( new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                finish();
+                navController.navigate(R.id.nav_feedback);
+            }
+        });
 
-//        btnReview = findViewById(R.id.btnReviewFeedback);
+        btnSave = findViewById(R.id.btnReviewFeedbackSave);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                navController.navigate(R.id.nav_feedback);
+            }
+        });
 
+        int[] listQuestionchecked = new int[]{};
         Bundle b = getIntent().getExtras();
         try{
-            int[] listQuestionchecked = b.getIntArray("listQuestion");  // get data passing from other activity
+             listQuestionchecked = b.getIntArray("listQuestion");  // get data passing from other activity
+
+            String feedbackTitle = b.getString("feedbackTitle");
+            txtFBTitle.setText(feedbackTitle);
         }catch(Exception e){
             return ;
         }
-//        recyclerTopic = findViewById(R.id.recyclerFBTopic);
-//        listTopic = new int[]{1,2,3};
-//        feedbackTopicAdapter = new FeedbackTopicAdapter(getApplicationContext(),listTopic);
-//        recyclerTopic.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-//        recyclerTopic.setAdapter(feedbackTopicAdapter);
+
+        listTopic = new int[]{1,2,3};
+        //list question in topic
+        String questions = new String();
+        for (int i=0;i<listTopic.length;i++){
+            questions += "<b>" + listTopic[i] + "</b><br/>";
+            for(int j =0; j<2;j++){
+                questions += "- Ngày mai nắng ấm heo xinh xinh đi trên con đường <br/>";
+            }
+        }
+        txtQuestions.setText(android.text.Html.fromHtml(questions));
     }
 }

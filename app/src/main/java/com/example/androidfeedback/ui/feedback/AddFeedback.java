@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -42,33 +43,37 @@ public class AddFeedback extends AppCompatActivity{
             }
         });
 
-
+        txtFBTitle = findViewById(R.id.txtAddFeedbackTitle);
+        recyclerTopic = findViewById(R.id.recyclerFBTopic);
+        listTopic = new int[]{1,2,3};
+        feedbackTopicAdapter = new FeedbackTopicAdapter(getApplicationContext(),listTopic);
+        recyclerTopic.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerTopic.setAdapter(feedbackTopicAdapter);
 
         btnReview = findViewById(R.id.btnReviewFeedback);
         btnReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                feedbackTopicAdapter = new FeedbackTopicAdapter(getApplicationContext(),listTopic);
-
-                ArrayList<QuestionViewModel> lques = feedbackTopicAdapter.getListQuestion();
-                list = new int[100];
-                for(int i=0; i < lques.size();i++)
-                {
-                    QuestionViewModel q = lques.get(i);
-                    list[i]=q.getQuestionID();
+                String fbTitle = txtFBTitle.getText().toString();
+                if(!fbTitle.isEmpty()){
+                    ArrayList<QuestionViewModel> review = feedbackTopicAdapter.getListReview();
+                    list = new int[100];
+                    for(int i=0; i < review.size();i++)
+                    {
+                        list[i] = (review.get(i).getQuestionID());
+                    }
+                    Intent intent = new Intent(getApplicationContext(), EditFeedBack.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("listQuestion",list);
+                    intent.putExtra("feedbackTitle",fbTitle);
+                    startActivity(intent);
                 }
-                Intent intent = new Intent(getApplicationContext(), EditFeedBack.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("listQuestion",list);
-                startActivity(intent);
+                else
+                    Toast.makeText(getApplicationContext(),"Title is not null!",Toast.LENGTH_SHORT).show();
+
             }
         });
 
-        recyclerTopic = findViewById(R.id.recyclerFBTopic);
-        listTopic = new int[]{1,2,3,4,5,6,7,8};
-        feedbackTopicAdapter = new FeedbackTopicAdapter(getApplicationContext(),listTopic);
-        recyclerTopic.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        recyclerTopic.setAdapter(feedbackTopicAdapter);
     }
 
 }
