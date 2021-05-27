@@ -9,14 +9,13 @@
     android:foregroundTint="#00972727">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="392dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/module_item"
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -26,7 +25,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:fontFamily="serif"
-            android:text="Class ID:"
+            android:text="FeedBack ID:"
             android:textColor="@color/design_default_color_on_secondary"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -38,8 +37,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="serif"
-            android:text="Name:"
+            android:text="FeedBack Title:"
             android:textColor="@color/design_default_color_on_secondary"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -51,39 +51,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="serif"
-            android:text="Capacity :"
+            android:text="Admin ID :"
             android:textColor="@color/design_default_color_on_secondary"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="serif"
-            android:text="Start Date:"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="serif"
-            android:text="End Date:"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
         <TextView
             android:id="@+id/feedbackIDView"
@@ -101,6 +76,7 @@
             android:id="@+id/feedbackTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:fontFamily="serif"
             android:text="TextView"
             android:textColor="@color/design_default_color_on_secondary"
@@ -112,6 +88,7 @@
             android:id="@+id/adminID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:fontFamily="serif"
             android:text="TextView"
             android:textColor="@color/design_default_color_on_secondary"
@@ -119,78 +96,41 @@
             app:layout_constraintStart_toEndOf="@+id/textView7"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-        <TextView
-            android:id="@+id/startDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:fontFamily="serif"
-            android:text="TextView"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView8"
-            app:layout_constraintTop_toTopOf="@+id/textView8" />
-
-        <TextView
-            android:id="@+id/endDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="serif"
-            android:text="TextView"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView9"
-            app:layout_constraintTop_toTopOf="@+id/textView9" />
-
-        <androidx.appcompat.widget.AppCompatCheckBox
-            android:id="@+id/cbtest"
-            android:background="@drawable/checkbox"
-            android:layout_width="270dp"
-            android:layout_height="61dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintStart_toEndOf="@+id/textView3"
-            app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/btn_classDetail"
+        android:id="@+id/btn_feebackDetail"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="32dp"
         android:background="@drawable/ic_detail"
-        android:backgroundTint="#00ED0E0E"
-        android:backgroundTintMode="add"
         android:foreground="@drawable/ic_baseline_remove_red_eye_24"
-        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_delete_"
+        tools:srcCompat="@drawable/icon_delete" />
 
     <Button
-        android:id="@+id/btn_edit"
+        android:id="@+id/btn_deleteFeedback"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/ic_edit"
+        android:background="@drawable/ic_delete"
         android:backgroundTint="#00ED0E0E"
         android:backgroundTintMode="add"
-        android:visibility="visible"
-        android:foreground="@drawable/icon_edit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_delete"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:visibility="visible"
-        android:background="@drawable/ic_delete"
         android:foreground="@drawable/icon_delete"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_edit" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_editFeedback"
+        app:srcCompat="@drawable/icon_edit"
+        tools:srcCompat="@drawable/icon_edit" />
 
+    <Button
+        android:id="@+id/btn_editFeedback"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_edit"
+        android:foreground="@drawable/icon_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_feebackDetail"
+        app:srcCompat="@drawable/icon_delete_"
+        tools:srcCompat="@drawable/icon_delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

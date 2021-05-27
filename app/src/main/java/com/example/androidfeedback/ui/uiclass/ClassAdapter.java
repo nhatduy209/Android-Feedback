@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +39,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
         holder.startDate.setText(classes.getStartDate());
         holder.endDate.setText(classes.getEndDate());
         holder.capacity.setText(classes.getCapacity());
+        holder.cbtest.setText(android.text.Html.fromHtml("<p>I am satisfied with the topic/course's content (tôi hài lòng với nội dung môn học/khóa học)</p>"));
         holder.btnEdit.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -61,16 +64,17 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
     //create view holder
     public class ViewHolder extends RecyclerView.ViewHolder implements DatePickerDialog.OnDateSetListener {
         private TextView classId, className,startDate, endDate , capacity ;
-        private ImageView btnEdit;
-
+        private Button btnEdit;
+        private CheckBox cbtest;
         public ViewHolder(@NonNull View itemView){
         super(itemView);
-            classId = itemView.findViewById(R.id.classIDView);
-            className = itemView.findViewById(R.id.className);
+            classId = itemView.findViewById(R.id.feedbackIDView);
+            className = itemView.findViewById(R.id.feedbackTitle);
             startDate = itemView.findViewById(R.id.startDate);
             endDate = itemView.findViewById(R.id.endDate);
             btnEdit = itemView.findViewById(R.id.btn_edit);
-            capacity = itemView.findViewById(R.id.Capacity);
+            capacity = itemView.findViewById(R.id.adminID);
+            cbtest = itemView.findViewById(R.id.cbtest);
         }
 
         @Override
