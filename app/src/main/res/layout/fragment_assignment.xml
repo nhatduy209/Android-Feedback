@@ -29,42 +29,56 @@
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/txtSearch"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        tools:layout_editor_absoluteX="0dp">
 
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Seach here"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayoutSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            tools:layout_editor_absoluteX="22dp">
 
-    <Button
-        android:id="@+id/btnSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="14dp"
-        android:backgroundTint="#F4511E"
-        android:text="Search"
-        android:textStyle="normal"
-        android:textColor="#FDF9F9"
-        app:layout_constraintStart_toEndOf="@+id/txtSearch"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddAssignment" />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerAssignment"
-        android:layout_width="406dp"
-        android:layout_height="552dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
-        android:visibility="visible"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSearch" />
+            <EditText
+                android:id="@+id/txtSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="37dp"
+                android:ems="10"
+                android:hint="Seach here"
+                android:inputType="textPersonName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:backgroundTint="#F4511E"
+                android:text="Search"
+                android:textColor="#FDF9F9"
+                android:textStyle="normal"
+                app:layout_constraintStart_toEndOf="@+id/txtSearch"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerAssignment"
+            android:layout_width="406dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

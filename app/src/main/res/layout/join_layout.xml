@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="Join Module"
+        android:textColor="#000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="283dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="serif"
+        android:text="Ask your trainer for the registation code, then enter it here"
+        android:textColor="#000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18">
+
+        <Button
+            android:id="@+id/imageView2"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="#FC3C00"
+            android:text="CODE"
+            android:textSize="16dp"
+            android:textColor="#FFF"
+            android:fontFamily="serif"/>
+
+        <EditText
+            android:id="@+id/txtCodeInput"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/join_box"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textColor="#000" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnCloseJoin"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/btn_cancel"
+        android:fontFamily="serif"
+        android:text="Close"
+        android:textAllCaps="false"
+        android:textColor="#FFF"
+        app:layout_constraintEnd_toStartOf="@+id/btnSubmitJoin"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    <Button
+        android:id="@+id/btnSubmitJoin"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/btn_save"
+        android:fontFamily="serif"
+        android:text="Submit"
+        android:textAllCaps="false"
+        android:textColor="#FFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+</androidx.constraintlayout.widget.ConstraintLayout>

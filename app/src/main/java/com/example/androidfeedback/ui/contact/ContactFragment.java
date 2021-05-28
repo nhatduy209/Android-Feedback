@@ -16,19 +16,17 @@ import com.example.androidfeedback.R;
 import com.example.androidfeedback.ui.gallery.GalleryViewModel;
 
 public class ContactFragment extends Fragment {
-    private GalleryViewModel galleryViewModel;
+    private TextView txtEmail,txtAddress, txtPhone;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                ViewModelProviders.of(this).get(GalleryViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
-        final TextView textView = root.findViewById(R.id.text_gallery);
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText("this is contact fragment");
-            }
-        });
+        View root = inflater.inflate(R.layout.fragment_contact, container, false);
+        txtEmail = root.findViewById(R.id.txtContactEmail);
+        txtAddress = root.findViewById(R.id.txtContactAddress);
+        txtPhone = root.findViewById(R.id.txtContactPhone);
+
+        txtEmail.setText("vuhung1908@gmail.com");
+        txtAddress.setText("Thủ Đức Tp Hồ Chí Minh");
+        txtPhone.setText("+8487654321");
         return root;
     }
 }
