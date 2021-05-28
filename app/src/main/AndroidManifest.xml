@@ -56,6 +56,9 @@
         <activity android:name=".ui.feedback.AddFeedback">
 
         </activity>
+        <activity android:name=".ui.uiclass.trainee.DetailClassTrainee">
+
+        </activity>
     </application>
 
 </manifest>

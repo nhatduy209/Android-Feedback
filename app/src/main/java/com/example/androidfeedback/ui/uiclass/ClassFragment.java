@@ -49,7 +49,7 @@ public class ClassFragment extends Fragment{
     public View onCreateView(@NonNull  LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_class, null  );
-        final View smallRoot  = inflater.inflate(R.layout.class_recycler_view_item, null );
+//        final View smallRoot  = inflater.inflate(R.layout.class_recycler_view_item, null );
         listClass = new ArrayList<ClassViewModel>();
         recyclerClass = root.findViewById(R.id.recyclerClassView);
         btnAdd = root.findViewById(R.id.btn_add);

@@ -4,19 +4,140 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.contact.ContactFragment">
+    android:background="#F7E488"
+    tools:context=".ui.contact.ContactFragment" >
+
+    <ImageView
+        android:id="@+id/imgInstagram"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="90dp"
+        android:foreground="@drawable/instagram"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtContactJoss"
+        tools:src="@drawable/instagram" />
+
+    <ImageView
+        android:id="@+id/imgTwitter"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="88dp"
+        android:foreground="@drawable/twitter"
+        app:layout_constraintStart_toEndOf="@+id/imgInstagram"
+        app:layout_constraintTop_toBottomOf="@+id/txtContactJoss"
+        tools:src="@drawable/twitter" />
+
+    <ImageView
+        android:id="@+id/imgFaceBook"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="90dp"
+        android:foreground="@drawable/facebook"
+        app:layout_constraintStart_toEndOf="@+id/imgTwitter"
+        app:layout_constraintTop_toBottomOf="@+id/txtContactJoss"
+        tools:src="@drawable/facebook" />
 
     <TextView
-        android:id="@+id/text_gallery"
-        android:layout_width="match_parent"
+        android:id="@+id/tvFPTFeedback"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:fontFamily="serif"
+        android:text="FPT FEEDBACK MANAGEMENT"
+        android:textColor="#000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSayHello"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="45dp"
+        android:fontFamily="serif"
+        android:text="SAY HELLO"
+        android:textColor="#000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtContactEmail" />
+
+    <TextView
+        android:id="@+id/tvJoss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="45dp"
+        android:fontFamily="serif"
+        android:text="JOSS"
+        android:textColor="#000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtContactPhone" />
+
+    <TextView
+        android:id="@+id/tvContactEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="serif"
+        android:text="We are ready for the challenge"
+        android:textColor="#000"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFPTFeedback" />
+
+    <TextView
+        android:id="@+id/txtContactAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="serif"
+        android:text="address"
+        android:textColor="#000"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSayHello" />
+
+    <TextView
+        android:id="@+id/txtContactEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="serif"
+        android:text="email"
+        android:textColor="#000"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContactEmail" />
+
+    <TextView
+        android:id="@+id/txtContactPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="8dp"
+        android:text="number phone"
+        android:textColor="#000"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtContactAddress" />
+
+    <TextView
+        android:id="@+id/txtContactJoss"
+        android:layout_width="357dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="serif"
+        android:lineSpacingExtra="8sp"
+        android:text="We are always looking for talent adobexd@gmail.com"
+        android:textColor="#000"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvJoss" />
 </androidx.constraintlayout.widget.ConstraintLayout>

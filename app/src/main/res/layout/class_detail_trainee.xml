@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.uiclass.ClassFragment">
+
+    <TextView
+        android:id="@+id/tvDetailTraineeClassList"
+        android:layout_width="221dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="16dp"
+        android:text="Trainee List"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:fontFamily="sans-serif-condensed-medium"
+        tools:textAlignment="center" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerDetailTraineeClassView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailTraineeListClassName" />
+
+    <TextView
+        android:id="@+id/tvDetailTraineeListClassID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="Class ID:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailTraineeClassList" />
+
+    <TextView
+        android:id="@+id/tvDetailTraineeListClassName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Class Name:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailTraineeListClassID" />
+
+    <TextView
+        android:id="@+id/txtDetailTraineeListClassID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/tvDetailTraineeListClassID"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailTraineeClassList" />
+
+    <TextView
+        android:id="@+id/txtDetailTraineeListClassName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/tvDetailTraineeListClassName"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailTraineeListClassID" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
