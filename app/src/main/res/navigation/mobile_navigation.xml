@@ -41,7 +41,10 @@
         android:id="@+id/nav_contact"
         android:name="com.example.androidfeedback.ui.contact.ContactFragment"
         tools:layout="@layout/fragment_contact" />
-
+    <dialog
+        android:id="@+id/nav_join"
+        android:name="com.example.androidfeedback.ui.join.DialogFragmentJoin"
+        />
     <fragment
         android:id="@+id/nav_feedback"
         android:name="com.example.androidfeedback.ui.feedback.FeedbackFragment"

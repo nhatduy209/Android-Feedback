@@ -37,13 +37,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18">
 
-        <ImageView
+        <Button
             android:id="@+id/imageView2"
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="#FC3C00"
-            tools:srcCompat="@mipmap/ic_Code" />
+            android:text="CODE"
+            android:textSize="16dp"
+            android:textColor="#FFF"
+            android:fontFamily="serif"/>
 
         <EditText
             android:id="@+id/txtCodeInput"
@@ -58,7 +61,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnCloseJoin"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginTop="24dp"
@@ -68,11 +71,11 @@
         android:text="Close"
         android:textAllCaps="false"
         android:textColor="#FFF"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintEnd_toStartOf="@+id/btnSubmitJoin"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnSubmitJoin"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginTop="24dp"
