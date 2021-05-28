@@ -94,7 +94,7 @@ public class AddQuestion extends AppCompatActivity {
 
                             }
                         });
-                    }else if (isEdit == true ){
+                    }else if (isEdit){
 
                         Retrofit retrofit = RetrofitInstance.getClient();
 

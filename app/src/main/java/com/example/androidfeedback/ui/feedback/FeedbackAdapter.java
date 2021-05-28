@@ -30,7 +30,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final FeedbackViewModel feedbackes = listFeedback.get(position);
-        holder.feedbackID.setText(feedbackes.getFeedbackId());
+        holder.feedbackID.setText(String.valueOf(feedbackes.getFeedbackId()));
         holder.feedbackTitle.setText(feedbackes.getFeedbackTitle());
         holder.adminId.setText(feedbackes.getAdminId());
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {

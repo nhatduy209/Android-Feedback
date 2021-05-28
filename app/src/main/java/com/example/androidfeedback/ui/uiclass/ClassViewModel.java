@@ -47,12 +47,14 @@ public class ClassViewModel {
     }
 
     public ClassViewModel(
+            int classId ,
                           String className,
                           String startDate,
                           String endDate,
                           String Capacity,
                           boolean isDeleted
     ){
+        this.classId = classId;
         this.className=className;
         this.startDate = startDate;
         this.endDate =endDate;

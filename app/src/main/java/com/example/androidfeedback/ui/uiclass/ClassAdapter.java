@@ -60,6 +60,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
                     intent.putExtra("startDate",classes.getStartDate());
                     intent.putExtra("endDate",classes.getEndDate());
                     intent.putExtra("capacity",classes.getCapacity());
+                    intent.putExtra("isEditing", true);
                     context.startActivity(intent);
             }
         });

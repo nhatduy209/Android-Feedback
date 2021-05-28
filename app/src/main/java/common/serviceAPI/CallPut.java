@@ -14,6 +14,6 @@ public interface CallPut {
     Call<QuestionViewModel> updateQuestionAPI(@Query("questionID") int questionID , @Query("questionContent") String questionContent);
 
     @PUT("api/classes/{id}")
-    Call<ClassViewModel> updateClassAPI(@Path("id") int classId);
+    Call<ClassViewModel> updateClassAPI(@Path("id") int classId , @Body ClassViewModel classViewModel);
 
 }

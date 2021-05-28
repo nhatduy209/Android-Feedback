@@ -33,7 +33,7 @@ public class DetailClassTrainee extends AppCompatActivity {
         recyclerDetailClass = root.findViewById(R.id.recyclerDetailTraineeClassView);
         txtclassID = findViewById(R.id.txtDetailClassTraineeID);
         txtclassName = findViewById(R.id.txtDetailClassTraineeName);
-        ClassViewModel classes = new ClassViewModel("", "Name", "tt",
+        ClassViewModel classes = new ClassViewModel(0,"", "Name", "tt",
                 "11", false);
         classes.setClassId(1);
         classes.setClassName("duy");
