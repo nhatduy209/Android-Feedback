@@ -8,53 +8,43 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.androidfeedback.ui.home.HomeFragment"
-        android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/nav_assignment"
         android:name="com.example.androidfeedback.ui.assignment.AssignmentFragment"
-        android:label="@string/menu_assignment"
         tools:layout="@layout/fragment_assignment" />
     <fragment
         android:id="@+id/nav_class"
         android:name="com.example.androidfeedback.ui.uiclass.ClassFragment"
-        android:label="@string/menu_class"
         tools:layout="@layout/fragment_class" />
     <fragment
         android:id="@+id/nav_class_trainee"
         android:name="com.example.androidfeedback.ui.uiclass.trainee.ClassTraineeFragment"
-        android:label="@string/menu_class"
         tools:layout="@layout/fragment_class_trainee" />
     <fragment
         android:id="@+id/nav_module"
         android:name="com.example.androidfeedback.ui.module.ModuleFragment"
-        android:label="@string/menu_module"
         tools:layout="@layout/fragment_module" />
     <fragment
         android:id="@+id/nav_enrollment"
         android:name="com.example.androidfeedback.ui.enrollment.EnrollmentFragment"
-        android:label="@string/menu_enrollment"
         tools:layout="@layout/fragment_enrollment" />
     <fragment
         android:id="@+id/nav_result"
         android:name="com.example.androidfeedback.ui.result.ResultFragment"
-        android:label="@string/menu_result"
         tools:layout="@layout/fragment_result" />
     <fragment
         android:id="@+id/nav_question"
         android:name="com.example.androidfeedback.ui.question.QuestionFragment"
-        android:label="@string/menu_question"
         tools:layout="@layout/fragment_question" />
     <fragment
         android:id="@+id/nav_contact"
         android:name="com.example.androidfeedback.ui.contact.ContactFragment"
-        android:label="@string/menu_contact"
         tools:layout="@layout/fragment_contact" />
 
     <fragment
         android:id="@+id/nav_feedback"
         android:name="com.example.androidfeedback.ui.feedback.FeedbackFragment"
-        android:label="@string/menu_feedback"
         tools:layout="@layout/fragment_feedback" />
 
 </navigation>

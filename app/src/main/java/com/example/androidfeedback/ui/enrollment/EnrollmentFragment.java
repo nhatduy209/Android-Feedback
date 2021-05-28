@@ -36,7 +36,6 @@ public class EnrollmentFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_enrollment,null);
-        final View smallRoot = inflater.inflate(R.layout.enrollment_recycler_view_item,null);
         enrollmentList = new ArrayList<EnrollmentViewModel>();
         recyclerEnrollmentView = root.findViewById(R.id.recyclerEnrollmentView);
 
