@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.question.QuestionFragment">
+    tools:context=".ui.question.QuestionFragment"
+    >
 
     <TextView
         android:id="@+id/tvAddQuestion"
@@ -18,7 +19,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:fontFamily="sans-serif-condensed-medium"
-        tools:textAlignment="center" />
+        tools:textAlignment="center"
+   />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerQuestionView"

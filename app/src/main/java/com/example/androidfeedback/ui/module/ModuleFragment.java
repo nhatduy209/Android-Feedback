@@ -22,10 +22,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
+import com.example.androidfeedback.ui.question.QuestionViewModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
+
+import common.serviceAPI.CallGet;
+import common.serviceAPI.RetrofitInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class ModuleFragment extends Fragment{
 
@@ -52,19 +61,25 @@ public class ModuleFragment extends Fragment{
         });
 
 
-        ModuleViewModel module = new ModuleViewModel(1,1,"tt",
-                "11","22","huhu","111","222");
-        module.setModuleId(1);
-        module.setModuleName("thanhtoan");
-        module.setAdminId(1);
-        module.setStartDate("11");
-        module.setEndDate("22");
-        module.setFbTitle("huhu");
-        module.setFbStartDate("111");
-        module.setFbEndDate("222");
-        listModule.add(module);
-        listModule.add(module);
-        listModule.add(module);
+        // call api to get list question
+        Retrofit retrofit = RetrofitInstance.getClient();
+
+        CallGet callGet = retrofit.create(CallGet.class);
+
+        Call<List<ModuleViewModel>> getListModule = callGet.getListModule();
+
+        getListModule.enqueue(new Callback<List<ModuleViewModel>>() {
+            @Override
+            public void onResponse(Call<List<ModuleViewModel>> call, Response<List<ModuleViewModel>> response) {
+                listModule = (ArrayList<ModuleViewModel>) response.body();
+                reload(listModule, root );
+            }
+
+            @Override
+            public void onFailure(Call<List<ModuleViewModel>> call, Throwable t) {
+
+            }
+        });
         reload(listModule,root);
         return root;
     }

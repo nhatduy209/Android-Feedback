@@ -1,5 +1,6 @@
 package com.example.androidfeedback.ui.question;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,15 +47,13 @@ public class QuestionFragment extends Fragment {
     QuestionAdapter questionAdapter;
     ArrayList<QuestionViewModel> questionList;
     Button btnAdd;
+    private int shouldLoad  = 0 ;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_question,null);
         final View smallRoot = inflater.inflate(R.layout.question_recycler_view_item,null );
         questionList = new ArrayList<QuestionViewModel>();
         recyclerQuestionView = root.findViewById(R.id.recyclerQuestionView);
-
-        // Reload current fragment
-
 
         btnAdd = root.findViewById(R.id.btnAddQuestion);
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -93,5 +92,4 @@ public class QuestionFragment extends Fragment {
         recyclerQuestionView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerQuestionView.setAdapter(questionAdapter);
     }
-
 }

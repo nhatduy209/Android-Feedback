@@ -16,6 +16,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
 
@@ -31,26 +33,24 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class AddQuestion extends AppCompatActivity{
+public class AddQuestion extends AppCompatActivity {
     private TextView txtQuestionContent, txtTopicName,tvAddQuestion;
     // private Spinner spTopicName;
     private Context context = this ;
     private Button btnBack ;
     private Button btnSave ;
-    private int dateAdd = 0 ;    // choose which date pick is press by user
     private boolean isEdit  = false ;
     private String questionContent ;
     private int  questionID ;
+    private QuestionAdapter questionAdapter;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_add_layout);
         final NavController navController = Navigation.findNavController(this ,R.id.nav_host_fragment);
-
         btnSave = findViewById(R.id.btnSaveQuestion);
         txtQuestionContent = findViewById(R.id.txtQuestionAddContent);
         txtTopicName = findViewById(R.id.spQuestionAddTopicName);
         tvAddQuestion = findViewById(R.id.tvAddQuestion);
-
         // user press save => call api add question
 
             btnSave.setOnClickListener(new View.OnClickListener() {
@@ -73,19 +73,20 @@ public class AddQuestion extends AppCompatActivity{
                             @Override
                             public void onResponse(Call<QuestionViewModel> call, Response<QuestionViewModel> response) {
                                 String res = response.message();
-
                                 // load fragment again
+                                /*
                                 FragmentManager manager = AddQuestion.this.getSupportFragmentManager();
                                 Fragment currentFragment = manager.findFragmentByTag("QuestionFragment");
-                                FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                                FragmentTransaction  fragmentTransaction = manager.beginTransaction();
                                 fragmentTransaction.detach(currentFragment);
                                 fragmentTransaction.attach(currentFragment);
                                 fragmentTransaction.commit();
 
+                                 */
+
 
                                 finish();
                                 navController.navigate(R.id.nav_question);
-
                             }
 
                             @Override
@@ -99,21 +100,25 @@ public class AddQuestion extends AppCompatActivity{
 
                         CallPut callPut = retrofit.create(CallPut.class);
 
-                        Call<QuestionViewModel> updateQuestion = callPut.updateQuestionAPI(questionID,questionContent);
+                        Call<QuestionViewModel> updateQuestion = callPut.updateQuestionAPI(questionID,txtQuestionContent.getText().toString());
 
                         // call callback
                         updateQuestion.enqueue(new Callback<QuestionViewModel>() {
                             @Override
                             public void onResponse(Call<QuestionViewModel> call, Response<QuestionViewModel> response) {
                                 String res = response.message();
-
+                                // Reload current fragment
                                 // load fragment again
+                                QuestionFragment questionFrag = new QuestionFragment();
+
                                 FragmentManager manager = AddQuestion.this.getSupportFragmentManager();
+                                FragmentTransaction  fragmentTransaction = manager.beginTransaction();
+                                fragmentTransaction.replace(R.id.nav_question, questionFrag,"QuestionFragment");
                                 Fragment currentFragment = manager.findFragmentByTag("QuestionFragment");
-                                FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                                fragmentTransaction.detach(currentFragment);
-                                fragmentTransaction.attach(currentFragment);
+
+
                                 fragmentTransaction.commit();
+                                manager.executePendingTransactions();
 
                                 finish();
                                 navController.navigate(R.id.nav_question);
@@ -136,7 +141,6 @@ public class AddQuestion extends AppCompatActivity{
         btnBack.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
                 finish();
                 navController.navigate(R.id.nav_question);
 

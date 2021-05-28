@@ -18,10 +18,18 @@ import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
+import com.example.androidfeedback.ui.enrollment.EnrollmentViewModel;
 import com.example.androidfeedback.ui.module.ModuleAdapter;
 import com.example.androidfeedback.ui.module.ModuleViewModel;
 
 import java.util.ArrayList;
+
+import common.serviceAPI.CallDelete;
+import common.serviceAPI.RetrofitInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder>{
     private Context context;
@@ -96,6 +104,29 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                 btnYes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
+                        Retrofit retrofit = RetrofitInstance.getClient();
+
+                        CallDelete callDelete = retrofit.create(CallDelete.class);
+
+                        Call<QuestionViewModel> deleteQuestion = callDelete
+                                .deleteQuestion(question.getQuestionID());
+
+                        // call callback
+                        deleteQuestion.enqueue(new Callback<QuestionViewModel>() {
+                            @Override
+                            public void onResponse(Call<QuestionViewModel> call, Response<QuestionViewModel> response) {
+                                String res = response.message();
+                                removeItem(question);
+                                dialog.dismiss();
+                            }
+
+                            @Override
+                            public void onFailure(Call<QuestionViewModel> call, Throwable t) {
+
+                            }
+                        });
+
                         dialog.dismiss();
                     }
                 });
@@ -119,5 +150,11 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
     @Override
     public int getItemCount() {
         return listQuestion.size();
+    }
+
+    private void removeItem(QuestionViewModel question) {
+        int currPosition = listQuestion.indexOf(question);
+        listQuestion.remove(currPosition);
+        notifyItemRemoved(currPosition);
     }
 }

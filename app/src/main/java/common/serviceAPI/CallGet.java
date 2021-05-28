@@ -1,6 +1,7 @@
 package common.serviceAPI;
 
 import com.example.androidfeedback.ui.enrollment.EnrollmentViewModel;
+import com.example.androidfeedback.ui.module.ModuleViewModel;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
 import com.example.androidfeedback.ui.uiclass.ClassViewModel;
 
@@ -21,4 +22,8 @@ public interface CallGet {
 
     @GET("api/enrollment")
     Call<List<EnrollmentViewModel>> getListEnrollment();
+
+    @GET("api/module")
+    Call<List<ModuleViewModel>> getListModule();
+
 }

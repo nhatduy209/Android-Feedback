@@ -161,7 +161,6 @@ public class EnrollmentAdapter extends RecyclerView.Adapter<EnrollmentAdapter.Vi
 
     // This removes the data from our Dataset and Updates the Recycler View.
     private void removeItem(EnrollmentViewModel enrollment) {
-
         int currPosition = listEnrollmnent.indexOf(enrollment);
         listEnrollmnent.remove(currPosition);
         notifyItemRemoved(currPosition);

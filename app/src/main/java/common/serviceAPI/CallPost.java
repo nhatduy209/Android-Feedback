@@ -1,6 +1,7 @@
 package common.serviceAPI;
 
 import com.example.androidfeedback.ui.login.LoginModel;
+import com.example.androidfeedback.ui.module.ModuleViewModel;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
 import com.example.androidfeedback.ui.uiclass.ClassViewModel;
 
@@ -18,5 +19,8 @@ public interface CallPost {
 
     @POST("api/classes")
     Call<ClassViewModel> addClassAPI(@Body ClassViewModel classViewModel );
+
+    @POST("api/module/add")
+    Call<ModuleViewModel> addModuleAPI(@Body ModuleViewModel moduleViewModel );
 
 }

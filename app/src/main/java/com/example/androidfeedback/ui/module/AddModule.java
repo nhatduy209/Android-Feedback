@@ -90,8 +90,11 @@ public class AddModule extends AppCompatActivity implements DatePickerDialog.OnD
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+
                 finish();
-                navController.navigate(R.id.nav_class);
+                navController.navigate(R.id.nav_module);
             }
         });
 
