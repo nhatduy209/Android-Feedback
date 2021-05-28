@@ -39,10 +39,10 @@ public class AddQuestion extends AppCompatActivity{
     private Button btnSave ;
     private int dateAdd = 0 ;    // choose which date pick is press by user
     private boolean isEdit  = false ;
-    private String questionID , questionContent ;
+    private String questionContent ;
+    private int  questionID ;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.question_add_layout);
         final NavController navController = Navigation.findNavController(this ,R.id.nav_host_fragment);
 
@@ -56,7 +56,7 @@ public class AddQuestion extends AppCompatActivity{
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(isEdit == false )   // check if user edit or add
+                    if(!isEdit)   // check if user edit or add
                     {
                         // get value from user input
                         QuestionViewModel questionModel = new QuestionViewModel(0,
@@ -93,13 +93,13 @@ public class AddQuestion extends AppCompatActivity{
 
                             }
                         });
-                    }else{
+                    }else if (isEdit == true ){
 
                         Retrofit retrofit = RetrofitInstance.getClient();
 
                         CallPut callPut = retrofit.create(CallPut.class);
 
-                        Call<QuestionViewModel> updateQuestion = callPut.updateQuestionAPI(Integer.parseInt(questionID),questionContent);
+                        Call<QuestionViewModel> updateQuestion = callPut.updateQuestionAPI(questionID,questionContent);
 
                         // call callback
                         updateQuestion.enqueue(new Callback<QuestionViewModel>() {
@@ -115,7 +115,6 @@ public class AddQuestion extends AppCompatActivity{
                                 fragmentTransaction.attach(currentFragment);
                                 fragmentTransaction.commit();
 
-
                                 finish();
                                 navController.navigate(R.id.nav_question);
 
@@ -123,7 +122,7 @@ public class AddQuestion extends AppCompatActivity{
 
                             @Override
                             public void onFailure(Call<QuestionViewModel> call, Throwable t) {
-
+                                String aa =t.getMessage() ;
                             }
                         });
                     }
@@ -152,9 +151,8 @@ public class AddQuestion extends AppCompatActivity{
             questionContent = b.getString("questionContent");  // get data passing from other activity
             txtQuestionContent.setText(questionContent);
             tvAddQuestion.setText("Edit Question");
-            questionID = b.getString("questionID");
+            questionID = b.getInt("questionID");
             isEdit = b.getBoolean("isEditing");
-            int a = 11 ;
         }catch(Exception e){
             return ;
         }
