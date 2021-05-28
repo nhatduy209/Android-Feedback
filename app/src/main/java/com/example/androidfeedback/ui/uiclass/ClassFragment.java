@@ -90,9 +90,6 @@ public class ClassFragment extends Fragment{
             }
         });
 
-
-
-        reload(listClass,root);
         return root ;
     }
 

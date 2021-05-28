@@ -1,5 +1,6 @@
 package com.example.androidfeedback.ui.uiclass;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,13 +12,22 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
+import com.example.androidfeedback.ui.question.QuestionViewModel;
 
 import java.util.ArrayList;
+
+import common.serviceAPI.CallDelete;
+import common.serviceAPI.RetrofitInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> {
 
@@ -34,7 +44,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull final ClassAdapter.ViewHolder holder,final int position) {
         final ClassViewModel classes = listClass.get(position);
-        holder.classId.setText(classes.getClassId());
+        holder.classId.setText(String.valueOf(classes.getClassId()));
         holder.className.setText(classes.getClassName());
         holder.startDate.setText(classes.getStartDate());
         holder.endDate.setText(classes.getEndDate());
@@ -46,11 +56,61 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
                     Intent intent = new Intent(context.getApplicationContext(), AddClass.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);    // if not , error throw
                     intent.putExtra("className",classes.getClassName());
-                    intent.putExtra("classId",classes.getClassName());
+                    intent.putExtra("classId",classes.getClassId());
                     intent.putExtra("startDate",classes.getStartDate());
                     intent.putExtra("endDate",classes.getEndDate());
                     intent.putExtra("capacity",classes.getCapacity());
                     context.startActivity(intent);
+            }
+        });
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());//khởi tạo alert
+                View v = View.inflate(context,R.layout.delete_layout,null);
+                Button btnYes = v.findViewById(R.id.btnYes);
+                Button btnCancel = v.findViewById(R.id.btnCancel);
+                TextView txtMessage = v.findViewById(R.id.txtDeleteMessageSmall);
+
+                alert.setView(v);
+                final AlertDialog dialog = alert.create();
+                txtMessage.setText("Do you want to delete this class ?");
+                btnYes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Retrofit retrofit = RetrofitInstance.getClient();
+
+                        CallDelete callDelete = retrofit.create(CallDelete.class);
+
+                        Call<ClassViewModel> deleteClass = callDelete
+                                .deleteClass(classes.getClassId());
+
+                        // call callback
+                        deleteClass.enqueue(new Callback<ClassViewModel>() {
+                            @Override
+                            public void onResponse(Call<ClassViewModel> call, Response<ClassViewModel> response) {
+                                String res = response.message();
+                                Toast.makeText(context , response.body().getMessage(), Toast.LENGTH_LONG).show();
+                                removeItem(classes);
+                                dialog.dismiss();
+                            }
+
+                            @Override
+                            public void onFailure(Call<ClassViewModel> call, Throwable t) {
+
+                            }
+                        });
+                        dialog.dismiss();
+                    }
+                });
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
             }
         });
     }
@@ -61,9 +121,9 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
     }
 
     //create view holder
-    public class ViewHolder extends RecyclerView.ViewHolder implements DatePickerDialog.OnDateSetListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView classId, className,startDate, endDate , capacity ;
-        private Button btnEdit;
+        private Button btnEdit , btnDelete;
         public ViewHolder(@NonNull View itemView){
         super(itemView);
             classId = itemView.findViewById(R.id.feedbackIDView);
@@ -72,10 +132,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
             endDate = itemView.findViewById(R.id.endDate);
             btnEdit = itemView.findViewById(R.id.btn_edit);
             capacity = itemView.findViewById(R.id.adminID);
-        }
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            btnDelete = itemView.findViewById(R.id.btn_delete);
 
         }
     }
@@ -98,6 +155,12 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    private void removeItem(ClassViewModel singleClass ) {
+        int currPosition = listClass.indexOf(singleClass);
+        listClass.remove(currPosition);
+        notifyItemRemoved(currPosition);
     }
 
 }
