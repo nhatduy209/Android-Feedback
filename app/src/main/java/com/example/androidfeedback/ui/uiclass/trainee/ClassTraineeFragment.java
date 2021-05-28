@@ -1,4 +1,4 @@
-package com.example.androidfeedback.ui.uiclass;
+package com.example.androidfeedback.ui.uiclass.trainee;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -23,37 +23,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
 import com.example.androidfeedback.ui.module.AddModule;
+import com.example.androidfeedback.ui.uiclass.ClassViewModel;
+import com.example.androidfeedback.ui.uiclass.trainee.TraineeClassAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class ClassFragment extends Fragment{
+public class ClassTraineeFragment extends Fragment{
 
     private RecyclerView recyclerClass;
-    ClassAdapter classAdapter;
+    TraineeClassAdapter classAdapter;
     ArrayList<ClassViewModel> listClass;
     private Button btnAdd ;
     private ImageView btnEdit  ;
     private Context finalContext;
     public View onCreateView(@NonNull  LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        final View root = inflater.inflate(R.layout.fragment_class, null  );
-//        final View smallRoot  = inflater.inflate(R.layout.class_recycler_view_item, null );
+        final View root = inflater.inflate(R.layout.fragment_class_trainee, null  );
         listClass = new ArrayList<ClassViewModel>();
-        recyclerClass = root.findViewById(R.id.recyclerClassView);
-        btnAdd = root.findViewById(R.id.btn_add);
-
-        btnAdd.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddClass.class);
-                startActivity(intent);
-
-            }
-        });
-
+        recyclerClass = root.findViewById(R.id.recyclerTraineeClassView);
 
         ClassViewModel classes = new ClassViewModel("","Name","tt",
                 "11","40");
@@ -68,7 +57,7 @@ public class ClassFragment extends Fragment{
     }
 
     public void reload(ArrayList<ClassViewModel> listClass, View view){
-        classAdapter = new ClassAdapter(getActivity().getApplicationContext(), listClass);
+        classAdapter = new TraineeClassAdapter(getActivity().getApplicationContext(), listClass);
         // recyclerCategoryView.setHasFixedSize(true);
         recyclerClass.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerClass.setAdapter(classAdapter);

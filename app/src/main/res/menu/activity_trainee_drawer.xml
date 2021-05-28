@@ -9,11 +9,7 @@
             android:icon="@drawable/ic_menu_homepage"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_assignment"
-            android:icon="@drawable/ic_menu_assignment"
-            android:title="@string/menu_assignment" />
-        <item
-            android:id="@+id/nav_class_trainee"
+            android:id="@+id/nav_class"
             android:icon="@drawable/ic_menu_class"
             android:title="@string/menu_class" />
         <item
@@ -21,25 +17,13 @@
             android:icon="@drawable/icon_module"
             android:title="MODULE" />
         <item
-            android:id="@+id/nav_enrollment"
-            android:icon="@drawable/ic_menu_calendar"
-            android:title="@string/menu_enrollment" />
-        <item
-            android:id="@+id/nav_feedback"
-            android:icon="@drawable/ic_feedback"
-            android:title="@string/menu_feedback" />
-        <item
-            android:id="@+id/nav_result"
-            android:icon="@drawable/ic_menu_result"
-            android:title="@string/menu_result" />
-        <item
-            android:id="@+id/nav_question"
-            android:icon="@drawable/ic_menu_question"
-            android:title="@string/menu_question" />
-        <item
             android:id="@+id/nav_contact"
             android:icon="@drawable/ic_menu_contact"
             android:title="@string/menu_contact" />
+        <item
+            android:id="@+id/nav_join"
+            android:icon="@drawable/ic_join"
+            android:title="JOIN" />
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_menu_logout"
