@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -117,6 +118,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                             @Override
                             public void onResponse(Call<QuestionViewModel> call, Response<QuestionViewModel> response) {
                                 String res = response.message();
+                                Toast.makeText(context , response.body().getMessage(), Toast.LENGTH_LONG).show();
                                 removeItem(question);
                                 dialog.dismiss();
                             }
@@ -126,7 +128,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 
                             }
                         });
-
                         dialog.dismiss();
                     }
                 });

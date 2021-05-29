@@ -86,13 +86,9 @@ public class ClassFragment extends Fragment{
             @Override
             public void onFailure(Call<List<ClassViewModel>> call, Throwable t) {
                 String a = t.getMessage();
-                int aa = 11 ;
             }
         });
 
-
-
-        reload(listClass,root);
         return root ;
     }
 

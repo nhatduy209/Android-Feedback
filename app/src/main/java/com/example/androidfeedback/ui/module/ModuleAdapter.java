@@ -10,13 +10,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
+import com.example.androidfeedback.ui.question.QuestionViewModel;
 
 import java.util.ArrayList;
+
+import common.serviceAPI.CallDelete;
+import common.serviceAPI.RetrofitInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder>{
     private Context context;
@@ -108,6 +117,28 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder
                 btnYes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        Retrofit retrofit = RetrofitInstance.getClient();
+
+                        CallDelete callDelete = retrofit.create(CallDelete.class);
+
+                        Call<ModuleViewModel> deleteModule = callDelete
+                                .deleteModule(module.getModuleId());
+
+                        // call callback
+                        deleteModule.enqueue(new Callback<ModuleViewModel>() {
+                            @Override
+                            public void onResponse(Call<ModuleViewModel> call, Response<ModuleViewModel> response) {
+                                String res = response.message();
+                                Toast.makeText(context , response.body().getMessage(), Toast.LENGTH_LONG).show();
+                                removeItem(module);
+                                dialog.dismiss();
+                            }
+
+                            @Override
+                            public void onFailure(Call<ModuleViewModel> call, Throwable t) {
+
+                            }
+                        });
                         dialog.dismiss();
                     }
                 });
@@ -131,5 +162,11 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder
     @Override
     public int getItemCount() {
         return listModule.size();
+    }
+
+    private void removeItem(ModuleViewModel module) {
+        int currPosition = listModule.indexOf(module);
+        listModule.remove(currPosition);
+        notifyItemRemoved(currPosition);
     }
 }

@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -42,9 +43,9 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
     private Context context = this ;
     private Button btnBack ;
     private Button btnSave ;
-    private int dateAdd = 0 ;    // choose which date pick is press by user
-    private String dateStartAdd , dateEndAdd , classId ;
-    private boolean isEditting = false ;
+    private int dateAdd = 0 ,classId ;    // choose which date pick is press by user
+    private String dateStartAdd , dateEndAdd ;
+    private boolean isEditing = false ;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,8 +110,8 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
 
 
                // check if user click add or edit
-               if(!isEditting){
-                   ClassViewModel classModel = new ClassViewModel(classNameEditText.getText().toString()
+               if(!isEditing){
+                   ClassViewModel classModel = new ClassViewModel(0,classNameEditText.getText().toString()
                            , dateStartAdd,dateEndAdd , capacityEditText.getText().toString(),false);
 
                    Retrofit retrofit = RetrofitInstance.getClient();
@@ -126,12 +127,7 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
                            String res = response.message();
 
                            // load fragment again
-                           FragmentManager manager = AddClass.this.getSupportFragmentManager();
-                           Fragment currentFragment = manager.findFragmentByTag("ClassFragment");
-                           FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                           fragmentTransaction.detach(currentFragment);
-                           fragmentTransaction.attach(currentFragment);
-                           fragmentTransaction.commit();
+
                            finish();
                            navController.navigate(R.id.nav_class);
 
@@ -144,28 +140,22 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
                    });
                }
                else {
-                   ClassViewModel classModel = new ClassViewModel(classNameEditText.getText().toString()
+                   ClassViewModel classModel = new ClassViewModel(classId,classNameEditText.getText().toString()
                            , dateStartAdd,dateEndAdd , capacityEditText.getText().toString(),false);
 
                    Retrofit retrofit = RetrofitInstance.getClient();
 
                    CallPut callPost = retrofit.create(CallPut.class);
 
-                   Call<ClassViewModel> updateClass  = callPost.updateClassAPI(Integer.parseInt(classId));
+                   Call<ClassViewModel> updateClass  = callPost.updateClassAPI(classId,classModel);
 
                    // call callback
                    updateClass.enqueue(new Callback<ClassViewModel>() {
                        @Override
                        public void onResponse(Call<ClassViewModel> call, Response<ClassViewModel> response) {
                            String res = response.message();
-
+                           Toast.makeText(context , response.body().getMessage(), Toast.LENGTH_LONG).show();
                            // load fragment again
-                           FragmentManager manager = AddClass.this.getSupportFragmentManager();
-                           Fragment currentFragment = manager.findFragmentByTag("ClassFragment");
-                           FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                           fragmentTransaction.detach(currentFragment);
-                           fragmentTransaction.attach(currentFragment);
-                           fragmentTransaction.commit();
                            finish();
                            navController.navigate(R.id.nav_class);
 
@@ -195,10 +185,10 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
             datePickerEnd.setText(dateEnd);
             String dateStart  = b.getString("startDate");  // get data passing from other activity
             datePickerStart.setText(dateStart);
-            classId = b.getString("classId");
+            classId = b.getInt("classId");
 
-            isEditting = true;
-
+            isEditing = b.getBoolean("isEditing");
+            String aa=  "1" ;
         }catch(Exception e){
             return ;
         }

@@ -20,11 +20,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
 import com.example.androidfeedback.ui.gallery.GalleryViewModel;
+import com.example.androidfeedback.ui.question.QuestionViewModel;
 import com.example.androidfeedback.ui.uiclass.AddClass;
 import com.example.androidfeedback.ui.uiclass.ClassAdapter;
 import com.example.androidfeedback.ui.uiclass.ClassViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import common.serviceAPI.CallGet;
+import common.serviceAPI.RetrofitInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class FeedbackFragment extends Fragment {
     private RecyclerView recyclerFeedback;
@@ -48,11 +57,26 @@ public class FeedbackFragment extends Fragment {
             }
         });
 
-        FeedbackViewModel feedback = new FeedbackViewModel("123","Test 1 ","nhatduyamind");
-        feedback.setFeedbackId("123");
-        feedback.setFeedbackTitle("feedback 1 ");
-        feedback.setAdminId("nhatduyadmin");
-        listFeedback.add(feedback);
+        // call api to get list feedback
+        Retrofit retrofit = RetrofitInstance.getClient();
+
+        CallGet callGet = retrofit.create(CallGet.class);
+
+        Call<List<FeedbackViewModel>> getListQuestions = callGet.getListFeedback();
+
+        getListQuestions.enqueue(new Callback<List<FeedbackViewModel>>() {
+            @Override
+            public void onResponse(Call<List<FeedbackViewModel>> call, Response<List<FeedbackViewModel>> response) {
+                listFeedback = (ArrayList<FeedbackViewModel>) response.body();
+                reload(listFeedback, root );
+            }
+
+            @Override
+            public void onFailure(Call<List<FeedbackViewModel>> call, Throwable t) {
+
+            }
+        });
+
         reload(listFeedback,root);
         return root ;
     }

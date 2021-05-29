@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class ClassViewModel {
 
     @SerializedName("classID")
-    private String  classId;
+    private int classId;
     @SerializedName("className")
     private String className;
 
@@ -47,12 +47,14 @@ public class ClassViewModel {
     }
 
     public ClassViewModel(
+            int classId ,
                           String className,
                           String startDate,
                           String endDate,
                           String Capacity,
                           boolean isDeleted
     ){
+        this.classId = classId;
         this.className=className;
         this.startDate = startDate;
         this.endDate =endDate;
@@ -60,7 +62,7 @@ public class ClassViewModel {
         this.isDeleted = isDeleted;
     }
 
-    public String getClassId() {
+    public int getClassId() {
         return classId;
     }
 
@@ -81,7 +83,7 @@ public class ClassViewModel {
     }
 
 
-    public void setClassId(String classId) {
+    public void setClassId(int classId) {
         this.classId = classId;
     }
 

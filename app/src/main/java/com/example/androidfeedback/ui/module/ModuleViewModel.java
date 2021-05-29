@@ -3,8 +3,14 @@ package com.example.androidfeedback.ui.module;
 import com.google.gson.annotations.SerializedName;
 
 public class ModuleViewModel {
+
+
+    @SerializedName("moduleID")
     private int moduleId;
+
+    @SerializedName("adminID")
     private int adminId;
+
     private String moduleName;
     private String startDate;
     private String endDate;
@@ -21,6 +27,14 @@ public class ModuleViewModel {
 
     @SerializedName("message")
     private String message ;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getSuccess() {
+        return success;
+    }
 
     @SerializedName("success")
     private String success ;
