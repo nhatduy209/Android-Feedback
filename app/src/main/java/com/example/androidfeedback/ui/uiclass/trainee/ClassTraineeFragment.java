@@ -45,8 +45,8 @@ public class ClassTraineeFragment extends Fragment{
         recyclerClass = root.findViewById(R.id.recyclerTraineeClassView);
 
         ClassViewModel classes = new ClassViewModel("","Name","tt",
-                "11","40");
-        classes.setClassId("idne");
+                "11",false);
+        classes.setClassId("123");
         classes.setClassName("duy");
         classes.setStartDate("11");
         classes.setEndDate("22");

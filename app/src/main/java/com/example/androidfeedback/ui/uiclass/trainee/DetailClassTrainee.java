@@ -34,8 +34,8 @@ public class DetailClassTrainee extends AppCompatActivity {
         txtclassID = findViewById(R.id.txtDetailClassTraineeID);
         txtclassName = findViewById(R.id.txtDetailClassTraineeName);
         ClassViewModel classes = new ClassViewModel("", "Name", "tt",
-                "11", "40");
-        classes.setClassId("idne");
+                "11", false);
+        classes.setClassId("124");
         classes.setClassName("duy");
         classes.setStartDate("11");
         classes.setEndDate("22");
