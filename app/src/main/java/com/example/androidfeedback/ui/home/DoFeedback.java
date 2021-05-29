@@ -34,21 +34,21 @@ public class DoFeedback extends AppCompatActivity {
         setContentView(R.layout.do_feedback_layout);
         final NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
-        btnSubmit = findViewById(R.id.btnSubmitDoFeedback);
-        btnSubmit.setOnClickListener( new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                finish();
-                navController.navigate(R.id.nav_feedback);
-            }
-        });
+//        btnSubmit = findViewById(R.id.btnSubmitDoFeedback);
+//        btnSubmit.setOnClickListener( new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//                navController.navigate(R.id.nav_feedback);
+//            }
+//        });
 
         txtClass = findViewById(R.id.txtClassDoFeedback);
         txtName = findViewById(R.id.txtNameDoFeedback);
         txtModuleName = findViewById(R.id.txtModuleNameDofeedback);
         txtComment = findViewById(R.id.txtCommentDoFeedback);
         recyclerTopic = findViewById(R.id.recyclerQuestionDoFeedback);
-        listTopic = new int[]{1,1,1,1,2,2,3};
+        listTopic = new int[]{1,2,1,3,9,88};
 
         feedbackTopicAdapter = new DoFeedbackTopicAdapter(getApplicationContext(),listTopic);
         recyclerTopic.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
