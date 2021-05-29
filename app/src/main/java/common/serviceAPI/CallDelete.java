@@ -1,6 +1,7 @@
 package common.serviceAPI;
 
 import com.example.androidfeedback.ui.enrollment.EnrollmentViewModel;
+import com.example.androidfeedback.ui.feedback.FeedbackViewModel;
 import com.example.androidfeedback.ui.module.ModuleViewModel;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
 import com.example.androidfeedback.ui.uiclass.ClassViewModel;
@@ -26,4 +27,8 @@ public interface CallDelete {
 
     @DELETE("api/classes/{id}")
     Call<ClassViewModel> deleteClass(@Path("id") int classId );
+
+
+    @DELETE("api/feedback/{id}")
+    Call<FeedbackViewModel> deleteFeedback(@Path("id") int feedback );
 }

@@ -101,8 +101,8 @@
         android:id="@+id/tvEnEditClassName"
         android:layout_width="150dp"
         android:layout_height="22dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="24dp"
         android:text="Class Name"
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="18sp"
@@ -110,19 +110,19 @@
         app:layout_constraintTop_toBottomOf="@+id/txtEnEditTraineeName"
         tools:fontFamily="serif" />
 
-    <EditText
+    <TextView
         android:id="@+id/txtEnEditClassName"
+        style="@style/Widget.AppCompat.Spinner"
         android:layout_width="300dp"
         android:layout_height="45dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="16dp"
-        android:enabled="true"
-        android:background="@drawable/edittext"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
+        android:hint="Class Name"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvEnEditClassName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEnEditClassName"
+        app:layout_constraintVertical_bias="0.049" />
 
     <EditText
         android:id="@+id/txtEnEditTraineeName"

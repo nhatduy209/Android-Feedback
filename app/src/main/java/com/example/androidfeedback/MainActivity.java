@@ -1,5 +1,8 @@
 package com.example.androidfeedback;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -7,6 +10,7 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.example.androidfeedback.ui.login.LoginActivity;
 import com.example.androidfeedback.ui.uiclass.ClassViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -56,6 +60,18 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+
+        //log out
+        MenuItem logoutItem = navigationView.getMenu().findItem(R.id.nav_logout);
+        logoutItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                MainActivity.this.getSharedPreferences("GetSession", Context.MODE_PRIVATE).edit().clear().apply();
+                Intent intent=new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                return false;
+            }
+        });
     }
 
     @Override

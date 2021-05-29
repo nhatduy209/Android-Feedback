@@ -8,13 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
+import com.example.androidfeedback.ui.question.QuestionViewModel;
 
 import java.util.ArrayList;
+
+import common.serviceAPI.CallDelete;
+import common.serviceAPI.RetrofitInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.ViewHolder>  {
     private int position;
@@ -48,28 +57,28 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.ViewHo
                 btnYes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());//khởi tạo alert
-//                        View v = View.inflate(context,R.layout.delete_layout,null);
-//                        Button btnYes = v.findViewById(R.id.btnYes);
-//                        Button btnCancel = v.findViewById(R.id.btnCancel);
-//                        TextView txtMessage = v.findViewById(R.id.txtDeleteMessageSmall);
-//
-//                        alert.setView(v);
-//                        final AlertDialog dialog = alert.create();
-//                        txtMessage.setText("Feedback is being used by 2 module. Do you really want to delete this feedback?");
-//                        btnYes.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view) {
-//                                dialog.dismiss();
-//                            }
-//                        });
-//                        btnCancel.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view) {
-//                                dialog.dismiss();
-//                            }
-//                        });
-//                        dialog.show();
+                        Retrofit retrofit = RetrofitInstance.getClient();
+
+                        CallDelete callDelete = retrofit.create(CallDelete.class);
+
+                        Call<FeedbackViewModel> deleteFeedback = callDelete
+                                .deleteFeedback(feedbackes.getFeedbackId());
+
+                        // call callback
+                        deleteFeedback.enqueue(new Callback<FeedbackViewModel>() {
+                            @Override
+                            public void onResponse(Call<FeedbackViewModel> call, Response<FeedbackViewModel> response) {
+                                String res = response.message();
+                                Toast.makeText(context , response.body().getMessage(), Toast.LENGTH_LONG).show();
+                                removeItem(feedbackes);
+                                dialog.dismiss();
+                            }
+
+                            @Override
+                            public void onFailure(Call<FeedbackViewModel> call, Throwable t) {
+
+                            }
+                        });
                         dialog.show();
                     }
                 });
@@ -143,5 +152,11 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.ViewHo
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    private void removeItem(FeedbackViewModel feedback) {
+        int currPosition = listFeedback.indexOf(feedback);
+        listFeedback.remove(currPosition);
+        notifyItemRemoved(currPosition);
     }
 }
