@@ -16,7 +16,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/module_item"
-        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,99 +24,186 @@
             android:id="@+id/txtHomeTraineeFeedbackTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="serif"
             android:maxWidth="310dp"
             android:text="Feedback Title"
             android:textColor="#000"
             android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/tvHomeTraineeFeedbackTitle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvHomeTraineeFeedbackTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="serif"
+            android:maxWidth="310dp"
+            android:text="Feedback Title:"
+            android:textColor="#000"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvHomeTraineeClassID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="serif"
+            android:maxWidth="310dp"
+            android:text="Class ID:"
+            android:textColor="#000"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvHomeTraineeFeedbackTitle" />
 
         <TextView
             android:id="@+id/txtHomeTraineeClassID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:fontFamily="serif"
             android:maxWidth="310dp"
             android:text="Class ID"
             android:textColor="#000"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtHomeTraineeFeedbackTitle" />
+            app:layout_constraintStart_toEndOf="@+id/tvHomeTraineeClassID"
+            app:layout_constraintTop_toBottomOf="@+id/tvHomeTraineeFeedbackTitle" />
 
         <TextView
-            android:id="@+id/txtHomeTraineeClassName"
+            android:id="@+id/tvHomeTraineeClassName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
             android:fontFamily="serif"
             android:maxWidth="310dp"
             android:text="Class Name:"
             android:textColor="#000"
             android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvHomeTraineeClassID" />
+
+        <TextView
+            android:id="@+id/txtHomeTraineeClassName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="serif"
+            android:maxWidth="310dp"
+            android:text="Class Name:"
+            android:textColor="#000"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/tvHomeTraineeClassName"
             app:layout_constraintTop_toBottomOf="@+id/txtHomeTraineeClassID" />
+
+        <TextView
+            android:id="@+id/tvHomeTraineeModuleID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="serif"
+            android:maxWidth="310dp"
+            android:text="Module ID:"
+            android:textColor="#000"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvHomeTraineeClassName" />
 
         <TextView
             android:id="@+id/txtHomeTraineeModuleID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:fontFamily="serif"
             android:maxWidth="310dp"
             android:text="Module ID"
             android:textColor="#000"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtHomeTraineeClassName" />
+            app:layout_constraintStart_toEndOf="@+id/tvHomeTraineeModuleID"
+            app:layout_constraintTop_toBottomOf="@+id/tvHomeTraineeClassName" />
 
         <TextView
             android:id="@+id/txtHomeTraineeModuleName"
-            android:layout_width="118dp"
-            android:layout_height="17dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
             android:fontFamily="serif"
-            android:maxWidth="310dp"
+            android:maxWidth="300dp"
+            android:maxLines="3"
             android:text="Module Name"
             android:textColor="#000"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtHomeTraineeModuleID" />
+            app:layout_constraintTop_toBottomOf="@+id/tvHomeTraineeModuleID" />
 
         <TextView
-            android:id="@+id/txtHomeTraineeEndTime"
+            android:id="@+id/tvHomeTraineeEndTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
             android:fontFamily="serif"
             android:maxWidth="310dp"
             android:text="End Time:"
             android:textColor="#000"
             android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtHomeTraineeModuleName" />
 
         <TextView
+            android:id="@+id/txtHomeTraineeEndTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="serif"
+            android:maxWidth="310dp"
+            android:text="End Time:"
+            android:textColor="#000"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/tvHomeTraineeEndTime"
+            app:layout_constraintTop_toBottomOf="@+id/txtHomeTraineeModuleName" />
+
+        <TextView
             android:id="@+id/txtHomeTraineeStatus"
-            android:layout_width="73dp"
+            android:layout_width="wrap_content"
             android:layout_height="26dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="serif"
             android:maxWidth="310dp"
             android:text="Status"
             android:textColor="#000"
             android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvHomeTraineeStatus"
+            app:layout_constraintTop_toBottomOf="@+id/tvHomeTraineeEndTime" />
+
+        <TextView
+            android:id="@+id/tvHomeTraineeStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="serif"
+            android:maxWidth="310dp"
+            android:text="Status:"
+            android:textColor="#000"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtHomeTraineeEndTime" />
+            app:layout_constraintTop_toBottomOf="@+id/tvHomeTraineeEndTime" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -125,7 +211,7 @@
         android:id="@+id/btnDoFeedbackTrainee"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="72dp"
         android:background="@drawable/do_feedback"
         android:foreground="@drawable/ic_do_feedback"
         android:visibility="visible"

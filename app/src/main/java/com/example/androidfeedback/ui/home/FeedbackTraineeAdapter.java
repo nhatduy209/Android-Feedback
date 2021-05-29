@@ -30,27 +30,28 @@ public class FeedbackTraineeAdapter extends RecyclerView.Adapter<FeedbackTrainee
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final FeedbackTraineeViewModel feedback = listFeedback.get(position);
-        holder.feedbackTitle.setText(android.text.Html.fromHtml("<b>Feedback Title: </b> " + feedback.getFeedbackTraineeTitle()));
-        holder.classID.setText(android.text.Html.fromHtml("<b> Class Id</b> " +feedback.getTraineeClassID()));
-        holder.className.setText(android.text.Html.fromHtml("<b>Class Name: </b> " +feedback.getTraineeClassName()));
-        holder.moduleId.setText(android.text.Html.fromHtml("<b>Module ID: </b> " +feedback.getTraineeModuleID()));
-        holder.moduleName.setText(android.text.Html.fromHtml("<b>Module Name: </b> " +feedback.getTraineeModuleName()));
-        holder.endTime.setText(android.text.Html.fromHtml("<b>End Time: </b> " +feedback.getTraineeEndTime()));
+        holder.feedbackTitle.setText(feedback.getFeedbackTraineeTitle());
+        holder.classID.setText(feedback.getTraineeClassID());
+        holder.className.setText(feedback.getTraineeClassName());
+        holder.moduleId.setText(feedback.getTraineeModuleID());
+        String moduleName = "<b>Module Name: </b>" + feedback.getTraineeModuleName();
+        holder.moduleName.setText(android.text.Html.fromHtml(moduleName));
+        holder.endTime.setText(feedback.getTraineeEndTime());
         if(feedback.isStatus()){
-            holder.status.setText(android.text.Html.fromHtml("<b>Status: </b> Complete"));
+            holder.status.setText("Complete");
 //            holder.btnDoFeedback.setVisibility(View.GONE);
         }
         else
-            holder.status.setText(android.text.Html.fromHtml("<b>Status: </b> Incomplete"));
+            holder.status.setText("Incomplete");
         holder.btnDoFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                holder.btnDoFeedback.setVisibility(View.GONE);
+//                holder.btnDoFeedback.setVisibility(View.GONE);
 //                String AdminID = feedbackes.getAdminId();
-//                Intent intent = new Intent(context, AddFeedback.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent intent = new Intent(context, DoFeedback.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                intent.putExtra("li",AdminID);
-//                context.startActivity(intent);
+                context.startActivity(intent);
             }
         });
     }

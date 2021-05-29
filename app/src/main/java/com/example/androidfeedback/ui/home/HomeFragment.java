@@ -35,11 +35,12 @@ public class HomeFragment extends Fragment {
         feedback.setTraineeClassID("class");
         feedback.setTraineeClassName("class name");
         feedback.setTraineeModuleID("module");
-        feedback.setTraineeModuleName("module nameeeeee");
+        feedback.setTraineeModuleName("module nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
         feedback.setTraineeEndTime("endtime");
-        feedback.setStatus(false);
-        listFeedback.add(feedback);
         feedback.setStatus(true);
+        listFeedback.add(feedback);
+        feedback = new FeedbackTraineeViewModel("title", "class","class name","module","module naemeeeee","endtime",true);
+        feedback.setStatus(false);
         listFeedback.add(feedback);
         reload(listFeedback,root);
         return root ;
