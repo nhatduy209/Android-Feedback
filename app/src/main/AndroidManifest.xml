@@ -59,6 +59,13 @@
         <activity android:name=".ui.uiclass.trainee.DetailClassTrainee">
 
         </activity>
+        <activity android:name=".ui.home.DoFeedback">
+
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

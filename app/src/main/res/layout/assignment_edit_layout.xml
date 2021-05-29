@@ -36,9 +36,9 @@
         android:layout_marginTop="16dp"
         android:text="Module Name"
         android:textColor="@color/design_default_color_on_secondary"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAssEditModuleID"
+        app:layout_constraintTop_toBottomOf="@+id/txtAssEditClassID"
         tools:fontFamily="serif" />
 
     <TextView
@@ -47,9 +47,9 @@
         android:layout_height="22dp"
         android:layout_marginStart="56dp"
         android:layout_marginTop="16dp"
-        android:text="Trainee ID"
+        android:text="Trainer ID"
         android:textColor="@color/design_default_color_on_secondary"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtAssEditClassName"
         tools:fontFamily="serif" />
@@ -58,19 +58,19 @@
         android:id="@+id/tvAssModuleId"
         android:layout_width="150dp"
         android:layout_height="22dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="16dp"
         android:text="Module ID"
         android:textColor="@color/design_default_color_on_secondary"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvEditAssignment"
+        app:layout_constraintTop_toBottomOf="@+id/txtAssEditModuleName"
         tools:fontFamily="serif" />
 
     <EditText
         android:id="@+id/txtAssEditModuleID"
         android:layout_width="300dp"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:layout_marginStart="52dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/edittext"
@@ -79,7 +79,7 @@
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAssModuleId" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAsClassID" />
 
     <Button
         android:id="@+id/btnAssSaveEdit"
@@ -99,10 +99,11 @@
     <EditText
         android:id="@+id/txtAssEditTrainerID"
         android:layout_width="300dp"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:layout_marginStart="56dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/edittext"
+        android:drawableRight="@drawable/ic_double_arrow"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
@@ -127,46 +128,60 @@
         android:id="@+id/tvAsClassName"
         android:layout_width="150dp"
         android:layout_height="22dp"
-        android:layout_marginStart="56dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="16dp"
         android:text="Class Name"
         android:textColor="@color/design_default_color_on_secondary"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAssEditClassID"
+        app:layout_constraintTop_toBottomOf="@+id/txtAssEditModuleID"
         tools:fontFamily="serif" />
 
     <TextView
         android:id="@+id/tvAsClassID"
         android:layout_width="150dp"
         android:layout_height="22dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="45dp"
         android:text="Class ID"
         android:textColor="@color/design_default_color_on_secondary"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAssEditModuleName"
+        app:layout_constraintTop_toBottomOf="@+id/tvEditAssignment"
         tools:fontFamily="serif" />
 
     <EditText
         android:id="@+id/txtAssEditClassID"
         android:layout_width="300dp"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:layout_marginStart="56dp"
         android:layout_marginTop="16dp"
-        android:enabled="false"
         android:background="@drawable/edittext"
         android:ems="10"
+        android:enabled="false"
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAsClassID" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAssModuleId" />
 
     <EditText
         android:id="@+id/txtAssEditModuleName"
         android:layout_width="300dp"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAsClassName" />
+
+    <EditText
+        android:id="@+id/txtAssEditClassName"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
         android:layout_marginStart="56dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/edittext"
@@ -176,19 +191,5 @@
         android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvAssModuleName" />
-
-    <EditText
-        android:id="@+id/txtAssEditClassName"
-        android:layout_width="300dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/edittext"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:enabled="false"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAsClassName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,22 +1,16 @@
 package com.example.androidfeedback.ui.enrollment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidfeedback.MainActivity;
 import com.example.androidfeedback.R;
 import com.example.androidfeedback.ui.enrollment.AddEnrollment;
 import com.example.androidfeedback.ui.enrollment.EnrollmentAdapter;

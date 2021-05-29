@@ -31,12 +31,14 @@
     <EditText
         android:id="@+id/txtAssAddModuleName"
         android:layout_width="300dp"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:layout_marginStart="52dp"
         android:layout_marginTop="92dp"
         android:background="@drawable/edittext"
+        android:drawableRight="@drawable/ic_single_arrow"
         android:ems="10"
         android:inputType="textPersonName"
+        android:paddingRight="10dp"
         android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvAddAssignment" />
@@ -49,7 +51,7 @@
         android:layout_marginTop="112dp"
         android:text="Module Name"
         android:textColor="@color/design_default_color_on_secondary"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:fontFamily="serif" />
@@ -57,12 +59,14 @@
     <EditText
         android:id="@+id/txtAssAddClassName"
         android:layout_width="300dp"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:layout_marginStart="52dp"
         android:layout_marginTop="64dp"
         android:background="@drawable/edittext"
+        android:drawableRight="@drawable/ic_single_arrow"
         android:ems="10"
         android:inputType="textPersonName"
+        android:paddingRight="10dp"
         android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtAssAddModuleName" />
@@ -75,7 +79,7 @@
         android:layout_marginTop="28dp"
         android:text="Trainee ID"
         android:textColor="@color/design_default_color_on_secondary"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtAssAddClassName"
         tools:fontFamily="serif" />
@@ -88,7 +92,7 @@
         android:layout_marginTop="228dp"
         android:text="Class Name"
         android:textColor="@color/design_default_color_on_secondary"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:fontFamily="serif" />
@@ -96,12 +100,14 @@
     <EditText
         android:id="@+id/txtAssAddTraineeID"
         android:layout_width="300dp"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:layout_marginStart="52dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/edittext"
+        android:drawableRight="@drawable/ic_single_arrow"
         android:ems="10"
         android:inputType="textPersonName"
+        android:paddingRight="10dp"
         android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvAssTraineeID" />
