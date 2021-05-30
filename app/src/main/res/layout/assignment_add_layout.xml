@@ -28,19 +28,6 @@
         tools:fontFamily="sans-serif-condensed-medium"
         tools:textAlignment="center" />
 
-    <EditText
-        android:id="@+id/txtAssAddModuleName"
-        android:layout_width="300dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="92dp"
-        android:background="@drawable/edittext"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddAssignment" />
-
     <TextView
         android:id="@+id/tvAssModuleName"
         android:layout_width="150dp"
@@ -54,31 +41,17 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:fontFamily="serif" />
 
-    <EditText
-        android:id="@+id/txtAssAddClassName"
-        android:layout_width="300dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="64dp"
-        android:background="@drawable/edittext"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAssAddModuleName" />
-
     <TextView
         android:id="@+id/tvAssTraineeID"
         android:layout_width="150dp"
         android:layout_height="22dp"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="28dp"
-        android:text="Trainee ID"
+        android:text="Trainer Name"
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAssAddClassName"
-        tools:fontFamily="serif" />
+        tools:fontFamily="serif"
+        tools:layout_editor_absoluteY="341dp" />
 
     <TextView
         android:id="@+id/tvAsClassName"
@@ -93,25 +66,11 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:fontFamily="serif" />
 
-    <EditText
-        android:id="@+id/txtAssAddTraineeID"
-        android:layout_width="300dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/edittext"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAssTraineeID" />
-
     <Button
         android:id="@+id/btnAssSave"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginStart="164dp"
-        android:layout_marginTop="32dp"
         android:background="@drawable/btn_save"
         android:fontFamily="serif"
         android:text="Save"
@@ -119,20 +78,40 @@
         android:textColor="@color/design_default_color_background"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAssAddTraineeID" />
+        tools:layout_editor_absoluteY="464dp" />
 
     <Button
         android:id="@+id/btnAssBack"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="32dp"
         android:background="@drawable/btn_back"
         android:text="Back"
         android:textAllCaps="false"
         android:textColor="@color/design_default_color_background"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/btnAssSave"
-        app:layout_constraintTop_toBottomOf="@+id/txtAssAddTraineeID" />
+        tools:layout_editor_absoluteY="464dp" />
+
+    <Spinner
+        android:id="@+id/spAssAddModule"
+        android:layout_width="294dp"
+        android:layout_height="48dp"
+        tools:layout_editor_absoluteX="52dp"
+        tools:layout_editor_absoluteY="159dp" />
+
+    <Spinner
+        android:id="@+id/spAssAddClass"
+        android:layout_width="299dp"
+        android:layout_height="49dp"
+        tools:layout_editor_absoluteX="47dp"
+        tools:layout_editor_absoluteY="276dp" />
+
+    <Spinner
+        android:id="@+id/spAssAddTrainer"
+        android:layout_width="302dp"
+        android:layout_height="49dp"
+        tools:layout_editor_absoluteX="47dp"
+        tools:layout_editor_absoluteY="389dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
