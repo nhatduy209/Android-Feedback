@@ -20,8 +20,6 @@ public class ResultFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        feedbackTraineeViewModel =
-                ViewModelProviders.of(this).get(FeedbackTraineeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         return root;
     }

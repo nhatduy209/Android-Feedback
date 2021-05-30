@@ -31,7 +31,7 @@
         tools:layout="@layout/fragment_enrollment" />
     <fragment
         android:id="@+id/nav_result"
-        android:name="com.example.androidfeedback.ui.result.ResultFragment"
+        android:name="com.example.androidfeedback.ui.result.ResultCommentFragment"
         tools:layout="@layout/fragment_result" />
     <fragment
         android:id="@+id/nav_question"

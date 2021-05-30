@@ -27,7 +27,7 @@ public class AddAssignment extends AppCompatActivity {
         final NavController navController = Navigation.findNavController(this ,R.id.nav_host_fragment);
 
         txtAssModuleName = findViewById(R.id.txtAssAddModuleName);
-        txtAssClassName = findViewById(R.id.txtAssAddModuleName);
+        txtAssClassName = findViewById(R.id.txtAssAddClassName);
         txtAssTrainee = findViewById(R.id.txtAssAddTraineeID);
         btnSave = findViewById(R.id.btnAssSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
