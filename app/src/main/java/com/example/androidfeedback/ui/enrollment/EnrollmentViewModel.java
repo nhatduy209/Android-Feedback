@@ -16,11 +16,9 @@ public class EnrollmentViewModel {
     @SerializedName("className")
     private String ClassName;
 
-    public EnrollmentViewModel(String TraineeID,String TraineeName, String ClassID, String ClassName){
+    public EnrollmentViewModel(String TraineeID, String ClassName){
         this.TraineeID = TraineeID;
         this.ClassName = ClassName;
-        this.ClassID = ClassID;
-        this.TrainerName = TraineeName;
     }
 
     public void setClassID(String classID) {

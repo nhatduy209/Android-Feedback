@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import common.serviceAPI.CallGet;
+import common.serviceAPI.CallPut;
 import common.serviceAPI.RetrofitInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +40,7 @@ public class EditEnrollment extends AppCompatActivity {
     private Button btnBack,btnSave;
     private ArrayList<ClassViewModel> listClass ;
     private int dateAdd = 0 ;    // choose which date pick is press by user
+    private String classId ;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enrollment_edit_layout);
@@ -49,20 +51,58 @@ public class EditEnrollment extends AppCompatActivity {
         txtEnClassName = findViewById(R.id.txtEnEditClassName);
 
         btnSave = findViewById(R.id.btnEnSaveEdit);
+
+        // get current data if edit
+        Bundle b = getIntent().getExtras();
+        try {
+            String traineeID = b.getString("traineeID");  // get data passing from other activity
+            txtEnTraineeId.setText(traineeID);
+            String traineeName = b.getString("traineeName");  // get data passing from other activity
+            txtEnTraineeName.setText(traineeName);
+            String className = b.getString("className");  // get data passing from other activity
+            txtEnClassName.setText(className);
+            classId = b.getString("classID");
+        } catch (Exception e) {
+            return;
+        }
+
+
+
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                EnrollmentViewModel enrollment = new EnrollmentViewModel(txtEnTraineeId.getText().toString(),txtEnClassName.getText().toString() );
                 //load current fragment
-                // load fragment again
-                FragmentManager manager = EditEnrollment.this.getSupportFragmentManager();
-                Fragment currentFragment = manager.findFragmentByTag("EnrollmentFragment");
-                FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                fragmentTransaction.detach(currentFragment);
-                fragmentTransaction.attach(currentFragment);
-                fragmentTransaction.commit();
-                finish();
-                navController.navigate(R.id.nav_enrollment);
+                // call api to edit
+                Retrofit retrofit = RetrofitInstance.getClient();
+
+                CallPut callPut = retrofit.create(CallPut.class);
+                try{
+                    Call<EnrollmentViewModel> updateEnrollment = callPut.updateEnrollmentAPI(Integer.parseInt(classId),txtEnTraineeId.getText().toString(),enrollment);
+                }catch(Exception e ){
+                    String a = e.toString();
+                }
+                Call<EnrollmentViewModel> updateEnrollment = callPut.updateEnrollmentAPI(Integer.parseInt(classId),txtEnTraineeId.getText().toString(),enrollment);
+                updateEnrollment.enqueue(new Callback<EnrollmentViewModel>() {
+                    @Override
+                    public void onResponse(Call<EnrollmentViewModel> call, Response<EnrollmentViewModel> response) {
+                    String a = response.message();
+
+                        finish();
+                        navController.navigate(R.id.nav_enrollment);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<EnrollmentViewModel> call, Throwable t) {
+                        String a = t.getMessage();
+                    }
+                });
+
+
+
+
             }
         });
 
@@ -124,18 +164,5 @@ public class EditEnrollment extends AppCompatActivity {
                         .setNegativeButton("No", null).show();
             }
         });
-
-        // get current data if edit
-        Bundle b = getIntent().getExtras();
-        try {
-            String traineeID = b.getString("traineeID");  // get data passing from other activity
-            txtEnTraineeId.setText(traineeID);
-            String traineeName = b.getString("traineeName");  // get data passing from other activity
-            txtEnTraineeName.setText(traineeName);
-            String className = b.getString("className");  // get data passing from other activity
-            txtEnClassName.setText(className);
-        } catch (Exception e) {
-            return;
-        }
     }
 }
