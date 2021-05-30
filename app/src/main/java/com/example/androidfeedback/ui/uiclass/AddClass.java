@@ -20,7 +20,7 @@ import java.util.Calendar;
 import common.ValidationEditText;
 
 public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-    private TextView datePickerEnd , classNameEditText, capacityEditText , datePickerStart ;
+    private TextView datePickerEnd , classNameEditText, capacityEditText , datePickerStart,tvTitle ;
     private Context context = this ;
     private Button btnBack ;
     private Button btnSave ;
@@ -29,6 +29,7 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_add_class);
         final NavController navController = Navigation.findNavController(this ,R.id.nav_host_fragment);
+        tvTitle = findViewById(R.id.tvAddClass);
         datePickerStart = findViewById(R.id.date_picker_start);
         datePickerStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +89,7 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
             datePickerEnd.setText(dateEnd);
             String dateStart  = b.getString("startDate");  // get data passing from other activity
             datePickerStart.setText(dateStart);
+            tvTitle.setText("Edit Class");
         }catch(Exception e){
             return ;
         }
