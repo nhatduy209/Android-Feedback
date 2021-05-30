@@ -4,17 +4,19 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.zip.Inflater;
+
 public class ValidationEditText {
-
+    private View view;
+    private  TextView textView;
+    private boolean check;
     public ValidationEditText(){
-
     };
-
     public boolean validateEditText(EditText idEditText , TextView Error){
-        if (idEditText.length() == 0)
+        if (idEditText.getText().toString().isEmpty())
         {
             Error.setVisibility(View.VISIBLE);
-            return false ;
+            return false;
         }
         else   {
             Error.setVisibility(View.GONE);
@@ -29,7 +31,7 @@ public class ValidationEditText {
             Error.setVisibility(View.VISIBLE);
             return false;
         }
-        else   {
+        else{
             Error.setVisibility(View.GONE);
         }
         return true;
