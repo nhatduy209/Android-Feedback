@@ -24,7 +24,7 @@ public class DoFeedbackQuestionAdapter extends RecyclerView.Adapter<DoFeedbackQu
     private int position;
     private FeedbackReviewModel reviewModel;
     private ArrayList<FeedbackReviewModel> listReview;
-    private FeedbackTopicAdapter feedbackTopicAdapter;
+    private DoFeedbackTopicAdapter feedbackTopicAdapter;
     //get position of item
     public int getPosition() {
         return position;
@@ -34,8 +34,9 @@ public class DoFeedbackQuestionAdapter extends RecyclerView.Adapter<DoFeedbackQu
         this.position = position;
     }
 
-    public DoFeedbackQuestionAdapter(Context context,FeedbackTopicAdapter feedbackTopicAdapter){
+    public DoFeedbackQuestionAdapter(Context context,ArrayList<QuestionViewModel> listQuestion,DoFeedbackTopicAdapter feedbackTopicAdapter){
         this.context = context;
+        this.listQuestion = listQuestion;
         this.feedbackTopicAdapter = feedbackTopicAdapter;
     }
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -66,46 +67,62 @@ public class DoFeedbackQuestionAdapter extends RecyclerView.Adapter<DoFeedbackQu
         holder.radStronglyDisagree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                holder.radUnDecided.setSelected(false);
-                holder.radStrongAgree.setSelected(false);
-                holder.radDisagree.setSelected(false);
-                holder.radAgree.setSelected(false);
+                boolean checked = holder.radStronglyDisagree.isChecked();
+                if(checked){
+                    holder.radUnDecided.setChecked(false);
+                    holder.radStrongAgree.setChecked(false);
+                    holder.radDisagree.setChecked(false);
+                    holder.radAgree.setChecked(false);
+                }
+
             }
         });
         holder.radDisagree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                holder.radUnDecided.setSelected(false);
-                holder.radStrongAgree.setSelected(false);
-                holder.radStronglyDisagree.setSelected(false);
-                holder.radAgree.setSelected(false);
+                boolean checked = holder.radDisagree.isChecked();
+                if(checked){
+                    holder.radUnDecided.setChecked(false);
+                    holder.radStrongAgree.setChecked(false);
+                    holder.radStronglyDisagree.setChecked(false);
+                    holder.radAgree.setChecked(false);
+                }
             }
         });
         holder.radAgree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                holder.radUnDecided.setSelected(false);
-                holder.radStrongAgree.setSelected(false);
-                holder.radDisagree.setSelected(false);
-                holder.radStronglyDisagree.setSelected(false);
+                boolean checked = holder.radDisagree.isChecked();
+                if(!checked){
+                    holder.radUnDecided.setChecked(false);
+                    holder.radStrongAgree.setChecked(false);
+                    holder.radDisagree.setChecked(false);
+                    holder.radStronglyDisagree.setChecked(false);
+                }
             }
         });
         holder.radStrongAgree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                holder.radUnDecided.setSelected(false);
-                holder.radStronglyDisagree.setSelected(false);
-                holder.radDisagree.setSelected(false);
-                holder.radAgree.setSelected(false);
+                boolean checked = holder.radDisagree.isChecked();
+                if(checked){
+                    holder.radUnDecided.setChecked(false);
+                    holder.radStronglyDisagree.setChecked(false);
+                    holder.radDisagree.setChecked(false);
+                    holder.radAgree.setChecked(false);
+                }
             }
         });
         holder.radUnDecided.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                holder.radStronglyDisagree.setSelected(false);
-                holder.radStrongAgree.setSelected(false);
-                holder.radDisagree.setSelected(false);
-                holder.radAgree.setSelected(false);
+                boolean checked = holder.radUnDecided.isChecked();
+                if(checked){
+                    holder.radStronglyDisagree.setChecked(false);
+                    holder.radStrongAgree.setChecked(false);
+                    holder.radDisagree.setChecked(false);
+                    holder.radAgree.setChecked(false);
+                }
             }
         });
 

@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
@@ -27,78 +28,27 @@ public class DoFeedbackTopicAdapter extends RecyclerView.Adapter<DoFeedbackTopic
     private Context context;
     private String[] listChoosen;
     private int[] listTopic;
-    private int temp = 0;
+    private DoFeedbackQuestionAdapter questionAdapter;
     @NonNull
     @Override
     public DoFeedbackTopicAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.part_b_radio_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.do_feedback_part_b_item, parent, false);
         return new DoFeedbackTopicAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final DoFeedbackTopicAdapter.ViewHolder holder, int position) {
 //        final FeedbackViewModel feedbacks = listFeedback.get(position);
-        int topic = listTopic[position];
-        if(temp==topic){
-            holder.txtTopicName.setVisibility(View.GONE);
-        }
-        else {
-            temp = topic;
-            holder.txtTopicName.setText(String.valueOf(topic));
-        }
-        holder.txtQuestionContent.setText("merge");
-        holder.radStronglyDisagree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                holder.radUnDecided.setSelected(false);
-                holder.radStrongAgree.setSelected(false);
-                holder.radDisagree.setSelected(false);
-                holder.radAgree.setSelected(false);
-            }
-        });
-        holder.radDisagree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                holder.radUnDecided.setSelected(false);
-                holder.radStrongAgree.setSelected(false);
-                holder.radStronglyDisagree.setSelected(false);
-                holder.radAgree.setSelected(false);
-            }
-        });
-        holder.radAgree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                holder.radUnDecided.setSelected(false);
-                holder.radStrongAgree.setSelected(false);
-                holder.radDisagree.setSelected(false);
-                holder.radStronglyDisagree.setSelected(false);
-            }
-        });
-        holder.radStrongAgree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                holder.radUnDecided.setSelected(false);
-                holder.radStronglyDisagree.setSelected(false);
-                holder.radDisagree.setSelected(false);
-                holder.radAgree.setSelected(false);
-            }
-        });
-        holder.radUnDecided.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                holder.radStronglyDisagree.setSelected(false);
-                holder.radStrongAgree.setSelected(false);
-                holder.radDisagree.setSelected(false);
-                holder.radAgree.setSelected(false);
-            }
-        });
-//        ArrayList<QuestionViewModel> listQuestion = new ArrayList<QuestionViewModel>();
-//        QuestionViewModel question = new QuestionViewModel(1,"dui dẻ hong quạo",topic,"ai biết");
-//        listQuestion.add(question);
-//        listQuestion.add(question);
-//        listQuestion.add(question);
-//        holder.recyclerView
-
+        final int topic = listTopic[position];
+        ArrayList<QuestionViewModel> listQuestion = new ArrayList<QuestionViewModel>();
+        QuestionViewModel question = new QuestionViewModel(1,"dui dẻ hong quạo",topic,"ai biết");
+        listQuestion.add(question);
+        listQuestion.add(question);
+        listQuestion.add(question);
+        questionAdapter = new DoFeedbackQuestionAdapter(context,listQuestion,this);
+        holder.txtTopicName.setText(String.valueOf(topic));
+        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        holder.recyclerView.setAdapter(questionAdapter);
     }
 
 
@@ -108,21 +58,13 @@ public class DoFeedbackTopicAdapter extends RecyclerView.Adapter<DoFeedbackTopic
     }
 
     //create view holder
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         private TextView txtTopicName;
-        private RadioButton radStronglyDisagree, radUnDecided,radStrongAgree, radDisagree,radAgree;
-        private TextView txtQuestionContent;
-//        RecyclerView recyclerView;
+        private RecyclerView recyclerView;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
-            txtTopicName = itemView.findViewById(R.id.txtTopicQuestionDoFeedback);
-//            recyclerView = itemView.findViewById(R.id.recyclerQuestionDoFeedback);
-            radAgree = itemView.findViewById(R.id.radAgree);
-            radDisagree = itemView.findViewById(R.id.radDisAgree);
-            radStrongAgree = itemView.findViewById(R.id.radStrongAgree);
-            radStronglyDisagree = itemView.findViewById(R.id.radStronglyDisagree);
-            radUnDecided = itemView.findViewById(R.id.radUnDecided);
-            txtQuestionContent = itemView.findViewById(R.id.txtQuestionContentDoFeedback);
+            txtTopicName = itemView.findViewById(R.id.txtTopicNameDoFeedback);
+            recyclerView = itemView.findViewById(R.id.recyclerQuestionDoFeedback);
         }
     }
 
