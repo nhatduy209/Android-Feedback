@@ -12,14 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
-import com.example.androidfeedback.ui.enrollment.AddEnrollment;
-import com.example.androidfeedback.ui.enrollment.EnrollmentAdapter;
-import com.example.androidfeedback.ui.enrollment.EnrollmentViewModel;
-import com.example.androidfeedback.ui.home.HomeViewModel;
-import com.example.androidfeedback.ui.module.ModuleAdapter;
-import com.example.androidfeedback.ui.module.ModuleViewModel;
-import com.example.androidfeedback.ui.uiclass.AddClass;
-import com.example.androidfeedback.ui.uiclass.ClassViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
