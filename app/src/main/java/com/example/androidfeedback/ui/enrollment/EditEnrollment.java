@@ -94,7 +94,6 @@ public class EditEnrollment extends AppCompatActivity {
         btnBack.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
                 //load current fragment
                 finish();
                 navController.navigate(R.id.nav_enrollment);
@@ -113,7 +112,6 @@ public class EditEnrollment extends AppCompatActivity {
                         count++;
                     }
                 }
-                String  h  = "";
                 new AlertDialog.Builder(context)
                         .setTitle("Choose class")
                         .setItems(listClassName, new DialogInterface.OnClickListener() {

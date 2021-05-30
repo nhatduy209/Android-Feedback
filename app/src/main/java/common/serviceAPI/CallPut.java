@@ -17,7 +17,7 @@ public interface CallPut {
     @PUT("api/classes/{id}")
     Call<ClassViewModel> updateClassAPI(@Path("id") int classId , @Body ClassViewModel classViewModel);
 
-    @PUT("api/classes/{id}")
-    Call<EnrollmentViewModel> updateEnrollmentAPI(@Path("id") int oldId , @Body ClassViewModel classViewModel);
+    @PUT("api/enrollment/update/{id}/{idsomething}")
+    Call<EnrollmentViewModel> updateEnrollmentAPI(@Path("id") int oldId ,@Path("idsomething") String id ,@Body ClassViewModel classViewModel);
 
 }

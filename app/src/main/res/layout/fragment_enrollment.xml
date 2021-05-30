@@ -52,7 +52,6 @@
         android:spinnerMode="dropdown"
         app:layout_constraintStart_toEndOf="@+id/tvEnlistClassName"
         app:layout_constraintTop_toBottomOf="@+id/tvEnList">
-
     </Spinner>
 
     <TextView
