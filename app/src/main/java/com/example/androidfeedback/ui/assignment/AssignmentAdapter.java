@@ -8,20 +8,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
 import com.example.androidfeedback.ui.module.AddModule;
+import com.example.androidfeedback.ui.question.QuestionViewModel;
 
 import java.util.ArrayList;
 
+import common.serviceAPI.CallDelete;
+import common.serviceAPI.RetrofitInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.ViewHolder> {
+
 
     private Context context;
     ArrayList<AssignmentModel> listAssignment;
     private int position;
+
 
     //get position of item
     public int getPosition() {
@@ -46,11 +57,12 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        String no = String.valueOf(position+1);
         final AssignmentModel assignment = listAssignment.get(position);
-        holder.txtId.setText(assignment.getModuleName());
+        holder.txtId.setText(no);
         holder.txtModuleName.setText(assignment.getModuleName());
         holder.txtClassName.setText(assignment.getClassName());
-        holder.txtTrainerName.setText(assignment.getTrainerID());
+        holder.txtTrainerName.setText(assignment.getTrainerName());
         holder.txtRegistrationCode.setText(assignment.getRegistrationCode());
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +73,7 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.Vi
                 intent.putExtra("moduleName",assignment.getModuleName());
                 intent.putExtra("className",assignment.getClassName());
 //                intent.putExtra("classID",assignment.get);
-                intent.putExtra("trainerID",assignment.getTrainerID());
+                intent.putExtra("trainerID",assignment.getTrainerName());
                 context.startActivity(intent);
             }
         });
@@ -80,6 +92,28 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.Vi
                 btnYes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        Retrofit retrofit = RetrofitInstance.getClient();
+
+                        CallDelete callDelete = retrofit.create(CallDelete.class);
+
+                        Call<QuestionViewModel> deleteQuestion = callDelete
+                                .deleteAssignment(assignment.get);
+
+                        // call callback
+                        deleteQuestion.enqueue(new Callback<QuestionViewModel>() {
+                            @Override
+                            public void onResponse(Call<QuestionViewModel> call, Response<QuestionViewModel> response) {
+                                String res = response.message();
+                                Toast.makeText(context , response.body().getMessage(), Toast.LENGTH_LONG).show();
+                                removeItem(question);
+                                dialog.dismiss();
+                            }
+
+                            @Override
+                            public void onFailure(Call<QuestionViewModel> call, Throwable t) {
+
+                            }
+                        });
                         dialog.dismiss();
                     }
                 });
@@ -98,6 +132,7 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.Vi
     public int getItemCount() {
         return listAssignment.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView  txtId, txtModuleName, txtClassName, txtTrainerName, txtRegistrationCode;

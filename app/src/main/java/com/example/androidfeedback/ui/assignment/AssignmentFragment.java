@@ -12,9 +12,19 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidfeedback.R;
+import com.example.androidfeedback.ui.question.QuestionAdapter;
+import com.example.androidfeedback.ui.question.QuestionViewModel;
 
 
 import java.util.ArrayList;
+import java.util.List;
+
+import common.serviceAPI.CallGet;
+import common.serviceAPI.RetrofitInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class AssignmentFragment extends Fragment {
     private ArrayList<AssignmentModel> listAssignment ;
@@ -24,9 +34,9 @@ public class AssignmentFragment extends Fragment {
     private Button btnAdd;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_assignment, container, false);
+        final View root = inflater.inflate(R.layout.fragment_assignment, container, false);
         listAssignment = new ArrayList<AssignmentModel>();
-        createAssignmentList();
+        //createAssignmentList();
         recyclerAssignment = root.findViewById(R.id.recyclerAssignment);
 
         //Create Assignment Adapter
@@ -45,11 +55,39 @@ public class AssignmentFragment extends Fragment {
         recyclerAssignment.setAdapter(assignmentAdapter);
         recyclerAssignment.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
+
+        // call api to get list assignment
+        Retrofit retrofit = RetrofitInstance.getClient();
+
+        CallGet callGet = retrofit.create(CallGet.class);
+
+        Call<List<AssignmentModel>> getListAssignments = callGet.getListAssignment();
+
+        getListAssignments.enqueue(new Callback<List<AssignmentModel>>() {
+            @Override
+            public void onResponse(Call<List<AssignmentModel>> call, Response<List<AssignmentModel>> response) {
+                listAssignment = (ArrayList<AssignmentModel>) response.body();
+                reload(listAssignment, root );
+            }
+
+            @Override
+            public void onFailure(Call<List<AssignmentModel>> call, Throwable t) {
+
+            }
+
+        });
+
         return root;
 
     }
-
-    private void createAssignmentList() {
-        listAssignment.add(new AssignmentModel(1,"test","Class1","Trainer 1","CL1MIT160655877"));
+    public void reload(ArrayList<AssignmentModel> listAssignment, View view){
+        assignmentAdapter = new AssignmentAdapter(getActivity(), listAssignment);
+        // recyclerCategoryView.setHasFixedSize(true);
+        recyclerAssignment.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerAssignment.setAdapter(assignmentAdapter);
     }
 }
+
+//    private void createAssignmentList() {
+//        listAssignment.add(new AssignmentModel(1,"test","Class1","Trainer 1","CL1MIT160655877"));
+//    }

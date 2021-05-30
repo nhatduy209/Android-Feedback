@@ -1,18 +1,24 @@
 package com.example.androidfeedback.ui.assignment;
 
+import com.google.gson.annotations.SerializedName;
+
 public class AssignmentModel {
     int id;
+    @SerializedName("moduleName")
     String moduleName;
+    @SerializedName("className")
     String className;
-    String trainerID;
+    @SerializedName("trainerName")
+    String trainerName;
+    @SerializedName("registrationCode")
     String registrationCode;
 
-    public AssignmentModel(int id, String moduleName, String className, String trainerID, String registrationCode)
+    public AssignmentModel(int id, String moduleName, String className, String trainerName, String registrationCode)
     {
         this.id = id;
         this.moduleName = moduleName;
         this.className = className;
-        this.trainerID = trainerID;
+        this.trainerName = trainerName;
         this.registrationCode = registrationCode;
     }
 
@@ -37,11 +43,11 @@ public class AssignmentModel {
         this.className = className;
     }
 
-    public String getTrainerID(){
-        return trainerID;
+    public String getTrainerName(){
+        return trainerName;
     }
     public void setTrainerID(String trainerID){
-        this.trainerID = trainerID;
+        this.trainerName = trainerName;
     }
 
     public String getRegistrationCode(){
