@@ -4,13 +4,14 @@ import com.example.androidfeedback.ui.enrollment.EnrollmentViewModel;
 import com.example.androidfeedback.ui.feedback.FeedbackViewModel;
 import com.example.androidfeedback.ui.module.ModuleViewModel;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
+import com.example.androidfeedback.ui.statistic.PieChartViewModel;
+import com.example.androidfeedback.ui.statistic.StatisticViewModel;
 import com.example.androidfeedback.ui.uiclass.ClassViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import common.ModelTestAPI;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -31,5 +32,10 @@ public interface CallGet {
     @GET("api/feedback/")
     Call<List<FeedbackViewModel>> getListFeedback();
 
+    @GET("api/statistic/admin")
+    Call<StatisticViewModel> getSelectList();
+
+    @GET("api/statistic/pie")
+    Call<ArrayList<PieChartViewModel>> getPieChart(@Query("classID") int classID, @Query("moduleID") int moduleID);
 
 }
