@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -24,10 +25,13 @@ public class AssignmentFragment extends Fragment {
     private Button btnAdd;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
         View root = inflater.inflate(R.layout.fragment_assignment, container, false);
         listAssignment = new ArrayList<AssignmentModel>();
         createAssignmentList();
         recyclerAssignment = root.findViewById(R.id.recyclerAssignment);
+
 
         //Create Assignment Adapter
         assignmentAdapter = new AssignmentAdapter(getActivity().getApplicationContext(),listAssignment);

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -46,6 +47,9 @@ public class EnrollmentFragment extends Fragment {
         recyclerEnrollmentView = root.findViewById(R.id.recyclerEnrollmentView);
         filterSpinner = root.findViewById(R.id.spEnListClassName);
 
+
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
 
 
 
