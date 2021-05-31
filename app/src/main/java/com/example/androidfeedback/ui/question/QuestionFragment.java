@@ -7,13 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
+import com.example.androidfeedback.ui.uiclass.ClassFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +40,11 @@ public class QuestionFragment extends Fragment {
         final View smallRoot = inflater.inflate(R.layout.question_recycler_view_item,null );
         questionList = new ArrayList<QuestionViewModel>();
         recyclerQuestionView = root.findViewById(R.id.recyclerQuestionView);
+
+
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
+
 
         btnAdd = root.findViewById(R.id.btnAddQuestion);
         btnAdd.setOnClickListener(new View.OnClickListener() {

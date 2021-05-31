@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.uiclass.ClassFragment">
 
+
+
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
