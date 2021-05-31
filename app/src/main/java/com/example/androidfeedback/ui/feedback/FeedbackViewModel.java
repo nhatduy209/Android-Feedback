@@ -13,9 +13,23 @@ public class FeedbackViewModel {
     @SerializedName("adminID")
     private String adminId;
 
-    public FeedbackViewModel( int feedbackId,
-                           String feedbackTitle,
-                           String adminId
+    @SerializedName("message")
+    private String message ;
+
+    @SerializedName("success")
+    private String success ;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getSuccess() {
+        return success;
+    }
+
+    public FeedbackViewModel(int feedbackId,
+                             String feedbackTitle,
+                             String adminId
     ){
         this.feedbackId = feedbackId;
         this.feedbackTitle=feedbackTitle;

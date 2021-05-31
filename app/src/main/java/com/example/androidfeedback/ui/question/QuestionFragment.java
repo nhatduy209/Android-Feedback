@@ -3,39 +3,25 @@ package com.example.androidfeedback.ui.question;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidfeedback.MainActivity;
 import com.example.androidfeedback.R;
-import com.example.androidfeedback.ui.home.HomeViewModel;
-import com.example.androidfeedback.ui.login.LoginModel;
-import com.example.androidfeedback.ui.module.ModuleAdapter;
-import com.example.androidfeedback.ui.module.ModuleViewModel;
-import com.example.androidfeedback.ui.uiclass.AddClass;
+import com.example.androidfeedback.ui.uiclass.ClassFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import common.serviceAPI.CallGet;
-import common.serviceAPI.CallPost;
 import common.serviceAPI.RetrofitInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,6 +40,11 @@ public class QuestionFragment extends Fragment {
         final View smallRoot = inflater.inflate(R.layout.question_recycler_view_item,null );
         questionList = new ArrayList<QuestionViewModel>();
         recyclerQuestionView = root.findViewById(R.id.recyclerQuestionView);
+
+
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
+
 
         btnAdd = root.findViewById(R.id.btnAddQuestion);
         btnAdd.setOnClickListener(new View.OnClickListener() {

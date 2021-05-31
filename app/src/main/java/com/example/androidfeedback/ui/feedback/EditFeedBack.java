@@ -30,7 +30,7 @@ public class EditFeedBack extends AppCompatActivity {
         txtFBTitle = findViewById(R.id.txtReviewFeedbackTitle);
         txtAdminID = findViewById(R.id.txtReviewAdminID);
         txtQuestions = findViewById(R.id.txtReviewListQuestion);
-        tvTitle = findViewById(R.id.tvAddFeedback);
+        tvTitle = findViewById(R.id.tvReviewEditFeedback);
 
         btnBack = findViewById(R.id.btnReviewFeedbackBack);
         btnBack.setOnClickListener( new View.OnClickListener(){
@@ -51,16 +51,19 @@ public class EditFeedBack extends AppCompatActivity {
         });
 
         int[] listQuestionchecked = new int[]{};
-        Bundle b = getIntent().getExtras();
-        try{
-             listQuestionchecked = b.getIntArray("listQuestion");  // get data passing from other activity
-            String feedbackTitle = b.getString("feedbackTitle");
-            txtFBTitle.setText(feedbackTitle);
-            tvTitle.setText("Edit New Feedback");
-        }catch(Exception e){
-            String AdminId = b.getString("AdminID");
-            tvTitle.setText("Edit New Feedback");
-        }
+        tvTitle.setText("Review New Feedback");
+        txtFBTitle.setText("Feedback Title");
+        txtAdminID.setText("Admin ID");
+//        Bundle b = getIntent().getExtras();
+//        try{
+//             listQuestionchecked = b.getIntArray("listQuestion");  // get data passing from other activity
+//            String feedbackTitle = b.getString("feedbackTitle");
+//            txtFBTitle.setText(feedbackTitle);
+//            tvTitle.setText("Edit New Feedback");
+//        }catch(Exception e){
+//            String AdminId = b.getString("AdminID");
+//            tvTitle.setText("Edit New Feedback");
+//        }
 
         listTopic = new int[]{1,2,3};
         //list question in topic

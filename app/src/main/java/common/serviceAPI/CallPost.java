@@ -3,6 +3,7 @@ package common.serviceAPI;
 import com.example.androidfeedback.ui.assignment.AddAssignmentModel;
 import com.example.androidfeedback.ui.assignment.AssignmentModel;
 import com.example.androidfeedback.ui.assignment.EditAssignmentModel;
+import com.example.androidfeedback.ui.join.JoinViewModel;
 import com.example.androidfeedback.ui.login.LoginModel;
 import com.example.androidfeedback.ui.module.ModuleViewModel;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
@@ -13,7 +14,6 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface CallPost {
-
     @POST("api/authentication/login")
     Call<LoginModel> loginAPI(@Body LoginModel loginModel );
 
@@ -29,4 +29,6 @@ public interface CallPost {
     @POST("api/assignment")
     Call<AddAssignmentModel> addAssignmentAPI(@Body AddAssignmentModel addAssignmentModel );
 
+    @POST("api/registration")
+    Call<JoinViewModel> registrationAPI(@Body JoinViewModel joinViewModel );
 }

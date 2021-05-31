@@ -19,7 +19,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="74dp"
+        android:layout_height="56dp"
         android:background="#FD3C01"
         android:foreground="@mipmap/ic_logo_foreground"
         android:foregroundGravity="center"

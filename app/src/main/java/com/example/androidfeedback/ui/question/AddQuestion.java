@@ -2,6 +2,7 @@ package com.example.androidfeedback.ui.question;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidfeedback.MainActivity;
 import com.example.androidfeedback.R;
 
 import java.util.Calendar;
@@ -52,7 +54,6 @@ public class AddQuestion extends AppCompatActivity {
         txtTopicName = findViewById(R.id.spQuestionAddTopicName);
         tvAddQuestion = findViewById(R.id.tvAddQuestion);
         // user press save => call api add question
-
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -80,8 +81,7 @@ public class AddQuestion extends AppCompatActivity {
                                 FragmentTransaction  fragmentTransaction = manager.beginTransaction();
                                 fragmentTransaction.detach(currentFragment);
                                 fragmentTransaction.attach(currentFragment);
-                                fragmentTransaction.commit();
-
+                                fragmentTransaction.commit()
                                  */
 
 
@@ -109,16 +109,7 @@ public class AddQuestion extends AppCompatActivity {
                                 String res = response.message();
                                 // Reload current fragment
                                 // load fragment again
-                                QuestionFragment questionFrag = new QuestionFragment();
 
-                                FragmentManager manager = AddQuestion.this.getSupportFragmentManager();
-                                FragmentTransaction  fragmentTransaction = manager.beginTransaction();
-                                fragmentTransaction.replace(R.id.nav_question, questionFrag,"QuestionFragment");
-                                Fragment currentFragment = manager.findFragmentByTag("QuestionFragment");
-
-
-                                fragmentTransaction.commit();
-                                manager.executePendingTransactions();
 
                                 finish();
                                 navController.navigate(R.id.nav_question);
@@ -162,3 +153,5 @@ public class AddQuestion extends AppCompatActivity {
         }
     }
 }
+
+

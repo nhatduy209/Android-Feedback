@@ -1,5 +1,8 @@
 package com.example.androidfeedback;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -7,6 +10,7 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.example.androidfeedback.ui.login.LoginActivity;
 import com.example.androidfeedback.ui.uiclass.ClassViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -40,8 +44,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        SharedPreferences pref = getSharedPreferences("GetSession",Context.MODE_PRIVATE);
+        String role  = pref.getString("role", "");
+
+        switch(role){
+            case "Admin" :
+                setContentView(R.layout.activity_main);
+                break;
+            case "Trainer" :
+                setContentView(R.layout.activity_main_trainer);
+            case "Trainee" :
+                setContentView(R.layout.activity_main_trainee);
+        }
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -49,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_assignment, R.id.nav_class_trainee,R.id.nav_module, R.id.nav_enrollment, R.id.nav_result
-        ,R.id.nav_question,R.id.nav_contact , R.id.nav_feedback,R.id.nav_join)
+        ,R.id.nav_question,R.id.nav_contact , R.id.nav_feedback,R.id.nav_join,R.id.nav_class)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

@@ -26,13 +26,13 @@ public interface CallGet {
     @GET("api/classes")
     Call<List<ClassViewModel>> getListClass( @Query("role") String role ,  @Query("userId") String userId);
 
-    @GET("api/enrollment")
-    Call<List<EnrollmentViewModel>> getListEnrollment();
+    @GET("api/enrollment/{filter}")
+    Call<List<EnrollmentViewModel>> getListEnrollment(@Path("filter") String filter);
 
     @GET("api/module")
     Call<List<ModuleViewModel>> getListModule();
 
-    @GET("api/feedback")
+    @GET("api/feedback/")
     Call<List<FeedbackViewModel>> getListFeedback();
 
     @GET("api/assignment")
