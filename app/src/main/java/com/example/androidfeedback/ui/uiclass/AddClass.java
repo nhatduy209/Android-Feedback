@@ -42,7 +42,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-    private TextView datePickerEnd , classNameEditText, capacityEditText , datePickerStart ;
+    private TextView datePickerEnd , classNameEditText, capacityEditText , datePickerStart,tvTitle ;
     private Context context = this ;
     private Button btnBack ;
     private Button btnSave ;
@@ -59,6 +59,7 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
         classNameEditText = findViewById(R.id.editTextClassName);
         capacityEditText = findViewById(R.id.EditTextCapacity);
         datePickerEnd = findViewById(R.id.date_picker_end);
+        tvTitle = findViewById(R.id.tvAddClass);
         datePickerStart = findViewById(R.id.date_picker_start);
 
 
@@ -191,6 +192,7 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
 
             isEditing = b.getBoolean("isEditing");
             String aa=  "1" ;
+            tvTitle.setText("Edit Class");
         }catch(Exception e){
             return ;
         }

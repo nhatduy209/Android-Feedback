@@ -11,8 +11,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="392dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/module_item"
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -149,11 +149,12 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="36dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/ic_edit"
         android:backgroundTint="#00ED0E0E"
         android:backgroundTintMode="add"
-        android:visibility="visible"
         android:foreground="@drawable/icon_edit"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -162,9 +163,10 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
-        android:visibility="visible"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/ic_delete"
         android:foreground="@drawable/icon_delete"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_edit" />
 

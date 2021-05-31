@@ -21,25 +21,27 @@
         android:id="@+id/linearLayout"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13">
+        app:layout_constraintTop_toBottomOf="@+id/tvAddClass">
 
         <TextView
             android:id="@+id/textView14"
             android:layout_width="match_parent"
             android:layout_height="25dp"
+            android:fontFamily="serif"
             android:text="Class Name"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextClassName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginVertical="5dp"
+            android:background="@drawable/edittext"
             android:hint="Class name"
             tools:layout_editor_absoluteX="-74dp"
             tools:layout_editor_absoluteY="470dp" />
@@ -58,14 +60,16 @@
             android:id="@+id/textView16"
             android:layout_width="match_parent"
             android:layout_height="25dp"
+            android:fontFamily="serif"
             android:text="Capacity"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/EditTextCapacity"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginVertical="5dp"
+            android:background="@drawable/edittext"
             android:hint="Capacity" />
 
         <TextView
@@ -83,17 +87,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:height="25dp"
+            android:fontFamily="serif"
             android:text="Start Date"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/date_picker_start"
             android:layout_width="match_parent"
-            android:layout_height="34dp"
+            android:layout_height="40dp"
             android:layout_marginVertical="5dp"
-            android:background="@drawable/border"
+            android:background="@drawable/edittext"
             android:drawableRight="@drawable/ic_menu_calendar"
-            android:gravity="center" />
+            android:gravity="center"
+            android:paddingRight="10dp" />
 
         <TextView
             android:id="@+id/errorTextClassDateStart"
@@ -110,17 +116,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:height="25dp"
+            android:fontFamily="serif"
             android:text="End Date"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/date_picker_end"
             android:layout_width="match_parent"
-            android:layout_height="34dp"
+            android:layout_height="40dp"
             android:layout_marginVertical="5dp"
-            android:background="@drawable/border"
+            android:background="@drawable/edittext"
             android:drawableRight="@drawable/ic_menu_calendar"
-            android:gravity="center" />
+            android:gravity="center"
+            android:paddingRight="10dp" />
 
         <TextView
             android:id="@+id/errorTextClassDateEnd"
@@ -135,17 +143,16 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView13"
-        android:layout_width="291dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="32dp"
-        android:height="40dp"
+        android:id="@+id/tvAddClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/anton"
         android:gravity="center"
         android:text="Add Class"
-        android:textFontWeight="10"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        android:textFontWeight="5"
+        android:textSize="35sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:textFontWeight="0" />
@@ -153,26 +160,25 @@
     <Button
         android:id="@+id/btn_Save_Class"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
-        android:backgroundTint="#2196F3"
+        android:layout_height="40dp"
+        android:layout_marginStart="172dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/btn_save"
         android:text="Save"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="#FFF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_Back_Class"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <Button
         android:id="@+id/btn_Back_Class"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#EC1404"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/btn_back"
         android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
+        android:textColor="#FFF"
         app:layout_constraintStart_toEndOf="@+id/btn_Save_Class"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

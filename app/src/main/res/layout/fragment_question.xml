@@ -9,10 +9,10 @@
 
     <TextView
         android:id="@+id/tvAddQuestion"
-        android:layout_width="245dp"
+        android:layout_width="wrap_content"
         android:layout_height="47dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="81dp"
+        android:layout_marginTop="16dp"
         android:text="Question List"
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="36sp"
@@ -26,18 +26,19 @@
         android:id="@+id/recyclerQuestionView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="150dp"
+        android:paddingTop="10dp"
         android:paddingBottom="150dp"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/spQuestionAddTopicName" />
 
     <Button
         android:id="@+id/btnAddQuestion"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:background="@mipmap/ic_add_module"
         app:layout_constraintStart_toEndOf="@+id/tvAddQuestion"
         app:layout_constraintTop_toTopOf="parent" />
