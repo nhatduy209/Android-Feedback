@@ -41,6 +41,9 @@ public interface CallGet {
     @GET("api/assignment/getListTrainer")
     Call<List<TrainerModel>> getListTrainer();
 
+    @GET("api/assignment/{inputText}")
+    Call<List<AssignmentModel>> searchAssignment(@Path("inputText")String inputText);
+
     @GET("api/assignment/getId/{moduleName}/{className}/{trainerName}")
     Call<AddAssignmentModel> getAssigmentId(@Path("moduleName") String moduleName , @Path("className") String className, @Path("trainerName") String trainerName );
 
