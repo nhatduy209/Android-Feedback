@@ -44,7 +44,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        SharedPreferences pref = getSharedPreferences("GetSession",Context.MODE_PRIVATE);
+        String role  = pref.getString("role", "");
+
+        switch(role){
+            case "Admin" :
+                setContentView(R.layout.activity_main);
+                break;
+            case "Trainer" :
+                setContentView(R.layout.activity_main_trainer);
+            case "Trainee" :
+                setContentView(R.layout.activity_main_trainee);
+        }
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
