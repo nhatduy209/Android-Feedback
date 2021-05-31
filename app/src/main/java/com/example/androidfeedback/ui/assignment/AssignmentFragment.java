@@ -88,6 +88,3 @@ public class AssignmentFragment extends Fragment {
     }
 }
 
-//    private void createAssignmentList() {
-//        listAssignment.add(new AssignmentModel(1,"test","Class1","Trainer 1","CL1MIT160655877"));
-//    }

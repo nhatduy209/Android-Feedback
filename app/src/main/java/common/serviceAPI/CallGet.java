@@ -16,6 +16,7 @@ import common.ModelTestAPI;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface CallGet {
@@ -40,8 +41,8 @@ public interface CallGet {
     @GET("api/assignment/getListTrainer")
     Call<List<TrainerModel>> getListTrainer();
 
-    @GET("api/assignment/getId")
-    Call<AddAssignmentModel> getAssigmentId(@Query("moduleName") String moduleName , @Query("className") String className, @Query("trainerName") String trainerName );
+    @GET("api/assignment/getId/{moduleName}/{className}/{trainerName}")
+    Call<AddAssignmentModel> getAssigmentId(@Path("moduleName") String moduleName , @Path("className") String className, @Path("trainerName") String trainerName );
 
 
 }

@@ -10,6 +10,20 @@ public class AddAssignmentModel {
     @SerializedName("trainerID")
     String trainerId;
 
+    @SerializedName("message")
+    private String message ;
+
+    @SerializedName("success")
+    private String success ;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getSuccess() {
+        return success;
+    }
+
     public AddAssignmentModel(int classID,int moduleID, String trainerID)
     {
         this.moduleId = moduleID;
