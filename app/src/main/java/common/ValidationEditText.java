@@ -20,9 +20,18 @@ public class ValidationEditText {
         }
         else
         {
-            Error.setVisibility(View.INVISIBLE);
+            Error.setVisibility(View.GONE);
         }
         return true;
+    }
+    public void validateEditText(TextView Error,Boolean hide){
+        if (hide)
+        {
+            Error.setVisibility(View.VISIBLE);
+        }
+        else {
+            Error.setVisibility(View.GONE);
+        }
     }
     public boolean validateTextView(TextView idTextView , TextView Error){
         if(idTextView.length() == 0)
