@@ -3,4 +3,10 @@
     <color name="colorPrimary">#FF5722</color>
     <color name="colorPrimaryDark">#E05722</color>
     <color name="colorAccent">#E05722</color>
+    <color name="colorNeural">#EC765C</color>
+    <color name="colorDisagree">#F19681</color>
+    <color name="colorStronglyDisagree">#f7c1b5</color>
+    <color name="colorAgree">#E86349</color>
+    <color name="colorStronglyAgree">#FF5722</color>
+
 </resources>

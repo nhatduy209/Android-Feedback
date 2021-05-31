@@ -2,6 +2,7 @@ package com.example.androidfeedback.ui.result;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.androidfeedback.R;
@@ -23,11 +25,15 @@ import com.example.androidfeedback.ui.question.QuestionViewModel;
 import com.example.androidfeedback.ui.statistic.ClassStatisticViewModel;
 import com.example.androidfeedback.ui.statistic.ModuleStatisticViewModel;
 import com.example.androidfeedback.ui.statistic.PieChartViewModel;
+import com.example.androidfeedback.ui.statistic.StatisticDescription;
 import com.example.androidfeedback.ui.statistic.StatisticViewModel;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -53,12 +59,14 @@ public class ResultCommentFragment extends Fragment {
     private ArrayList<PieChartViewModel> pieData;
     private PieChart pieChart;
     private ArrayList<PieEntry> pieEntries = new ArrayList();
+    StatisticDescription description;
     PieDataSet pieDataSet;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_result, container, false);
         retrofit= RetrofitInstance.getClient();
         callGet = retrofit.create(CallGet.class);
+        description= new StatisticDescription();
 
         btnViewComment = root.findViewById(R.id.btnViewComment);
         btnViewComment.setOnClickListener(new View.OnClickListener() {
@@ -71,14 +79,16 @@ public class ResultCommentFragment extends Fragment {
 
         Button btnShowOverview=root.findViewById(R.id.btnShowOverview);
         btnShowOverview.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-                TextView className = root.findViewById(R.id.txtClassNameStatistic);
-                className.setText(currentClass.second);
-                TextView moduleName = root.findViewById(R.id.txtModuleNameStatistic);
-                moduleName.setText(currentModule.second);
-                callPieChart();
-                samplePieChart();
+//                TextView className = root.findViewById(R.id.txtClassNameStatistic);
+//                className.setText(currentClass.second);
+//                TextView moduleName = root.findViewById(R.id.txtModuleNameStatistic);
+//                moduleName.setText(currentModule.second);
+//                callPieChart();
+//                drawChart();
+                drawChart(pieData);
             }
         });
 
@@ -93,22 +103,22 @@ public class ResultCommentFragment extends Fragment {
         // call api to get list question
 
 
-        Call<StatisticViewModel>  getSelectListVM = callGet.getSelectList();
-        getSelectListVM.enqueue(new Callback<StatisticViewModel>() {
-            @Override
-            public void onResponse(Call<StatisticViewModel> call, Response<StatisticViewModel> response) {
-                String a= response.message();
-                listClass=(ArrayList<ClassStatisticViewModel>)response.body().getClasses();
-                listModule=(ArrayList<ModuleStatisticViewModel>)response.body().getCourses();
-                setSpinnerClass(spinnerClass,listClass);
-                setSpinnerModule(spinnerModule,listModule);
-            }
-
-            @Override
-            public void onFailure(Call<StatisticViewModel> call, Throwable t) {
-                String a= t.getMessage();
-            }
-        });
+//        Call<StatisticViewModel>  getSelectListVM = callGet.getSelectList();
+//        getSelectListVM.enqueue(new Callback<StatisticViewModel>() {
+//            @Override
+//            public void onResponse(Call<StatisticViewModel> call, Response<StatisticViewModel> response) {
+//                String a= response.message();
+//                listClass=(ArrayList<ClassStatisticViewModel>)response.body().getClasses();
+//                listModule=(ArrayList<ModuleStatisticViewModel>)response.body().getCourses();
+//                setSpinnerClass(spinnerClass,listClass);
+//                setSpinnerModule(spinnerModule,listModule);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<StatisticViewModel> call, Throwable t) {
+//                String a= t.getMessage();
+//            }
+//        });
 
         return root;
     }
@@ -159,6 +169,7 @@ public class ResultCommentFragment extends Fragment {
             public void onResponse(Call<ArrayList<PieChartViewModel>> call, Response<ArrayList<PieChartViewModel>> response) {
                 String a= response.message();
                 pieData=(ArrayList<PieChartViewModel>)response.body();
+//                drawChart(pieData);
             }
 
             @Override
@@ -167,48 +178,54 @@ public class ResultCommentFragment extends Fragment {
             }
         });
     }
-    private void drawPieChart(){
-        pieEntries.add(new PieEntry(50,1));
-        pieEntries.add(new PieEntry(50,2));
 
-        PieDataSet pieDataSet = new PieDataSet(pieEntries,"DashBoard");
-        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
-        pieDataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
-        pieDataSet.setValueTextSize(16);
-        PieData pieDatai = new PieData(pieDataSet);
+    private void drawChart(ArrayList<PieChartViewModel> pieDataAPI) {
+        pieChart.setUsePercentValues(true);
 
-//        pieChart = pieChart.findViewById(R.id.pieChart);
+        pieDataAPI.add( new PieChartViewModel(1,50.0f));
+        pieDataAPI.add( new PieChartViewModel(2,50.0f));
 
-        pieChart.setData(pieDatai);
+        ArrayList<PieEntry> label = new ArrayList<>();
+        for(int i=0;i<pieDataAPI.size();i++){
+            label.add(new PieEntry(pieDataAPI.get(i).getPercent(),
+                    description.getString(pieDataAPI.get(i).getValue())));
+        }
 
-        //new
+        // set label
+        pieChart.setEntryLabelColor(Color.WHITE);
+        //create the DATA
+
+        PieDataSet pieDataSet=new PieDataSet(label,"Beachs");
+        pieDataSet.setSliceSpace(0);
+        pieDataSet.setValueTextSize(12);
+        pieDataSet.setLabel("HIHI");
         //remove hole in center
         pieChart.setDrawHoleEnabled(false);
         pieChart.setDrawCenterText(true);
+        pieChart.setDrawEntryLabels(false);
+        //add colors to dataSet
+        ArrayList<Integer> colors=new ArrayList<>();
+        //strongly agree
+        colors.add(Color.rgb(254,81,44));
+        // agree
+        colors.add(Color.rgb(255,102,70));
+        //neural
+        colors.add(Color.rgb(255,103,69));
+        //disagree
+        colors.add(Color.rgb(245,144,122));
+        //strongly disagree
+        colors.add(Color.rgb(247,193,181));
 
-        //new
-        pieChart.setCenterText("");
-        pieChart.setDrawCenterText(true);
+//        pieDataSet.setDrawValues(false);
 
-        // set label
-        pieChart.setEntryLabelColor(Color.BLACK);
-
-        // remove legend
-        pieChart.getLegend().setEnabled(false);
-
-        // chart title
-        pieChart.getDescription().setEnabled(false);
-    }
-    private void samplePieChart(){
-        pieEntries.add(new PieEntry(50f,2));
-        pieEntries.add(new PieEntry(50f,1));
-
-        pieDataSet= new PieDataSet(pieEntries,"");
-        PieData pieDatai = new PieData(pieDataSet);
-        pieChart.setData(pieDatai);
-        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        pieDataSet.setSliceSpace(1f);
+        pieDataSet.setColors(colors);
+        //add legend to chart
+        Legend legend=pieChart.getLegend();
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        //create a pieData object
+        PieData pieData=new PieData(pieDataSet);
+        pieChart.setData(pieData);
+        pieChart.invalidate();
 
     }
 }
