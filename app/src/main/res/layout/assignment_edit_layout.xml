@@ -192,4 +192,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvAssModuleName" />
 
+    <Spinner
+        android:id="@+id/spEditTrainer"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAssTraineeID" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

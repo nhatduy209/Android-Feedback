@@ -28,21 +28,6 @@
         tools:fontFamily="sans-serif-condensed-medium"
         tools:textAlignment="center" />
 
-    <EditText
-        android:id="@+id/txtAssAddModuleName"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edittext"
-        android:drawableRight="@drawable/ic_single_arrow"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:paddingRight="10dp"
-        android:text="Name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAssModuleName" />
-
     <TextView
         android:id="@+id/tvAssModuleName"
         android:layout_width="150dp"
@@ -56,32 +41,17 @@
         app:layout_constraintTop_toBottomOf="@+id/tvAddAssignment"
         tools:fontFamily="serif" />
 
-    <EditText
-        android:id="@+id/txtAssAddClassName"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edittext"
-        android:drawableRight="@drawable/ic_single_arrow"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:paddingRight="10dp"
-        android:text="Name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAsClassName" />
-
     <TextView
         android:id="@+id/tvAssTraineeID"
         android:layout_width="150dp"
         android:layout_height="22dp"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="32dp"
-        android:text="Trainee ID"
+        android:layout_marginTop="16dp"
+        android:text="Trainer Name"
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAssAddClassName"
+        app:layout_constraintTop_toBottomOf="@+id/spAssAddClass"
         tools:fontFamily="serif" />
 
     <TextView
@@ -89,35 +59,20 @@
         android:layout_width="150dp"
         android:layout_height="22dp"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="21dp"
         android:text="Class Name"
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAssAddModuleName"
+        app:layout_constraintTop_toBottomOf="@+id/spAssAddModule"
         tools:fontFamily="serif" />
-
-    <EditText
-        android:id="@+id/txtAssAddTraineeID"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edittext"
-        android:drawableRight="@drawable/ic_single_arrow"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:paddingRight="10dp"
-        android:text="Name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAssTraineeID" />
 
     <Button
         android:id="@+id/btnAssSave"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginStart="164dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="26dp"
         android:background="@drawable/btn_save"
         android:fontFamily="serif"
         android:text="Save"
@@ -125,20 +80,47 @@
         android:textColor="@color/design_default_color_background"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAssAddTraineeID" />
+        app:layout_constraintTop_toBottomOf="@+id/spAssAddTrainer" />
 
     <Button
         android:id="@+id/btnAssBack"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="26dp"
         android:background="@drawable/btn_back"
         android:text="Back"
         android:textAllCaps="false"
         android:textColor="@color/design_default_color_background"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/btnAssSave"
-        app:layout_constraintTop_toBottomOf="@+id/txtAssAddTraineeID" />
+        app:layout_constraintTop_toBottomOf="@+id/spAssAddTrainer" />
+
+    <Spinner
+        android:id="@+id/spAssAddModule"
+        android:layout_width="294dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAssModuleName" />
+
+    <Spinner
+        android:id="@+id/spAssAddClass"
+        android:layout_width="299dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="26dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAsClassName" />
+
+    <Spinner
+        android:id="@+id/spAssAddTrainer"
+        android:layout_width="302dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="26dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAssTraineeID" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

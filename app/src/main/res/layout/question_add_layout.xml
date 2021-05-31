@@ -31,20 +31,8 @@
         tools:fontFamily="sans-serif-condensed-medium"
         tools:textAlignment="center" />
 
-    <TextView
-        android:id="@+id/spQuestionAddTopicName"
-        android:layout_width="280dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="48dp"
-        android:background="@drawable/edittext"
-        android:hint="Topic Name"
-        android:spinnerMode="dropdown"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddQuestion">
 
-    </TextView>
-<!--    <Spinner-->
+    <!--    <Spinner-->
 <!--        android:id="@+id/spQuestionAddTopicName"-->
 <!--        android:layout_width="280dp"-->
 <!--        android:layout_height="50dp"-->
@@ -58,12 +46,26 @@
 
 <!--    </Spinner>-->
 
+    <Spinner
+        android:id="@+id/spEnListTopicName"
+        android:layout_width="237dp"
+        android:layout_height="45dp"
+        android:background="@drawable/edittext"
+        android:hint="Topic Name"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.873"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.211"></Spinner>
+
     <TextView
         android:id="@+id/txtTopicName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="72dp"
         android:fontFamily="serif"
         android:text="Topic Name"
         android:textSize="18dp"
@@ -86,21 +88,21 @@
         android:id="@+id/txtQuestionAddContent"
         android:layout_width="280dp"
         android:layout_height="215dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="200dp"
         android:background="@drawable/edittext"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spQuestionAddTopicName" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtModuleFBTitle"
         android:layout_width="206dp"
         android:layout_height="24dp"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="100dp"
         android:text="Please enter question"
         android:textColor="@android:color/holo_red_light"
         android:textSize="18sp"
@@ -111,8 +113,8 @@
         android:id="@+id/btnSaveQuestion"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_marginStart="164dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="152dp"
+        android:layout_marginTop="200dp"
         android:background="@drawable/btn_save"
         android:fontFamily="serif"
         android:text="Save"
@@ -126,8 +128,8 @@
         android:id="@+id/btnBackQuestion"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="200dp"
         android:background="@drawable/btn_back"
         android:text="Back"
         android:textAllCaps="false"

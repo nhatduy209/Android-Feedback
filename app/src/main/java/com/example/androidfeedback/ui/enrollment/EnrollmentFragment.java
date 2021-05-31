@@ -9,15 +9,18 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
+import com.example.androidfeedback.ui.question.QuestionFragment;
 import com.example.androidfeedback.ui.uiclass.ClassViewModel;
 
 import java.util.ArrayList;
@@ -37,16 +40,17 @@ public class EnrollmentFragment extends Fragment {
     ArrayList<ClassViewModel> listClass;
     Button btnAdd;
     Spinner filterSpinner ;
+    private boolean allowRefresh = false ;
     private String filterName = "All";
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
         final View root = inflater.inflate(R.layout.fragment_enrollment,null);
         enrollmentList = new ArrayList<>();
         listClass = new ArrayList<>();
         recyclerEnrollmentView = root.findViewById(R.id.recyclerEnrollmentView);
         filterSpinner = root.findViewById(R.id.spEnListClassName);
-
-
 
 
         btnAdd = root.findViewById(R.id.btnAddEnrollment);
@@ -131,5 +135,23 @@ public class EnrollmentFragment extends Fragment {
         // recyclerCategoryView.setHasFixedSize(true);
         recyclerEnrollmentView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerEnrollmentView.setAdapter(enrollmentAdapter);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (!allowRefresh){
+            allowRefresh = true;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (allowRefresh) {
+            FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+            fl.removeAllViews();
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.replace(this.getId(),new EnrollmentFragment()).commitAllowingStateLoss();
+        }
     }
 }

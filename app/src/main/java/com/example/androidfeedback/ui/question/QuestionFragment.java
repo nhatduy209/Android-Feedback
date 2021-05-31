@@ -7,13 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
+import com.example.androidfeedback.ui.uiclass.ClassFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +33,18 @@ public class QuestionFragment extends Fragment {
     QuestionAdapter questionAdapter;
     ArrayList<QuestionViewModel> questionList;
     Button btnAdd;
-    private int shouldLoad  = 0 ;
+    private boolean allowRefresh = false ;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_question,null);
         final View smallRoot = inflater.inflate(R.layout.question_recycler_view_item,null );
         questionList = new ArrayList<QuestionViewModel>();
         recyclerQuestionView = root.findViewById(R.id.recyclerQuestionView);
+
+
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
+
 
         btnAdd = root.findViewById(R.id.btnAddQuestion);
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -74,5 +82,24 @@ public class QuestionFragment extends Fragment {
         // recyclerCategoryView.setHasFixedSize(true);
         recyclerQuestionView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerQuestionView.setAdapter(questionAdapter);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (!allowRefresh){
+            allowRefresh = true;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (allowRefresh) {
+            FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+            fl.removeAllViews();
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.replace(this.getId(),new QuestionFragment()).commitAllowingStateLoss();
+        }
     }
 }

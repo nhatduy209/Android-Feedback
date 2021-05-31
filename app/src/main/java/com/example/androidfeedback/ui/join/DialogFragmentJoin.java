@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,6 +44,10 @@ public class DialogFragmentJoin extends DialogFragment {
         btnClose = view.findViewById(R.id.btnCloseJoin);
         btnSubmit = view.findViewById(R.id.btnSubmitJoin);
         txtCode = view.findViewById(R.id.txtCodeInput);
+
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
+
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

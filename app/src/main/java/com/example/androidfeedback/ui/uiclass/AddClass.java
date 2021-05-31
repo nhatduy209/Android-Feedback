@@ -3,6 +3,7 @@ package com.example.androidfeedback.ui.uiclass;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -20,12 +21,14 @@ import androidx.navigation.Navigation;
 import com.example.androidfeedback.R;
 import com.example.androidfeedback.ui.question.AddQuestion;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
+import com.google.android.material.navigation.NavigationView;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -51,8 +54,7 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_add_class);
         final NavController navController = Navigation.findNavController(this ,R.id.nav_host_fragment);
-
-
+        String a = "" ;
         // assign variable
         classNameEditText = findViewById(R.id.editTextClassName);
         capacityEditText = findViewById(R.id.EditTextCapacity);
@@ -114,11 +116,8 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
                if(!isEditing){
                    ClassViewModel classModel = new ClassViewModel(0,classNameEditText.getText().toString()
                            , dateStartAdd,dateEndAdd , capacityEditText.getText().toString(),false);
-
                    Retrofit retrofit = RetrofitInstance.getClient();
-
                    CallPost callPost = retrofit.create(CallPost.class);
-
                    Call<ClassViewModel> addClass  = callPost.addClassAPI(classModel);
 
                    // call callback
@@ -128,6 +127,8 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
                            String res = response.message();
 
                            // load fragment again
+                           List<Fragment> frag = AddClass.this.getSupportFragmentManager().getFragments();
+
 
                            finish();
                            navController.navigate(R.id.nav_class);
@@ -159,6 +160,7 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
                            // load fragment again
                            finish();
                            navController.navigate(R.id.nav_class);
+                           // load fragment again
 
                        }
 

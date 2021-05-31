@@ -14,16 +14,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
 import com.example.androidfeedback.ui.module.AddModule;
+import com.example.androidfeedback.ui.question.QuestionFragment;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
 
 import java.util.ArrayList;
@@ -46,10 +51,14 @@ public class ClassFragment extends Fragment{
     private Button btnAdd ;
     private ImageView btnEdit  ;
     private Context finalContext;
+    private boolean allowRefresh = false ;
+
     public View onCreateView(@NonNull  LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
         final View root = inflater.inflate(R.layout.fragment_class, null  );
-//        final View smallRoot  = inflater.inflate(R.layout.class_recycler_view_item, null );
+//       final View smallRoot  = inflater.inflate(R.layout.class_recycler_view_item, null );
         listClass = new ArrayList<ClassViewModel>();
         recyclerClass = root.findViewById(R.id.recyclerClassView);
         btnAdd = root.findViewById(R.id.btn_add);
@@ -60,42 +69,65 @@ public class ClassFragment extends Fragment{
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddClass.class);
                 startActivity(intent);
-
             }
         });
 
         // get seesion
-        SharedPreferences pref = getActivity().getSharedPreferences("GetSession",Context.MODE_PRIVATE);
+        if(!allowRefresh){
+            SharedPreferences pref = getActivity().getSharedPreferences("GetSession",Context.MODE_PRIVATE);
             String userId = pref.getString("userId", "");
             String userName = pref.getString("userName", "");
             String role  = pref.getString("role", "");
-        // call api to get list question
-        Retrofit retrofit = RetrofitInstance.getClient();
+            // call api to get list question
+            Retrofit retrofit = RetrofitInstance.getClient();
 
-        CallGet callGet = retrofit.create(CallGet.class);
+            CallGet callGet = retrofit.create(CallGet.class);
 
-        Call<List<ClassViewModel>> getListClass = callGet.getListClass(role,userId);
+            Call<List<ClassViewModel>> getListClass = callGet.getListClass(role,userId);
 
-        getListClass.enqueue(new Callback<List<ClassViewModel>>() {
-            @Override
-            public void onResponse(Call<List<ClassViewModel>> call, Response<List<ClassViewModel>> response) {
-                listClass = (ArrayList<ClassViewModel>) response.body();
-                reload(listClass, root );
-            }
+            getListClass.enqueue(new Callback<List<ClassViewModel>>() {
+                @Override
+                public void onResponse(Call<List<ClassViewModel>> call, Response<List<ClassViewModel>> response) {
+                    listClass = (ArrayList<ClassViewModel>) response.body();
+                    reload(listClass, root );
+                }
 
-            @Override
-            public void onFailure(Call<List<ClassViewModel>> call, Throwable t) {
-                String a = t.getMessage();
-            }
-        });
-
+                @Override
+                public void onFailure(Call<List<ClassViewModel>> call, Throwable t) {
+                    String a = t.getMessage();
+                }
+            });
+        }
+        else{
+            return null;
+        }
         return root ;
     }
 
     public void reload(ArrayList<ClassViewModel> listClass, View view){
-        classAdapter = new ClassAdapter(getActivity().getApplicationContext(), listClass);
+        classAdapter = new ClassAdapter(getActivity(), listClass);
+        classAdapter.notifyDataSetChanged();
         // recyclerCategoryView.setHasFixedSize(true);
         recyclerClass.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerClass.setAdapter(classAdapter);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (!allowRefresh){
+            allowRefresh = true;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (allowRefresh) {
+            FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+            fl.removeAllViews();
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.replace(this.getId(),new ClassFragment()).commitAllowingStateLoss();
+        }
     }
 }
