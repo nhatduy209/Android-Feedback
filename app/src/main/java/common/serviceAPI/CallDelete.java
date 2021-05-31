@@ -1,5 +1,7 @@
 package common.serviceAPI;
 
+import com.example.androidfeedback.ui.assignment.AddAssignmentModel;
+import com.example.androidfeedback.ui.assignment.AssignmentModel;
 import com.example.androidfeedback.ui.enrollment.EnrollmentViewModel;
 import com.example.androidfeedback.ui.feedback.FeedbackViewModel;
 import com.example.androidfeedback.ui.module.ModuleViewModel;
@@ -16,6 +18,8 @@ import retrofit2.http.Query;
 
 public interface CallDelete {
 
+    @DELETE("/api/assignment/{ClassId}/{ModuleId}/{TrainerId}")
+    Call<AddAssignmentModel> deleteAssignment(@Path("ClassId") int ClassId , @Path("ModuleId") int ModuleId, @Path("TrainerId") String TrainerId );
     @DELETE("api/enrollment")
     Call<EnrollmentViewModel> deleteEnrollment(@Query("classId") int classId , @Query("traineeId") String traineeId );
 

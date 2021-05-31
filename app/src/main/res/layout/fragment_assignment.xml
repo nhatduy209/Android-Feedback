@@ -48,7 +48,7 @@
             tools:layout_editor_absoluteX="22dp">
 
             <EditText
-                android:id="@+id/txtSearch"
+                android:id="@+id/txtSearchAssignment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="54dp"
@@ -59,14 +59,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/btnSearch"
+                android:id="@+id/btnSearchAssignment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#F4511E"
                 android:text="Search"
                 android:textColor="#FDF9F9"
                 android:textStyle="normal"
-                app:layout_constraintStart_toEndOf="@+id/txtSearch"
+                app:layout_constraintStart_toEndOf="@+id/txtSearchAssignment"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
