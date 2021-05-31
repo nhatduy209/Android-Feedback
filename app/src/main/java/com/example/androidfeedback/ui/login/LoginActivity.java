@@ -94,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                     String res = response.message();
                     if( response.body().getSuccess()){
                         // sharedPreferences and get Session
+                        btnLogin.setEnabled(true);
                         SharedPreferences sharedPreferences= LoginActivity.this.getSharedPreferences("GetSession", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("userId", response.body().getUserId() );
@@ -105,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                     else{
+                        btnLogin.setEnabled(true);
                         Toast.makeText(LoginActivity.this ,  response.body().getMessage(), Toast.LENGTH_LONG).show();
                         return;
                     }
