@@ -116,28 +116,47 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.Vi
                 btnYes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        Retrofit retrofit = RetrofitInstance.getClient();
-//
-//                        CallDelete callDelete = retrofit.create(CallDelete.class);
-//
-//                        Call<QuestionViewModel> deleteQuestion = callDelete
-//                                .deleteAssignment(assignment.get);
-//
-//                        // call callback
-//                        deleteQuestion.enqueue(new Callback<QuestionViewModel>() {
-//                            @Override
-//                            public void onResponse(Call<QuestionViewModel> call, Response<QuestionViewModel> response) {
-//                                String res = response.message();
-//                                Toast.makeText(context , response.body().getMessage(), Toast.LENGTH_LONG).show();
-//                                removeItem(question);
-//                                dialog.dismiss();
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<QuestionViewModel> call, Throwable t) {
-//
-//                            }
-//                        });
+                        // call get api to get 3 id of assignment
+                        Retrofit retrofit = RetrofitInstance.getClient();
+
+                        CallGet callGet = retrofit.create(CallGet.class);
+                        Call<AddAssignmentModel> assDb = callGet.getAssigmentId(assignment.getModuleName(),assignment.getClassName(),assignment.getTrainerName());
+
+                        assDb.enqueue(new Callback<AddAssignmentModel>() {
+                            @Override
+                            public void onResponse(Call<AddAssignmentModel> call, Response<AddAssignmentModel> response) {
+                                AddAssignmentModel result = response.body();
+                                assignment.setModuleId(result.moduleId);
+                                assignment.setClassId(result.classId);
+                                assignment.setTrainerId(result.trainerId);
+                            }
+                            @Override
+                            public void onFailure(Call<AddAssignmentModel> call, Throwable t) {
+
+                            }
+
+                        });
+
+                        CallDelete callDelete = retrofit.create(CallDelete.class);
+
+
+                        Call<AddAssignmentModel> deleteAssignment = callDelete.deleteAssignment(assignment.getClassId(),assignment.getModuleId(),assignment.getTrainerId());
+
+                        // call callback
+                        deleteAssignment.enqueue(new Callback<AddAssignmentModel>() {
+                            @Override
+                            public void onResponse(Call<AddAssignmentModel> call, Response<AddAssignmentModel> response) {
+                                String res = response.message();
+                                Toast.makeText(context , response.body().getMessage(), Toast.LENGTH_LONG).show();
+                                removeItem(assignment);
+                                dialog.dismiss();
+                            }
+
+                            @Override
+                            public void onFailure(Call<AddAssignmentModel> call, Throwable t) {
+
+                            }
+                        });
                         dialog.dismiss();
                     }
                 });
@@ -155,6 +174,11 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.Vi
     @Override
     public int getItemCount() {
         return listAssignment.size();
+    }
+    private void removeItem(AssignmentModel assignmentModel) {
+        int currPosition = listAssignment.indexOf(assignmentModel);
+        listAssignment.remove(currPosition);
+        notifyItemRemoved(currPosition);
     }
 
 
