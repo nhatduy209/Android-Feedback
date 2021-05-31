@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
@@ -23,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidfeedback.MainActivity;
 import com.example.androidfeedback.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -44,6 +47,8 @@ public class AddQuestion extends AppCompatActivity {
     private boolean isEdit  = false ;
     private String questionContent ;
     private int  questionID ;
+    private Spinner spinnerQuestion;
+    private TopicModel topicModel ;
     private QuestionAdapter questionAdapter;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +56,20 @@ public class AddQuestion extends AppCompatActivity {
         final NavController navController = Navigation.findNavController(this ,R.id.nav_host_fragment);
         btnSave = findViewById(R.id.btnSaveQuestion);
         txtQuestionContent = findViewById(R.id.txtQuestionAddContent);
-        txtTopicName = findViewById(R.id.spQuestionAddTopicName);
+
         tvAddQuestion = findViewById(R.id.tvAddQuestion);
+
+        // spinner here
+        spinnerQuestion = findViewById(R.id.spEnListTopicName);
+
+        ArrayList<TopicModel> list = new ArrayList<TopicModel>();
+        list.add(new TopicModel("Training program and content" , 1 ));
+        list.add(new TopicModel("Trainer Coach" , 2 ));
+        list.add(new TopicModel("Course organizations" , 3 ));
+        list.add(new TopicModel("Other" , 4));
+
+        setSpinner(spinnerQuestion , list );
+
         // user press save => call api add question
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -61,7 +78,7 @@ public class AddQuestion extends AppCompatActivity {
                     {
                         // get value from user input
                         QuestionViewModel questionModel = new QuestionViewModel(0,
-                                txtQuestionContent.getText().toString(), 1,"");
+                                txtQuestionContent.getText().toString(), topicModel.getTopicID(),topicModel.getTopicName());
 
                         Retrofit retrofit = RetrofitInstance.getClient();
 
@@ -74,17 +91,6 @@ public class AddQuestion extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<QuestionViewModel> call, Response<QuestionViewModel> response) {
                                 String res = response.message();
-                                // load fragment again
-                                /*
-                                FragmentManager manager = AddQuestion.this.getSupportFragmentManager();
-                                Fragment currentFragment = manager.findFragmentByTag("QuestionFragment");
-                                FragmentTransaction  fragmentTransaction = manager.beginTransaction();
-                                fragmentTransaction.detach(currentFragment);
-                                fragmentTransaction.attach(currentFragment);
-                                fragmentTransaction.commit()
-                                 */
-
-
                                 finish();
                                 navController.navigate(R.id.nav_question);
                             }
@@ -151,6 +157,25 @@ public class AddQuestion extends AppCompatActivity {
         }catch(Exception e){
             return ;
         }
+    }
+
+
+    private void setSpinner( Spinner spinner, List<TopicModel> listData){
+        ArrayAdapter dataAdapter = new ArrayAdapter(AddQuestion.this,
+                android.R.layout.simple_spinner_dropdown_item,listData);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+        // When user select a List-Item.
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                topicModel = (TopicModel) parent.getSelectedItem();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 }
 

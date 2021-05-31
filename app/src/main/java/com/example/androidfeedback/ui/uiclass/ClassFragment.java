@@ -55,6 +55,8 @@ public class ClassFragment extends Fragment{
 
     public View onCreateView(@NonNull  LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
         final View root = inflater.inflate(R.layout.fragment_class, null  );
 //       final View smallRoot  = inflater.inflate(R.layout.class_recycler_view_item, null );
         listClass = new ArrayList<ClassViewModel>();

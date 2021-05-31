@@ -57,19 +57,9 @@ public class LogoutDialog extends DialogFragment {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //log out
-                MenuItem logoutItem = navigationView.getMenu().findItem(R.id.nav_logout);
-                logoutItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
                         getContext().getSharedPreferences("GetSession", Context.MODE_PRIVATE).edit().clear().apply();
                         Intent intent=new Intent(getContext(), LoginActivity.class);
                         startActivity(intent);
-                        return false;
-                    }
-                });
-
                 getDialog().dismiss();
             }
         });

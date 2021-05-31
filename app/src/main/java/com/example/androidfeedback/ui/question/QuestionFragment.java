@@ -33,7 +33,7 @@ public class QuestionFragment extends Fragment {
     QuestionAdapter questionAdapter;
     ArrayList<QuestionViewModel> questionList;
     Button btnAdd;
-    private int shouldLoad  = 0 ;
+    private boolean allowRefresh = false ;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_question,null);
@@ -82,5 +82,24 @@ public class QuestionFragment extends Fragment {
         // recyclerCategoryView.setHasFixedSize(true);
         recyclerQuestionView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerQuestionView.setAdapter(questionAdapter);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (!allowRefresh){
+            allowRefresh = true;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (allowRefresh) {
+            FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+            fl.removeAllViews();
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.replace(this.getId(),new QuestionFragment()).commitAllowingStateLoss();
+        }
     }
 }
