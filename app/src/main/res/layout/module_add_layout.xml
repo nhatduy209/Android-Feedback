@@ -44,7 +44,7 @@
             android:layout_marginStart="24dp"
             android:text="Module Name"
             android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp"
+            android:textSize="17sp"
             tools:fontFamily="serif" />
 
         <EditText
@@ -73,7 +73,7 @@
             android:layout_marginLeft="108dp"
             android:text="Start Date"
             android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp"
+            android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
@@ -98,6 +98,24 @@
             android:textColor="@android:color/holo_red_light"
             android:textSize="16sp"
             android:visibility="gone" />
+        <TextView
+            android:id="@+id/erAddModuleStartDate1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:text="Please choose start date after now date"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="16sp"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/erAddModuleStartDate2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:text="Please choose start date before end date"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/text22"
@@ -107,7 +125,7 @@
             android:layout_marginTop="0dp"
             android:text="End Date"
             android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp" />
+            android:textSize="17sp" />
 
         <EditText
             android:id="@+id/txtAddModuleEndDate"
@@ -133,6 +151,24 @@
             android:textColor="@android:color/holo_red_light"
             android:textSize="16sp"
             android:visibility="gone" />
+        <TextView
+            android:id="@+id/erAddModuleEndDate1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:text="Please choose end date after now date"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="16sp"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/erAddModuleEndDate2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:text="Please choose end date after start date"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/text33"
@@ -142,7 +178,7 @@
             android:layout_marginTop="0dp"
             android:text="Admin ID"
             android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp" />
+            android:textSize="17sp" />
 
         <EditText
             android:id="@+id/txtAddModuleAdmin"
@@ -164,7 +200,7 @@
             android:layout_marginTop="0dp"
             android:text="Feedback Title"
             android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp" />
+            android:textSize="17sp" />
 
         <EditText
             android:id="@+id/txtAddFBModuleTitle"
@@ -186,7 +222,7 @@
             android:layout_marginTop="0dp"
             android:text="Feedback Start Date"
             android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp" />
+            android:textSize="17sp" />
 
         <EditText
             android:id="@+id/txtAddFBModuleSD"
@@ -211,6 +247,24 @@
             android:textColor="@android:color/holo_red_light"
             android:textSize="16sp"
             android:visibility="gone" />
+        <TextView
+            android:id="@+id/erModuleFBStartDate1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:text="Please choose Feedback start date after now date"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="16sp"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/erModuleFBStartDate2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:text="Please choose Feedback start date before end date"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/text66"
@@ -220,7 +274,7 @@
             android:layout_marginTop="0dp"
             android:text="Feedback End Date"
             android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="18sp" />
+            android:textSize="17sp" />
 
         <EditText
             android:id="@+id/txtAddFBModuleED"
@@ -245,6 +299,24 @@
             android:textColor="@android:color/holo_red_light"
             android:textSize="16sp"
             android:visibility="gone" />
+        <TextView
+            android:id="@+id/erAddModuleFBEndDate1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:text="Please choose Feedback start date after now date"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="16sp"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/erAddModuleFBEndDate2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:text="Please choose Feedback start date after start date"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -258,7 +330,7 @@
         android:text="Save"
         android:textAllCaps="false"
         android:textColor="@color/design_default_color_background"
-        android:textSize="18sp"
+        android:textSize="17sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
@@ -271,7 +343,7 @@
         android:text="Back"
         android:textAllCaps="false"
         android:textColor="@color/design_default_color_background"
-        android:textSize="18sp"
+        android:textSize="17sp"
         app:layout_constraintStart_toEndOf="@+id/btnSaveAddModule"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
