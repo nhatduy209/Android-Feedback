@@ -104,4 +104,10 @@ public class ClassViewModel {
     }
 
 
+    // Text show in Spinner
+    @Override
+    public String toString()  {
+        return this.getClassName();
+    }
+
 }

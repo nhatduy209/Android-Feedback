@@ -1,6 +1,9 @@
 package common.serviceAPI;
 
+import com.example.androidfeedback.ui.assignment.AddAssignmentModel;
 import com.example.androidfeedback.ui.assignment.AssignmentModel;
+import com.example.androidfeedback.ui.assignment.EditAssignmentModel;
+import com.example.androidfeedback.ui.assignment.TrainerModel;
 import com.example.androidfeedback.ui.enrollment.EnrollmentViewModel;
 import com.example.androidfeedback.ui.feedback.FeedbackViewModel;
 import com.example.androidfeedback.ui.module.ModuleViewModel;
@@ -33,6 +36,12 @@ public interface CallGet {
 
     @GET("api/assignment")
     Call<List<AssignmentModel>> getListAssignment();
+
+    @GET("api/assignment/getListTrainer")
+    Call<List<TrainerModel>> getListTrainer();
+
+    @GET("api/assignment/getId")
+    Call<AddAssignmentModel> getAssigmentId(@Query("moduleName") String moduleName , @Query("className") String className, @Query("trainerName") String trainerName );
 
 
 }

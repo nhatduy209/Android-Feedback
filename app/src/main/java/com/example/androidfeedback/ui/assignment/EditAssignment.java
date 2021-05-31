@@ -36,7 +36,7 @@ public class EditAssignment extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-                navController.navigate(R.id.nav_class);
+                navController.navigate(R.id.nav_assignment);
             }
         });
 
@@ -45,7 +45,7 @@ public class EditAssignment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                navController.navigate(R.id.nav_class);
+                navController.navigate(R.id.nav_assignment);
             }
         });
 
@@ -54,14 +54,19 @@ public class EditAssignment extends AppCompatActivity {
         try {
             String moduleName = b.getString("moduleName");  // get data passing from other activity
             txtAssModuleName.setText(moduleName);
-            String moduleID = "1";//b.getString("moduleID");  // get data passing from other activity
-            txtAssModuleID.setText(moduleID);
+
+            int moduleID = b.getInt("moduleID");  // get data passing from other activity
+            txtAssModuleID.setText(String.valueOf(moduleID));
+
             String className = b.getString("className");  // get data passing from other activity
             txtAssClassName.setText(className);
-            String classID = "1";//b.getString("classID");  // get data passing from other activity
-            txtAssClassID.setText(classID);
-            String trainerID = b.getString("trainerID");
-            txtAssTrainer.setText(trainerID);
+
+            int classID = b.getInt("classID");  // get data passing from other activity
+            txtAssClassID.setText(String.valueOf(classID));
+
+            String trainerId = b.getString("trainerID");
+            String trainerName = b.getString("trainerName");
+            txtAssTrainer.setText(trainerName);
         } catch (Exception e) {
             return;
         }

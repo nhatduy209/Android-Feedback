@@ -4,10 +4,18 @@ import com.google.gson.annotations.SerializedName;
 
 public class AssignmentModel {
     int id;
+    @SerializedName("moduleId")
+    int moduleId;
     @SerializedName("moduleName")
     String moduleName;
+
+    @SerializedName("classId")
+    int classId;
     @SerializedName("className")
     String className;
+
+    @SerializedName("trainerId")
+    String trainerId;
     @SerializedName("trainerName")
     String trainerName;
     @SerializedName("registrationCode")
@@ -22,6 +30,14 @@ public class AssignmentModel {
         this.registrationCode = registrationCode;
     }
 
+    public AssignmentModel(int moduleID, int classID, String trainerID)
+    {
+        this.moduleId = moduleID;
+        this.classId = classID;
+        this.trainerId = trainerID;
+
+    }
+
     public int getId(){
         return id;
     }
@@ -29,6 +45,12 @@ public class AssignmentModel {
         this.id = id;
     }
 
+    public int getModuleId(){
+        return moduleId;
+    }
+    public void setModuleId(int moduleId){
+        this.moduleId = moduleId;
+    }
     public String getModuleName(){
         return moduleName;
     }
@@ -36,6 +58,13 @@ public class AssignmentModel {
         this.moduleName = moduleName;
     }
 
+
+    public int getClassId(){
+        return classId;
+    }
+    public void setClassId(int classId){
+        this.classId = classId;
+    }
     public String getClassName(){
         return className;
     }
@@ -43,12 +72,21 @@ public class AssignmentModel {
         this.className = className;
     }
 
+    public String getTrainerId(){
+        return trainerId;
+    }
+    public void setTrainerId(String trainerId){
+        this.trainerId = trainerId;
+    }
+
     public String getTrainerName(){
         return trainerName;
     }
-    public void setTrainerID(String trainerID){
+    public void setTrainerName(String trainerName){
         this.trainerName = trainerName;
     }
+
+
 
     public String getRegistrationCode(){
         return registrationCode;
