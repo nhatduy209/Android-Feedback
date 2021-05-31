@@ -160,8 +160,6 @@ public class EditAssignment extends AppCompatActivity {
 
                 TrainerModel trainerModel = (TrainerModel) parent.getSelectedItem();
                 trainerId = trainerModel.getTrainerId();
-                Toast.makeText(context , "trainer ID: "+trainerModel.getTrainerId()+",  " +
-                        "Trainer Name : "+trainerModel.getTrainerName(), Toast.LENGTH_SHORT).show();
             }
 
             @Override

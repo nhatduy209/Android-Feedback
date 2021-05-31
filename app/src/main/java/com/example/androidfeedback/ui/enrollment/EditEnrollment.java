@@ -147,19 +147,7 @@ public class EditEnrollment extends AppCompatActivity {
             }
         });
 
-        // get current data if edit
-        Bundle b = getIntent().getExtras();
-        try {
-            String traineeID = b.getString("traineeID");  // get data passing from other activity
-            txtEnTraineeId.setText(traineeID);
 
-            String traineeName = b.getString("traineeName");  // get data passing from other activity
-            txtEnTraineeName.setText(traineeName);
-            String className = b.getString("className");  // get data passing from other activity
-            txtEnClassName.setText(className);
-        } catch (Exception e) {
-            return;
-        }
 
 
         txtEnClassName.setOnClickListener(new View.OnClickListener() {

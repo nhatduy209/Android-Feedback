@@ -36,7 +36,7 @@ public class AssignmentFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
         fl.removeAllViews();
-        View root = inflater.inflate(R.layout.fragment_assignment, container, false);
+        final View root = inflater.inflate(R.layout.fragment_assignment, container, false);
         listAssignment = new ArrayList<AssignmentModel>();
         //createAssignmentList();
         recyclerAssignment = root.findViewById(R.id.recyclerAssignment);

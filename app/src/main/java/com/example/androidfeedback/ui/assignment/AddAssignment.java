@@ -187,8 +187,6 @@ public class AddAssignment extends AppCompatActivity {
 
                 ClassViewModel classViewModel = (ClassViewModel) parent.getSelectedItem();
                 classId = classViewModel.getClassId();
-                Toast.makeText(context , "class ID: "+classViewModel.getClassId()+",  " +
-                        "Class Name : "+classViewModel.getClassName(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -209,8 +207,6 @@ public class AddAssignment extends AppCompatActivity {
 
                 ModuleViewModel moduleViewModel = (ModuleViewModel) parent.getSelectedItem();
                 moduleId = moduleViewModel.getModuleId();
-                Toast.makeText(context , "module ID: "+moduleViewModel.getModuleId()+",  " +
-                        "Module Name : "+moduleViewModel.getModuleName(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -232,8 +228,6 @@ public class AddAssignment extends AppCompatActivity {
 
                 TrainerModel trainerModel = (TrainerModel) parent.getSelectedItem();
                 trainerId = trainerModel.getTrainerId();
-                Toast.makeText(context , "trainer ID: "+trainerModel.getTrainerId()+",  " +
-                        "Trainer Name : "+trainerModel.getTrainerName(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
