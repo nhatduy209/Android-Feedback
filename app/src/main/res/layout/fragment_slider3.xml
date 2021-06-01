@@ -3,21 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFFFF">
-
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChart3"
-        android:layout_width="212dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="321dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19">
-
-    </com.github.mikephil.charting.charts.PieChart>
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView19"
