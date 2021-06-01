@@ -50,18 +50,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vldUsername" />
 
-    <Spinner
-        android:id="@+id/spnRole"
-        android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="16dp"
 
-        android:layout_marginEnd="56dp"
-        android:popupBackground="@drawable/black_line"
-        app:layout_constraintEnd_toEndOf="parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vldPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword">
+
+        <Spinner
+            android:id="@+id/spnRole"
+            android:layout_width="261dp"
+            android:layout_height="50dp"
+
+            android:layout_marginEnd="72dp"
+            android:background="@drawable/spinner_login"
+            android:popupBackground="@drawable/spinner_login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="72dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/vldUsername"
@@ -92,13 +111,13 @@
         android:id="@+id/cbRememberMe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
+        android:layout_marginStart="88dp"
         android:layout_marginTop="24dp"
         android:text="Remember Password"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spnRole" />
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
     <Button
         android:id="@+id/btnLogin"

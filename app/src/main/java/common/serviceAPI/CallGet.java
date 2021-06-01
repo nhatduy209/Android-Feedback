@@ -2,20 +2,18 @@ package common.serviceAPI;
 
 import com.example.androidfeedback.ui.assignment.AddAssignmentModel;
 import com.example.androidfeedback.ui.assignment.AssignmentModel;
-import com.example.androidfeedback.ui.assignment.EditAssignmentModel;
 import com.example.androidfeedback.ui.assignment.TrainerModel;
 import com.example.androidfeedback.ui.enrollment.EnrollmentDetailModel;
 import com.example.androidfeedback.ui.enrollment.EnrollmentViewModel;
 import com.example.androidfeedback.ui.feedback.FeedbackViewModel;
+import com.example.androidfeedback.ui.module.AddModuleSpinner;
 import com.example.androidfeedback.ui.module.ModuleViewModel;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
 import com.example.androidfeedback.ui.uiclass.ClassViewModel;
 
 import java.util.List;
 
-import common.ModelTestAPI;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -32,6 +30,9 @@ public interface CallGet {
 
     @GET("api/module")
     Call<List<ModuleViewModel>> getListModule();
+
+    @GET("api/module/add")
+    Call<AddModuleSpinner> getListAddModule();
 
     @GET("api/feedback/")
     Call<List<FeedbackViewModel>> getListFeedback();
