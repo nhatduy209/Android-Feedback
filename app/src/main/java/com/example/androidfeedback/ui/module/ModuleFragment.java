@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidfeedback.R;
 import com.example.androidfeedback.ui.question.QuestionFragment;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
+import com.example.androidfeedback.ui.uiclass.ClassFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -59,6 +61,17 @@ public class ModuleFragment extends Fragment{
 
         FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
         fl.removeAllViews();
+
+        SharedPreferences prefs = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+        boolean shouldAttach = prefs.getBoolean("shouldAttach", true);
+        if(shouldAttach){
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("shouldAttach",false);
+            editor.putBoolean("shouldReload",false);
+            editor.apply();
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.replace(this.getId(),new ModuleFragment()).commit();
+        }
 
         btnAdd.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -98,22 +111,25 @@ public class ModuleFragment extends Fragment{
         recyclerModule.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerModule.setAdapter(classAdapter);
     }
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (!allowRefresh){
-            allowRefresh = true;
-        }
-    }
 
     @Override
     public void onResume() {
         super.onResume();
+        SharedPreferences prefs = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        boolean shouldReload = prefs.getBoolean("shouldReload", false);
+
         if (allowRefresh) {
-            FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
-            fl.removeAllViews();
+            // get seesion
+            allowRefresh = false;
+            editor.putBoolean("shouldAttach",false);
+            editor.apply();
+        }
+        if(shouldReload){
+            editor.putBoolean("shouldReload",false);
+            editor.apply();
             FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-            ft.replace(this.getId(),new ModuleFragment()).commitAllowingStateLoss();
+            ft.replace(this.getId(),new ModuleFragment()).commit();
         }
     }
 }

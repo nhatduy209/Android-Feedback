@@ -1,6 +1,8 @@
 package com.example.androidfeedback.ui.assignment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidfeedback.R;
 import com.example.androidfeedback.ui.enrollment.EnrollmentFragment;
+import com.example.androidfeedback.ui.uiclass.ClassFragment;
 
 
 import java.util.ArrayList;
@@ -37,8 +40,7 @@ public class AssignmentFragment extends Fragment {
     private Button btnAdd, btnSearchAssignment;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
-        fl.removeAllViews();
+
         final View root = inflater.inflate(R.layout.fragment_assignment, container, false);
         listAssignment = new ArrayList<AssignmentModel>();
         //createAssignmentList();
@@ -59,6 +61,20 @@ public class AssignmentFragment extends Fragment {
             }
         });
         btnSearchAssignment = root.findViewById(R.id.btnSearchAssignment);
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
+
+        SharedPreferences prefs = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+        boolean shouldAttach = prefs.getBoolean("shouldAttach", true);
+        if(shouldAttach){
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("shouldAttach",false);
+            editor.putBoolean("shouldReload",false);
+            editor.apply();
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.replace(this.getId(),new AssignmentFragment()).commit();
+        }
+
         btnSearchAssignment.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -128,21 +144,23 @@ public class AssignmentFragment extends Fragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        if (!allowRefresh){
-            allowRefresh = true;
-        }
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
+        SharedPreferences prefs = getActivity().getSharedPreferences("Refresh", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        boolean shouldReload = prefs.getBoolean("shouldReload", false);
+
         if (allowRefresh) {
-            FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
-            fl.removeAllViews();
+            // get seesion
+            allowRefresh = false;
+            editor.putBoolean("shouldAttach",false);
+            editor.apply();
+        }
+        if(shouldReload){
+            editor.putBoolean("shouldReload",false);
+            editor.apply();
             FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-            ft.replace(this.getId(),new EnrollmentFragment()).commitAllowingStateLoss();
+            ft.replace(this.getId(),new AssignmentFragment()).commit();
         }
     }
 }

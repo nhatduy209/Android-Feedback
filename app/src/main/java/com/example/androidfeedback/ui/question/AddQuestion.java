@@ -3,6 +3,7 @@ package com.example.androidfeedback.ui.question;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -45,7 +46,7 @@ public class AddQuestion extends AppCompatActivity {
     private Button btnBack ;
     private Button btnSave ;
     private boolean isEdit  = false ;
-    private String questionContent ;
+    private String questionContent , topicName ;
     private int  questionID ;
     private Spinner spinnerQuestion;
     private TopicModel topicModel ;
@@ -56,19 +57,41 @@ public class AddQuestion extends AppCompatActivity {
         final NavController navController = Navigation.findNavController(this ,R.id.nav_host_fragment);
         btnSave = findViewById(R.id.btnSaveQuestion);
         txtQuestionContent = findViewById(R.id.txtQuestionAddContent);
-
         tvAddQuestion = findViewById(R.id.tvAddQuestion);
+
+
+
+        // get current data if edit
+        Bundle b = getIntent().getExtras();
+        try{
+            topicName = b.getString("topicName");  // get data passing from other activity
+            questionContent = b.getString("questionContent");  // get data passing from other activity
+            txtQuestionContent.setText(questionContent);
+            tvAddQuestion.setText("Edit Question");
+            questionID = b.getInt("questionID");
+            isEdit = b.getBoolean("isEditing");
+        }catch(Exception e){
+            String a = e.getMessage();
+        }
 
         // spinner here
         spinnerQuestion = findViewById(R.id.spEnListTopicName);
 
-        ArrayList<TopicModel> list = new ArrayList<TopicModel>();
-        list.add(new TopicModel("Training program and content" , 4 ));
-        list.add(new TopicModel("Trainer Coach" , 5 ));
-        list.add(new TopicModel("Course organizations" , 6 ));
-        list.add(new TopicModel("Other" , 7));
+        if(!isEdit){
+            final ArrayList<TopicModel> list = new ArrayList<TopicModel>();
+            list.add(new TopicModel("Training program and content" , 4 ));
+            list.add(new TopicModel("Trainer Coach" , 5 ));
+            list.add(new TopicModel("Course organizations" , 6 ));
+            list.add(new TopicModel("Other" , 7));
+            setSpinner(spinnerQuestion , list , null );
+        }
+        else if(isEdit){
+            final ArrayList<String> list = new ArrayList<String>();
+            list.add(topicName);
+            setSpinner(spinnerQuestion , null , list  );
+        }
 
-        setSpinner(spinnerQuestion , list );
+
 
         // user press save => call api add question
             btnSave.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +114,13 @@ public class AddQuestion extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<QuestionViewModel> call, Response<QuestionViewModel> response) {
                                 String res = response.message();
+
+                                SharedPreferences pref = getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = pref.edit();
+                                editor.putBoolean("shouldReload",true);
+                                editor.apply();
+
+
                                 finish();
                                 navController.navigate(R.id.nav_question);
                             }
@@ -116,6 +146,10 @@ public class AddQuestion extends AppCompatActivity {
                                 // Reload current fragment
                                 // load fragment again
 
+                                SharedPreferences pref = getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = pref.edit();
+                                editor.putBoolean("shouldReload",true);
+                                editor.apply();
 
                                 finish();
                                 navController.navigate(R.id.nav_question);
@@ -132,8 +166,6 @@ public class AddQuestion extends AppCompatActivity {
                 }
             });
 
-
-
         btnBack = findViewById(R.id.btnBackQuestion);
         btnBack.setOnClickListener( new View.OnClickListener(){
             @Override
@@ -144,38 +176,33 @@ public class AddQuestion extends AppCompatActivity {
             }
         });
 
-         // get current data if edit
-        Bundle b = getIntent().getExtras();
-        try{
-            String topicName = b.getString("topicName");  // get data passing from other activity
-            txtTopicName.setText(topicName);
-            questionContent = b.getString("questionContent");  // get data passing from other activity
-            txtQuestionContent.setText(questionContent);
-            tvAddQuestion.setText("Edit Question");
-            questionID = b.getInt("questionID");
-            isEdit = b.getBoolean("isEditing");
-        }catch(Exception e){
-            return ;
-        }
     }
+    private void setSpinner( Spinner spinner, List<TopicModel> listData , List<String> singleData){
 
-
-    private void setSpinner( Spinner spinner, List<TopicModel> listData){
-        ArrayAdapter dataAdapter = new ArrayAdapter(AddQuestion.this,
-                android.R.layout.simple_spinner_dropdown_item,listData);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
+        if(isEdit){
+            ArrayAdapter dataAdapter = new ArrayAdapter(AddQuestion.this,
+                    android.R.layout.simple_spinner_dropdown_item,singleData);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(dataAdapter);
+            spinner.setEnabled(false);
+        }
         // When user select a List-Item.
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                topicModel = (TopicModel) parent.getSelectedItem();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+        else if(!isEdit){
+            ArrayAdapter dataAdapter = new ArrayAdapter(AddQuestion.this,
+                    android.R.layout.simple_spinner_dropdown_item,listData);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(dataAdapter);
 
-            }
-        });
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    topicModel = (TopicModel) parent.getSelectedItem();
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+        }
     }
 }
 

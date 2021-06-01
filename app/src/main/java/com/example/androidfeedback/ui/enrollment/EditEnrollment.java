@@ -96,9 +96,14 @@ public class EditEnrollment extends AppCompatActivity {
                     public void onResponse(Call<EnrollmentViewModel> call, Response<EnrollmentViewModel> response) {
                     String a = response.message();
 
-                        finish();
-                        navController.navigate(R.id.nav_enrollment);
 
+
+                        SharedPreferences pref = getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putBoolean("shouldReload",true);
+                        editor.apply();
+                        finish();
+                        navController.navigate(R.id.nav_class);
                     }
 
                     @Override
@@ -143,7 +148,7 @@ public class EditEnrollment extends AppCompatActivity {
             public void onClick(View v) {
                 //load current fragment
                 finish();
-                navController.navigate(R.id.nav_enrollment);
+                navController.navigate(R.id.nav_class);
             }
         });
 

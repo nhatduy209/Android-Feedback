@@ -3,6 +3,7 @@ package com.example.androidfeedback.ui.module;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.SurfaceControl;
 import android.view.View;
@@ -151,8 +152,15 @@ public class AddModule extends AppCompatActivity implements DatePickerDialog.OnD
                             public void onResponse(Call<AddModuleModel> call, Response<AddModuleModel> response) {
                                 String res = response.message();
                                 Toast.makeText(context,res, Toast.LENGTH_SHORT).show();
+
+                                SharedPreferences pref = getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = pref.edit();
+                                editor.putBoolean("shouldReload",true);
+                                editor.apply();
+
+
                                 finish();
-                                navController.navigate(R.id.nav_module);
+                                navController.navigate(R.id.nav_class);
                             }
 
                             @Override
@@ -175,7 +183,7 @@ public class AddModule extends AppCompatActivity implements DatePickerDialog.OnD
                                 String res = response.message();
                                 Toast.makeText(context,res, Toast.LENGTH_SHORT).show();
                                 finish();
-                                navController.navigate(R.id.nav_module);
+                                navController.navigate(R.id.nav_class);
                             }
 
                             @Override
@@ -194,7 +202,7 @@ public class AddModule extends AppCompatActivity implements DatePickerDialog.OnD
             @Override
             public void onClick(View v) {
                 finish();
-                navController.navigate(R.id.nav_module);
+                navController.navigate(R.id.nav_class);
             }
         });
 

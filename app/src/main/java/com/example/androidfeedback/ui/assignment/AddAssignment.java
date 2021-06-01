@@ -85,6 +85,12 @@ public class AddAssignment extends AppCompatActivity {
 
                             // load fragment again
 
+                            SharedPreferences pref = getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putBoolean("shouldReload",true);
+                            editor.apply();
+
+
                             finish();
                             navController.navigate(R.id.nav_assignment);
 

@@ -49,17 +49,20 @@ public class QuestionFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         // get seesion
-        SharedPreferences pref = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
-        boolean shouldAttach = pref.getBoolean("shouldAttach", true);
 
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
+
+        SharedPreferences prefs = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+        boolean shouldAttach = prefs.getBoolean("shouldAttach", true);
         if(shouldAttach){
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("shouldAttach",false);
+            editor.putBoolean("shouldReload",false);
+            editor.apply();
             FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
             ft.replace(this.getId(),new QuestionFragment()).commit();
-            SharedPreferences.Editor editor = pref.edit();
-            editor.putBoolean("shouldAttach",false);
-            editor.apply();
         }
-
 
         final View root = inflater.inflate(R.layout.fragment_question,null);
         final View smallRoot = inflater.inflate(R.layout.question_recycler_view_item,null );
@@ -78,11 +81,6 @@ public class QuestionFragment extends Fragment {
         list.add("Other");
 
         setSpinner(spinner , list ,root );
-
-
-        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
-        fl.removeAllViews();
-
 
         btnAdd = root.findViewById(R.id.btnAddQuestion);
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -141,22 +139,23 @@ public class QuestionFragment extends Fragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        if (!allowRefresh){
-            allowRefresh = true;
-            SharedPreferences pref = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = pref.edit();
-            editor.putBoolean("shouldAttach",true);
-            editor.apply();
-        }
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
+        SharedPreferences prefs = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        boolean shouldReload = prefs.getBoolean("shouldReload", false);
+
         if (allowRefresh) {
+            // get seesion
             allowRefresh = false;
+            editor.putBoolean("shouldAttach",false);
+            editor.apply();
+        }
+        if(shouldReload){
+            editor.putBoolean("shouldReload",false);
+            editor.apply();
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.replace(this.getId(),new QuestionFragment()).commit();
         }
     }
 }
