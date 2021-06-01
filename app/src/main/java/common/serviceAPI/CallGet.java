@@ -4,6 +4,7 @@ import com.example.androidfeedback.ui.assignment.AddAssignmentModel;
 import com.example.androidfeedback.ui.assignment.AssignmentModel;
 import com.example.androidfeedback.ui.assignment.EditAssignmentModel;
 import com.example.androidfeedback.ui.assignment.TrainerModel;
+import com.example.androidfeedback.ui.enrollment.EnrollmentDetailModel;
 import com.example.androidfeedback.ui.enrollment.EnrollmentViewModel;
 import com.example.androidfeedback.ui.feedback.FeedbackViewModel;
 import com.example.androidfeedback.ui.module.ModuleViewModel;
@@ -47,5 +48,8 @@ public interface CallGet {
     @GET("api/assignment/getId/{moduleName}/{className}/{trainerName}")
     Call<AddAssignmentModel> getAssigmentId(@Path("moduleName") String moduleName , @Path("className") String className, @Path("trainerName") String trainerName );
 
+
+    @GET("api/enrollment/getDetail/{id}/{trainneID}")
+    Call<EnrollmentDetailModel> getDetailEnrollment(@Path("id") String idClass , @Path("trainneID") String traineeID );
 
 }

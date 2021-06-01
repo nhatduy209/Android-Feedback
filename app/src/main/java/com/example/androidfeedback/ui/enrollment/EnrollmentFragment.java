@@ -44,9 +44,9 @@ public class EnrollmentFragment extends Fragment {
     private String filterName = "All";
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
-        fl.removeAllViews();
+
         final View root = inflater.inflate(R.layout.fragment_enrollment,null);
+
         enrollmentList = new ArrayList<>();
         listClass = new ArrayList<>();
         recyclerEnrollmentView = root.findViewById(R.id.recyclerEnrollmentView);
@@ -57,6 +57,8 @@ public class EnrollmentFragment extends Fragment {
 
         ArrayList<String> arrayList = new ArrayList<>();
 
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
         //call api get name class
         // get seesion
         SharedPreferences pref = getActivity().getSharedPreferences("GetSession", Context.MODE_PRIVATE);
@@ -130,7 +132,7 @@ public class EnrollmentFragment extends Fragment {
         return root;
     }
     public void reload(ArrayList<EnrollmentViewModel> listEnrollment, View view){
-        enrollmentAdapter = new EnrollmentAdapter(getActivity().getApplicationContext(), listEnrollment);
+        enrollmentAdapter = new EnrollmentAdapter(getActivity(), listEnrollment);
         enrollmentAdapter.notifyDataSetChanged();
         // recyclerCategoryView.setHasFixedSize(true);
         recyclerEnrollmentView.setLayoutManager(new LinearLayoutManager(view.getContext()));

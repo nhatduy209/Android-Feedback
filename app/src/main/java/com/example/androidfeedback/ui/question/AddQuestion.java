@@ -63,10 +63,10 @@ public class AddQuestion extends AppCompatActivity {
         spinnerQuestion = findViewById(R.id.spEnListTopicName);
 
         ArrayList<TopicModel> list = new ArrayList<TopicModel>();
-        list.add(new TopicModel("Training program and content" , 1 ));
-        list.add(new TopicModel("Trainer Coach" , 2 ));
-        list.add(new TopicModel("Course organizations" , 3 ));
-        list.add(new TopicModel("Other" , 4));
+        list.add(new TopicModel("Training program and content" , 4 ));
+        list.add(new TopicModel("Trainer Coach" , 5 ));
+        list.add(new TopicModel("Course organizations" , 6 ));
+        list.add(new TopicModel("Other" , 7));
 
         setSpinner(spinnerQuestion , list );
 
@@ -78,7 +78,7 @@ public class AddQuestion extends AppCompatActivity {
                     {
                         // get value from user input
                         QuestionViewModel questionModel = new QuestionViewModel(0,
-                                txtQuestionContent.getText().toString(), topicModel.getTopicID(),topicModel.getTopicName());
+                                txtQuestionContent.getText().toString(), topicModel.getTopicID());
 
                         Retrofit retrofit = RetrofitInstance.getClient();
 

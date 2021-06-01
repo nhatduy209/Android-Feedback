@@ -30,11 +30,10 @@ public class QuestionViewModel {
         return success;
     }
 
-    public QuestionViewModel(int questionID, String questionContent, int topicID, String topicName){
+    public QuestionViewModel(int questionID, String questionContent, int topicID ){
         this.questionID = questionID;
         this.questionContent = questionContent;
         this.topicID = topicID;
-        this.topicName = topicName;
     }
 
     public int getQuestionID() {

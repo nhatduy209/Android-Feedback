@@ -55,13 +55,17 @@ public class ClassFragment extends Fragment{
 
     public View onCreateView(@NonNull  LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
-        fl.removeAllViews();
         final View root = inflater.inflate(R.layout.fragment_class, null  );
 //       final View smallRoot  = inflater.inflate(R.layout.class_recycler_view_item, null );
         listClass = new ArrayList<ClassViewModel>();
         recyclerClass = root.findViewById(R.id.recyclerClassView);
         btnAdd = root.findViewById(R.id.btn_add);
+
+
+
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
+
 
         btnAdd.setOnClickListener(new View.OnClickListener(){
 
@@ -73,7 +77,6 @@ public class ClassFragment extends Fragment{
         });
 
         // get seesion
-        if(!allowRefresh){
             SharedPreferences pref = getActivity().getSharedPreferences("GetSession",Context.MODE_PRIVATE);
             String userId = pref.getString("userId", "");
             String userName = pref.getString("userName", "");
@@ -97,10 +100,6 @@ public class ClassFragment extends Fragment{
                     String a = t.getMessage();
                 }
             });
-        }
-        else{
-            return null;
-        }
         return root ;
     }
 
@@ -124,7 +123,7 @@ public class ClassFragment extends Fragment{
     public void onResume() {
         super.onResume();
         if (allowRefresh) {
-            FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+            FrameLayout fl = getActivity().findViewById(this.getId());
             fl.removeAllViews();
             FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
             ft.replace(this.getId(),new ClassFragment()).commitAllowingStateLoss();
