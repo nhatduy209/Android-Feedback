@@ -1,6 +1,8 @@
 package com.example.androidfeedback.ui.assignment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -46,6 +49,11 @@ public class AssignmentFragment extends Fragment {
         //Find input text
         txtSearchAssignment = root.findViewById(R.id.txtSearchAssignment);
 
+        // get session
+        SharedPreferences pref = getActivity().getSharedPreferences("GetSession", Context.MODE_PRIVATE);
+        String userId = pref.getString("userId", "");
+        final String role  = pref.getString("role", "");
+
 
         //Create Assignment Adapter
         assignmentAdapter = new AssignmentAdapter(getActivity().getApplicationContext(),listAssignment);
@@ -62,30 +70,45 @@ public class AssignmentFragment extends Fragment {
         btnSearchAssignment.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                String inputText = txtSearchAssignment.getText().toString();
+                String inputText = txtSearchAssignment.getText().toString().trim();
                 if(inputText!=null)
                 {
-                    // call api to get list assignment search
-                    Retrofit retrofit = RetrofitInstance.getClient();
+                    if(role == "Trainer")
+                    {
 
-                    CallGet callGet = retrofit.create(CallGet.class);
+                    }
+                    else
+                    {
+                        // call api to get list assignment search
+                        Retrofit retrofit = RetrofitInstance.getClient();
 
-                    Call<List<AssignmentModel>> getSearchAssignments = callGet.searchAssignment(inputText);
+                        CallGet callGet = retrofit.create(CallGet.class);
 
-                    getSearchAssignments.enqueue(new Callback<List<AssignmentModel>>() {
-                        @Override
-                        public void onResponse(Call<List<AssignmentModel>> call, Response<List<AssignmentModel>> response) {
-                            listAssignment = (ArrayList<AssignmentModel>) response.body();
-                            reload(listAssignment, root );
-                        }
+                        Call<List<AssignmentModel>> getSearchAssignments = callGet.searchAssignment(inputText);
 
-                        @Override
-                        public void onFailure(Call<List<AssignmentModel>> call, Throwable t) {
+                        getSearchAssignments.enqueue(new Callback<List<AssignmentModel>>() {
+                            @Override
+                            public void onResponse(Call<List<AssignmentModel>> call, Response<List<AssignmentModel>> response) {
+                                String res = response.message();
+                                if(res!=null)
+                                {
+                                    Toast.makeText(getActivity() ,res, Toast.LENGTH_LONG).show();
+                                }
+                                else
+                                {
+                                    listAssignment = (ArrayList<AssignmentModel>) response.body();
+                                    reload(listAssignment, root );
+                                }
+                            }
 
-                        }
+                            @Override
+                            public void onFailure(Call<List<AssignmentModel>> call, Throwable t) {
 
-                    });
+                            }
 
+                        });
+
+                    }
                 }
 
             }
@@ -95,27 +118,35 @@ public class AssignmentFragment extends Fragment {
         recyclerAssignment.setAdapter(assignmentAdapter);
         recyclerAssignment.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
+        if(role =="Trainer")
+        {
 
-        // call api to get list assignment
-        Retrofit retrofit = RetrofitInstance.getClient();
+        }
+        else
+        {
+            // call api to get list assignment
+            Retrofit retrofit = RetrofitInstance.getClient();
 
-        CallGet callGet = retrofit.create(CallGet.class);
+            CallGet callGet = retrofit.create(CallGet.class);
 
-        Call<List<AssignmentModel>> getListAssignments = callGet.getListAssignment();
+            Call<List<AssignmentModel>> getListAssignments = callGet.getListAssignment();
 
-        getListAssignments.enqueue(new Callback<List<AssignmentModel>>() {
-            @Override
-            public void onResponse(Call<List<AssignmentModel>> call, Response<List<AssignmentModel>> response) {
-                listAssignment = (ArrayList<AssignmentModel>) response.body();
-                reload(listAssignment, root );
-            }
+            getListAssignments.enqueue(new Callback<List<AssignmentModel>>() {
+                @Override
+                public void onResponse(Call<List<AssignmentModel>> call, Response<List<AssignmentModel>> response) {
+                    listAssignment = (ArrayList<AssignmentModel>) response.body();
+                    reload(listAssignment, root );
+                }
 
-            @Override
-            public void onFailure(Call<List<AssignmentModel>> call, Throwable t) {
+                @Override
+                public void onFailure(Call<List<AssignmentModel>> call, Throwable t) {
 
-            }
+                }
 
-        });
+            });
+
+        }
+
 
         return root;
 
@@ -142,7 +173,7 @@ public class AssignmentFragment extends Fragment {
             FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
             fl.removeAllViews();
             FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-            ft.replace(this.getId(),new EnrollmentFragment()).commitAllowingStateLoss();
+            ft.replace(this.getId(),new AssignmentFragment()).commitAllowingStateLoss();
         }
     }
 }

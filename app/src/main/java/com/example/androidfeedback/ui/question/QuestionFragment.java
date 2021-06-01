@@ -36,14 +36,14 @@ public class QuestionFragment extends Fragment {
     private boolean allowRefresh = false ;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
         final View root = inflater.inflate(R.layout.fragment_question,null);
         final View smallRoot = inflater.inflate(R.layout.question_recycler_view_item,null );
         questionList = new ArrayList<QuestionViewModel>();
         recyclerQuestionView = root.findViewById(R.id.recyclerQuestionView);
 
-
-        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
-        fl.removeAllViews();
 
 
         btnAdd = root.findViewById(R.id.btnAddQuestion);

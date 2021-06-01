@@ -19,10 +19,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
+import com.example.androidfeedback.ui.question.QuestionFragment;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
 
 import java.util.ArrayList;
@@ -45,8 +47,11 @@ public class ModuleFragment extends Fragment{
     private Button btnAdd ;
     private ImageView btnEdit  ;
     private Context finalContext;
+    private boolean allowRefresh = false ;
     public View onCreateView(@NonNull  LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
         final View root = inflater.inflate(R.layout.fragment_module, null  );
         final View smallRoot  = inflater.inflate(R.layout.module_recycler_view_item, null );
         listModule = new ArrayList<ModuleViewModel>();
@@ -54,8 +59,6 @@ public class ModuleFragment extends Fragment{
         btnAdd = root.findViewById(R.id.btnAddModule);
 
 
-        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
-        fl.removeAllViews();
 
         btnAdd.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -94,5 +97,23 @@ public class ModuleFragment extends Fragment{
         // recyclerCategoryView.setHasFixedSize(true);
         recyclerModule.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerModule.setAdapter(classAdapter);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (!allowRefresh){
+            allowRefresh = true;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (allowRefresh) {
+            FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+            fl.removeAllViews();
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.replace(this.getId(),new ModuleFragment()).commitAllowingStateLoss();
+        }
     }
 }

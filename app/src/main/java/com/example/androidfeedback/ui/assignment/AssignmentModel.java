@@ -21,6 +21,32 @@ public class AssignmentModel {
     @SerializedName("registrationCode")
     String registrationCode;
 
+    //Check delete
+    @SerializedName("moduleIsDelete")
+    boolean moduleIsDelete;
+    @SerializedName("classIsDelete")
+    boolean classIsDelete;
+
+    public boolean moduleIsDelete() {
+        return moduleIsDelete;
+    }
+    public boolean classIsDelete() {
+        return classIsDelete;
+    }
+
+    @SerializedName("message")
+    private String message ;
+
+    @SerializedName("success")
+    private String success ;
+    public String getMessage() {
+        return message;
+    }
+
+    public String getSuccess() {
+        return success;
+    }
+
     public AssignmentModel(int id, String moduleName, String className, String trainerName, String registrationCode)
     {
         this.id = id;

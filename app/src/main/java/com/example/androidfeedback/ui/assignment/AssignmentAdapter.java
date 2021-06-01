@@ -104,6 +104,11 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.Vi
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String alertText = "Do you want to delete this assignment?";
+                if(assignment.classIsDelete() == false || assignment.moduleIsDelete() ==false)
+                {
+                    alertText = "An active Module and Class has been assigned to this assignment. Do you really want to delete this?";
+                }
                 AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());//khởi tạo alert
                 View v = View.inflate(context,R.layout.delete_layout,null);
                 Button btnYes = v.findViewById(R.id.btnYes);
@@ -112,7 +117,8 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.Vi
 
                 alert.setView(v);
                 final AlertDialog dialog = alert.create();
-                txtMessage.setText("Do you want to delete this assignment?");
+                    //set text in dialog
+                txtMessage.setText(alertText);
                 btnYes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
