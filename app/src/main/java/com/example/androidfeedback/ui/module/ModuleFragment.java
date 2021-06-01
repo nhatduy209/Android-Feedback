@@ -52,6 +52,8 @@ public class ModuleFragment extends Fragment{
     private boolean allowRefresh = false ;
     public View onCreateView(@NonNull  LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
         final View root = inflater.inflate(R.layout.fragment_module, null  );
         final View smallRoot  = inflater.inflate(R.layout.module_recycler_view_item, null );
         listModule = new ArrayList<ModuleViewModel>();
@@ -59,8 +61,6 @@ public class ModuleFragment extends Fragment{
         btnAdd = root.findViewById(R.id.btnAddModule);
 
 
-        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
-        fl.removeAllViews();
 
         SharedPreferences prefs = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
         boolean shouldAttach = prefs.getBoolean("shouldAttach", true);
