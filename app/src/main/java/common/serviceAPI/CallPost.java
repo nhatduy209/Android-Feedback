@@ -5,6 +5,7 @@ import com.example.androidfeedback.ui.assignment.AssignmentModel;
 import com.example.androidfeedback.ui.assignment.EditAssignmentModel;
 import com.example.androidfeedback.ui.join.JoinViewModel;
 import com.example.androidfeedback.ui.login.LoginModel;
+import com.example.androidfeedback.ui.module.AddModuleModel;
 import com.example.androidfeedback.ui.module.ModuleViewModel;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
 import com.example.androidfeedback.ui.uiclass.ClassViewModel;
@@ -24,7 +25,7 @@ public interface CallPost {
     Call<ClassViewModel> addClassAPI(@Body ClassViewModel classViewModel );
 
     @POST("api/module/add")
-    Call<ModuleViewModel> addModuleAPI(@Body ModuleViewModel moduleViewModel );
+    Call<AddModuleModel> addModuleAPI(@Body AddModuleModel module );
 
     @POST("api/assignment")
     Call<AddAssignmentModel> addAssignmentAPI(@Body AddAssignmentModel addAssignmentModel );

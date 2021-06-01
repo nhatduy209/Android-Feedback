@@ -180,17 +180,30 @@
             android:textColor="@color/design_default_color_on_secondary"
             android:textSize="17sp" />
 
-        <EditText
-            android:id="@+id/txtAddModuleAdmin"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginStart="0dp"
-            android:background="@drawable/edittext"
-            android:drawableRight="@drawable/ic_db_arrow"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:paddingEnd="5dp"
-            tools:drawableRight="@drawable/ic_db_arrow" />
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:id="@+id/spAddModuleAdmin"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/edittext"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:paddingEnd="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:foreground="@drawable/ic_db_arrow"
+                app:layout_constraintEnd_toEndOf="@+id/spAddModuleAdmin"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <TextView
             android:id="@+id/text44"
@@ -202,17 +215,31 @@
             android:textColor="@color/design_default_color_on_secondary"
             android:textSize="17sp" />
 
-        <EditText
-            android:id="@+id/txtAddFBModuleTitle"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginStart="0dp"
-            android:background="@drawable/edittext"
-            android:drawableRight="@drawable/ic_db_arrow"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:paddingEnd="5dp"
-            tools:drawableRight="@drawable/ic_db_arrow" />
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:id="@+id/spAddFBModuleTitle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/edittext"
+                android:drawableRight="@drawable/ic_db_arrow"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:paddingEnd="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:drawableRight="@drawable/ic_db_arrow" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:foreground="@drawable/ic_db_arrow"
+                app:layout_constraintEnd_toEndOf="@+id/spAddFBModuleTitle"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/text55"
