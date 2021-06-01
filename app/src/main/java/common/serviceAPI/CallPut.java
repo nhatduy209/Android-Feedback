@@ -2,6 +2,8 @@ package common.serviceAPI;
 
 import com.example.androidfeedback.ui.assignment.AddAssignmentModel;
 import com.example.androidfeedback.ui.enrollment.EnrollmentViewModel;
+import com.example.androidfeedback.ui.module.AddModuleModel;
+import com.example.androidfeedback.ui.module.EditModuleModel;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
 import com.example.androidfeedback.ui.uiclass.ClassViewModel;
 
@@ -17,6 +19,9 @@ public interface CallPut {
 
     @PUT("api/classes/{id}")
     Call<ClassViewModel> updateClassAPI(@Path("id") int classId , @Body ClassViewModel classViewModel);
+
+    @PUT("api/module/update")
+    Call<EditModuleModel> updateModuleAPI(@Body EditModuleModel editModuleModel);
 
     @PUT("api/assignment/update/{oldTrainerId}")
     Call<AddAssignmentModel> updateAssignmentAPI(@Path("oldTrainerId") String oldTrainerId , @Body AddAssignmentModel addAssignmentModel);

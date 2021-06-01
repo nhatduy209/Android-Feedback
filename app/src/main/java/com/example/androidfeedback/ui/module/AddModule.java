@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.SurfaceControl;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,8 +19,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.example.androidfeedback.MainActivity;
 import com.example.androidfeedback.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -30,6 +34,7 @@ import java.util.List;
 import common.ValidationEditText;
 import common.serviceAPI.CallGet;
 import common.serviceAPI.CallPost;
+import common.serviceAPI.CallPut;
 import common.serviceAPI.RetrofitInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,7 +45,8 @@ public class AddModule extends AppCompatActivity implements DatePickerDialog.OnD
     private EditText datePickerEnd, txtAddModuleName, datePickerStart, fbDatePickerStart,fbDatePickerEnd;
     private Spinner spAdminName,spFBTitle;
     private AdminModel adminModel;
-    private int a;
+    private int a,moduleID;
+    private boolean isEdit = false;
     private FeedbackModel feedbackModel;
     private Context context = this ;
     private Button btnBack ;
@@ -131,28 +137,54 @@ public class AddModule extends AppCompatActivity implements DatePickerDialog.OnD
             public void onClick(View view) {
                 check = check();
                 if(check){
-                    AddModuleModel module = new AddModuleModel(spAdminName.toString(),txtAddModuleName.getText().toString()
-                            ,toDate(start),toDate(end),false,toDate(fbStart),toDate(fbEnd),a);
                     //save Module
-                    Retrofit retrofit = RetrofitInstance.getClient();
 
-                    CallPost callPost = retrofit.create(CallPost.class);
-                    Call<AddModuleModel> addModuleAPI = callPost.addModuleAPI(module);
+                    if(!isEdit){
+                        AddModuleModel module = new AddModuleModel(spAdminName.toString(),txtAddModuleName.getText().toString()
+                                ,toDate(start),toDate(end),false,toDate(fbStart),toDate(fbEnd),a);
+                        Retrofit retrofit = RetrofitInstance.getClient();
+                        CallPost callPost = retrofit.create(CallPost.class);
+                        Call<AddModuleModel> addModuleAPI = callPost.addModuleAPI(module);
 
-                    addModuleAPI.enqueue(new Callback<AddModuleModel>() {
-                        @Override
-                        public void onResponse(Call<AddModuleModel> call, Response<AddModuleModel> response) {
-                            String res = response.message();
-                            Toast.makeText(context,res, Toast.LENGTH_SHORT).show();
-                            finish();
-                            navController.navigate(R.id.nav_module);
-                        }
+                        addModuleAPI.enqueue(new Callback<AddModuleModel>() {
+                            @Override
+                            public void onResponse(Call<AddModuleModel> call, Response<AddModuleModel> response) {
+                                String res = response.message();
+                                Toast.makeText(context,res, Toast.LENGTH_SHORT).show();
+                                finish();
+                                navController.navigate(R.id.nav_module);
+                            }
 
-                        @Override
-                        public void onFailure(Call<AddModuleModel> call, Throwable t) {
+                            @Override
+                            public void onFailure(Call<AddModuleModel> call, Throwable t) {
 
-                        }
-                    });
+                            }
+                        });
+                    }
+                    else{
+                        EditModuleModel editModuleModel = new EditModuleModel(spAdminName.toString(),moduleID,txtAddModuleName.getText().toString()
+                                    ,toDate(start),toDate(end),false
+                                    ,toDate(fbStart),toDate(fbEnd),a);
+                        Retrofit retrofit = RetrofitInstance.getClient();
+                        CallPut callPut = retrofit.create(CallPut.class);
+                        Call<EditModuleModel> updateModuleAPI = callPut.updateModuleAPI(editModuleModel);
+
+                        updateModuleAPI.enqueue(new Callback<EditModuleModel>() {
+                            @Override
+                            public void onResponse(Call<EditModuleModel> call, Response<EditModuleModel> response) {
+                                String res = response.message();
+                                Toast.makeText(context,res, Toast.LENGTH_SHORT).show();
+                                finish();
+                                navController.navigate(R.id.nav_module);
+                            }
+
+                            @Override
+                            public void onFailure(Call<EditModuleModel> call, Throwable t) {
+
+                            }
+                        });
+                    }
+
                 }
             }
         });
@@ -192,6 +224,7 @@ public class AddModule extends AppCompatActivity implements DatePickerDialog.OnD
         // get current data if edit
         Bundle b = getIntent().getExtras();
         try {
+            moduleID = b.getInt("moduleID");
             String moduleName = b.getString("moduleName");  // get data passing from other activity
             txtAddModuleName.setText(moduleName);
             String dateEnd = b.getString("endDate");  // get data passing from other activity
@@ -202,10 +235,27 @@ public class AddModule extends AppCompatActivity implements DatePickerDialog.OnD
             fbDatePickerEnd.setText(fbDateEnd);
             String fbDateStart = b.getString("fbStartDate");  // get data passing from other activity
             fbDatePickerStart.setText(fbDateStart);
+            start = toDate(dateStart).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            end = toDate(dateEnd).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            fbStart = toDate(fbDateStart).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            fbEnd = toDate(fbDateEnd).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             tvAddModule.setText("Edit Module List");
+            moduleID = b.getInt("moduleID");
+            isEdit = true;
         } catch (Exception e) {
             return;
         }
+
+    }
+
+    public Date toDate(String input) throws ParseException {
+        Date output = new SimpleDateFormat("dd/MM/yyyy").parse(input);
+        return output;
+
+    }
+    public Date toHaftDate(String input) throws ParseException {
+        Date output = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss aaa").parse(input);
+        return output;
 
     }
 
@@ -213,23 +263,23 @@ public class AddModule extends AppCompatActivity implements DatePickerDialog.OnD
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
         if (dateAdd == 1) {
-            datePickerStart.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+            datePickerStart.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
             start = LocalDate.of(year,month+1,dayOfMonth);
             dateAdd = 0;  // return default value
         }
         else if (dateAdd == 2) {
-            datePickerEnd.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+            datePickerEnd.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
             end = LocalDate.of(year,month+1,dayOfMonth);
             dateAdd = 0;  // return default value
         }
         else if (dateAdd == 3) {
-            fbDatePickerStart.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+            fbDatePickerStart.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
             fbStart = LocalDate.of(year,month+1,dayOfMonth);
             dateAdd = 0;  // return default value
         }
         else{
             fbEnd = LocalDate.of(year,month+1,dayOfMonth);
-            fbDatePickerEnd.setText(dayOfMonth +"-" + (month + 1) + "-" + year);
+            fbDatePickerEnd.setText(dayOfMonth +"/" + (month + 1) + "/" + year);
         }
     }
 

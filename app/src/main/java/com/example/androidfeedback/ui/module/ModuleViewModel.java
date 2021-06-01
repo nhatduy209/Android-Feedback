@@ -11,9 +11,17 @@ public class ModuleViewModel {
     @SerializedName("adminID")
     private String adminId;
 
+    @SerializedName("moduleName")
     private String moduleName;
+
+    @SerializedName("startDate")
     private String startDate;
+
+    @SerializedName("endDate")
     private String endDate;
+//    private String moduleName;
+//    private String startDate;
+//    private String endDate;
 
     @SerializedName("feedbackTitleID")
     private String fbTitle;
