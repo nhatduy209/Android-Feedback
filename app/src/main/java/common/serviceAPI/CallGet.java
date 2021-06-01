@@ -4,6 +4,8 @@ import com.example.androidfeedback.ui.enrollment.EnrollmentViewModel;
 import com.example.androidfeedback.ui.feedback.FeedbackViewModel;
 import com.example.androidfeedback.ui.module.ModuleViewModel;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
+import com.example.androidfeedback.ui.statistic.CommentViewModel;
+import com.example.androidfeedback.ui.statistic.PieBaseOnTopic;
 import com.example.androidfeedback.ui.statistic.PieChartViewModel;
 import com.example.androidfeedback.ui.statistic.StatisticViewModel;
 import com.example.androidfeedback.ui.uiclass.ClassViewModel;
@@ -37,5 +39,11 @@ public interface CallGet {
 
     @GET("api/statistic/pie")
     Call<ArrayList<PieChartViewModel>> getPieChart(@Query("classID") int classID, @Query("moduleID") int moduleID);
+
+    @GET("api/statistic/topic")
+    Call<ArrayList<PieBaseOnTopic>> getPieChartBaseOnTopic(@Query("classID") int classID, @Query("moduleID") int moduleID);
+
+    @GET("api/statistic/comment")
+    Call<ArrayList<CommentViewModel>> getListComment(@Query("classID") int classID, @Query("moduleID") int moduleID);
 
 }

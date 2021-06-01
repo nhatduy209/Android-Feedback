@@ -1,8 +1,7 @@
 package com.example.androidfeedback.ui.result;
 
-import android.content.Intent;
+import android.content.Context;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -12,17 +11,21 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.androidfeedback.R;
 import com.example.androidfeedback.ui.statistic.ClassStatisticViewModel;
 import com.example.androidfeedback.ui.statistic.ModuleStatisticViewModel;
 import com.example.androidfeedback.ui.statistic.PieChartViewModel;
 import com.example.androidfeedback.ui.statistic.StatisticDescription;
-import com.example.androidfeedback.ui.statistic.StatisticViewModel;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
@@ -38,7 +41,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class ResultCommentFragment extends Fragment {
+public class SliderFragment extends Fragment {
+    private ViewPager mSliderViewPager;
     private Button btnViewComment;
     private Spinner spinnerClass;
     private Spinner spinnerModule;
@@ -50,87 +54,132 @@ public class ResultCommentFragment extends Fragment {
     private CallGet callGet;
     private ArrayList<PieChartViewModel> pieData;
     private PieChart pieChart;
+    private PieChart pieChart2;
     private ArrayList<PieEntry> pieEntries = new ArrayList();
     StatisticDescription description;
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         View root = inflater.inflate(R.layout.fragment_result, container, false);
+
         retrofit= RetrofitInstance.getClient();
         callGet = retrofit.create(CallGet.class);
         description= new StatisticDescription();
 
-        btnViewComment = root.findViewById(R.id.btnViewComment);
+
+        btnViewComment = (Button)root.findViewById(R.id.btnViewComment);
         btnViewComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),ViewComment.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(),ViewComment.class);
+//                startActivity(intent);
+//                mSliderViewPager.setVisibility(View.GONE);
+
+                Toast.makeText(getActivity(), "On click", Toast.LENGTH_SHORT).show();
+                ViewCommentFragment fragment2 = new ViewCommentFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.container, (Fragment)fragment2);
+                fragmentTransaction.commit();
             }
         });
+        mSliderViewPager= root.findViewById(R.id.slideViewPager);
 
-        Button btnShowOverview=root.findViewById(R.id.btnShowOverview);
+        Button btnShowOverview= root.findViewById(R.id.btnShowOverview);
         btnShowOverview.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
 //                TextView className = root.findViewById(R.id.txtClassNameStatistic);
 //                className.setText(currentClass.second);
 //                TextView moduleName = root.findViewById(R.id.txtModuleNameStatistic);
 //                moduleName.setText(currentModule.second);
-//                callPieChart();
 
+//
+
+                pieChart= root.findViewById(R.id.pieChart);
+                createSliderPage();
+                drawChart(pieData);
             }
         });
 
         listClass= new ArrayList<ClassStatisticViewModel>();
         listModule= new ArrayList<ModuleStatisticViewModel>() ;
         pieData= new ArrayList<PieChartViewModel>();
-//        pieChart=root.findViewById(R.id.pieChart);
+
         // spinner here
-        spinnerClass =(Spinner)root.findViewById(R.id.spinnerClass);
-        spinnerModule = (Spinner)root.findViewById(R.id.spinnerModule);
+//        spinnerClass =(Spinner)root.findViewById(R.id.spinnerClass);
+//        spinnerModule = (Spinner)root.findViewById(R.id.spinnerModule);
 
-        // call api to get list question
-//        View v = root.findViewById(R.id.layoutSwipe);
-//        v.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
-//            public void onSwipeTop() {
-//
-//                Toast.makeText(getActivity(), "top", Toast.LENGTH_SHORT).show();
-//            }
-//            public void onSwipeRight() {
-//                Toast.makeText(getActivity(), "right", Toast.LENGTH_SHORT).show();
-//            }
-//            public void onSwipeLeft() {
-//                TextView className = root.findViewById(R.id.txtClassNameStatistic);
-//                className.setText("hihii");
-//                Toast.makeText(getActivity(), "left", Toast.LENGTH_SHORT).show();
-//            }
-//            public void onSwipeBottom() {
-//                Toast.makeText(getActivity(), "bottom", Toast.LENGTH_SHORT).show();
+//        Call<StatisticViewModel> getSelectListVM = callGet.getSelectList();
+//        getSelectListVM.enqueue(new Callback<StatisticViewModel>() {
+//            @Override
+//            public void onResponse(Call<StatisticViewModel> call, Response<StatisticViewModel> response) {
+//                String a= response.message();
+//                listClass=(ArrayList<ClassStatisticViewModel>)response.body().getClasses();
+//                listModule=(ArrayList<ModuleStatisticViewModel>)response.body().getCourses();
+//                setSpinnerClass(spinnerClass,listClass);
+//                setSpinnerModule(spinnerModule,listModule);
 //            }
 //
+//            @Override
+//            public void onFailure(Call<StatisticViewModel> call, Throwable t) {
+//                String a= t.getMessage();
+//            }
 //        });
-//
 
-        Call<StatisticViewModel>  getSelectListVM = callGet.getSelectList();
-        getSelectListVM.enqueue(new Callback<StatisticViewModel>() {
+        return root;
+    }
+    private void createSliderPage( ){
+        int layouts[]= {
+                R.layout.fragment_slider2,
+                R.layout.fragment_slider3,
+        };
+
+        mSliderViewPager.setAdapter(new PagerAdapter(){
+            @NonNull
             @Override
-            public void onResponse(Call<StatisticViewModel> call, Response<StatisticViewModel> response) {
-                String a= response.message();
-                listClass=(ArrayList<ClassStatisticViewModel>)response.body().getClasses();
-                listModule=(ArrayList<ModuleStatisticViewModel>)response.body().getCourses();
-                setSpinnerClass(spinnerClass,listClass);
-                setSpinnerModule(spinnerModule,listModule);
+            public Object instantiateItem(@NonNull  ViewGroup container, int position) {
+                LayoutInflater layoutInflater=(LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view= layoutInflater.inflate(layouts[position],container,false);
+                container.addView(view);
+                return view;
             }
 
             @Override
-            public void onFailure(Call<StatisticViewModel> call, Throwable t) {
-                String a= t.getMessage();
+            public int getCount() {
+                return layouts.length;
+            }
+
+            @Override
+            public boolean isViewFromObject(@NonNull View view,@NonNull Object object) {
+                return view==object;
+            }
+
+            @Override
+            public void destroyItem(@NonNull  ViewGroup container, int position, @NonNull  Object object) {
+                View view =(View) object;
+                container.removeView(view);
+            }
+        });
+        mSliderViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Toast.makeText(getActivity(), "onPageSelected", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
 
-        return root;
     }
     private void setSpinnerClass( Spinner spinner, ArrayList<ClassStatisticViewModel> listData){
         ArrayAdapter dataAdapter = new ArrayAdapter(getActivity(),
@@ -179,13 +228,14 @@ public class ResultCommentFragment extends Fragment {
             public void onResponse(Call<ArrayList<PieChartViewModel>> call, Response<ArrayList<PieChartViewModel>> response) {
                 String a= response.message();
                 pieData=(ArrayList<PieChartViewModel>)response.body();
-                drawChart(pieData);
-                int x=1;
+//                drawChart(pieData);
+                int i=1;
             }
 
             @Override
             public void onFailure(Call<ArrayList<PieChartViewModel>> call, Throwable t) {
                 String a= t.getMessage();
+                int aa=1;
             }
         });
     }
@@ -227,7 +277,7 @@ public class ResultCommentFragment extends Fragment {
         colors.add(Color.rgb(245,144,122));
         //strongly disagree
         colors.add(Color.rgb(247,193,181));
-//        pieDataSet.setDrawValues(false);
+        pieDataSet.setDrawValues(false);
         pieChart.getDescription().setEnabled(false);
         pieDataSet.setColors(colors);
         //add legend to chart
@@ -243,5 +293,61 @@ public class ResultCommentFragment extends Fragment {
         pieChart.setData(pieData);
         pieChart.invalidate();
 
+//        View root2 = inflater.inflate(R.layout.fragment_result, container, false);
+        PieChart pie = getActivity().findViewById(R.id.pieChart2);
+        pie=pieChart;
+        int x=1;
+
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        Toast.makeText(getActivity(), "SliderFragment: onCreate", Toast.LENGTH_SHORT).show();
+
+        super.onCreate(savedInstanceState);
+    }
+
+
+    @Override
+    public void onStart() {
+        Toast.makeText(getActivity(), "SliderFragment: onStart", Toast.LENGTH_SHORT).show();
+
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        Toast.makeText(getActivity(), "SliderFragment: onResume", Toast.LENGTH_SHORT).show();
+
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        Toast.makeText(getActivity(), "SliderFragment: onPause", Toast.LENGTH_SHORT).show();
+
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        Toast.makeText(getActivity(), "SliderFragment: onStop", Toast.LENGTH_SHORT).show();
+
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        Toast.makeText(getActivity(), "SliderFragment: onDestroyView", Toast.LENGTH_SHORT).show();
+
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        Toast.makeText(getActivity(), "SliderFragment: onDestroy", Toast.LENGTH_SHORT).show();
+
+        super.onDestroy();
+    }
+
 }

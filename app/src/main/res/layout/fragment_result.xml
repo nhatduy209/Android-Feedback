@@ -2,142 +2,126 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.result.ResultFragment">
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChart"
-        android:layout_width="211dp"
-        android:layout_height="232dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="204dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginBottom="163dp"
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="407dp"
+        android:layout_height="502dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginBottom="109dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.127" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart"
+            android:layout_width="212dp"
+            android:layout_height="192dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="94dp"
+            android:layout_marginTop="88dp"
+            android:layout_marginBottom="451dp">
+
+        </com.github.mikephil.charting.charts.PieChart>
+    </FrameLayout>
 
     <Spinner
         android:id="@+id/spinnerClass"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView25"
-        app:layout_constraintEnd_toStartOf="@+id/textView25"
-        app:layout_constraintStart_toEndOf="@+id/textView24"
-        app:layout_constraintTop_toTopOf="@+id/textView25" />
+        android:layout_width="94dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="114dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="701dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/spinnerModule"
-        android:layout_width="0dp"
+        android:layout_width="343dp"
         android:layout_height="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="49dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="47dp"
-        app:layout_constraintBottom_toBottomOf="@+id/txtTitle3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/txtTitle3"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="657dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView24"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="93dp"
+        android:layout_height="18dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="701dp"
         android:text="Class"
         android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="@+id/spinnerClass"
-        app:layout_constraintEnd_toStartOf="@+id/spinnerClass"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView25" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView25"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="230dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="135dp"
+        android:layout_marginBottom="700dp"
         android:text="Module"
         android:textSize="14dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/spinnerClass"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtClassNameStatistic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:layout_marginBottom="26dp"
-        android:text="txtClassName"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtModuleNameStatistic"
-        app:layout_constraintStart_toStartOf="@+id/txtModuleNameStatistic" />
-
-    <TextView
-        android:id="@+id/txtModuleNameStatistic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="146dp"
-        android:layout_marginEnd="15dp"
-        android:text="txtModuleNameStatistic"
-        android:textSize="14dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtTitle4"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtTitle3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
-        android:text="Feedback Statistic of Class"
-        app:layout_constraintBaseline_toBaselineOf="@+id/txtClassNameStatistic"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/txtTitle4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:text="Feedback Statistic of Module"
-        app:layout_constraintBaseline_toBaselineOf="@+id/txtModuleNameStatistic"
-        app:layout_constraintEnd_toStartOf="@+id/txtModuleNameStatistic"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnViewComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
+        android:layout_marginStart="299dp"
+        android:layout_marginTop="614dp"
+        android:layout_marginBottom="69dp"
         android:background="@drawable/result_comment"
         android:padding="5dp"
         android:text="View Comment"
         android:textAllCaps="false"
         android:textColor="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnShowOverview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="614dp"
+        android:layout_marginBottom="69dp"
         android:background="@drawable/result_comment"
         android:padding="5dp"
         android:text="Show Overview"
         android:textAllCaps="false"
         android:textColor="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.124"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/slideViewPager"
+        android:layout_width="410dp"
+        android:layout_height="496dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginBottom="110dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+    </androidx.viewpager.widget.ViewPager>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
