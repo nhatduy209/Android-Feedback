@@ -6,12 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.uiclass.ClassFragment">
 
+
+
+
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="221dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="16dp"
         android:text="Class List"
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="36sp"
@@ -22,9 +25,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerClassView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +39,8 @@
         android:id="@+id/btn_add"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:background="@mipmap/ic_add_module"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="parent" />

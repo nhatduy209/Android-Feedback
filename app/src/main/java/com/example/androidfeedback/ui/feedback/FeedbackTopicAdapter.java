@@ -57,7 +57,7 @@ public class FeedbackTopicAdapter  extends RecyclerView.Adapter<FeedbackTopicAda
         //truyền id của topic vào để truy vấn cho đúng luôn chứ mệt mủi
         final int topic = listTopic[position];
         ArrayList<QuestionViewModel> listQuestion = new ArrayList<QuestionViewModel>();
-        QuestionViewModel question = new QuestionViewModel(1,"dui dẻ hong quạo",topic,"ai biết");
+        QuestionViewModel question = new QuestionViewModel(1,"dui dẻ hong quạo",topic);
         listQuestion.add(question);
         listQuestion.add(question);
         listQuestion.add(question);

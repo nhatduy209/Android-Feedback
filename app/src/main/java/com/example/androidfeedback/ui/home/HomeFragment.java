@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -28,6 +29,11 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
+
+        
         listFeedback = new ArrayList<FeedbackTraineeViewModel>();
         recyclerFeedback = root.findViewById(R.id.recyclerHomeTraineeFeedback);
         FeedbackTraineeViewModel feedback = new FeedbackTraineeViewModel("title", "class","class name","module","module naemeeeee","endtime",true);

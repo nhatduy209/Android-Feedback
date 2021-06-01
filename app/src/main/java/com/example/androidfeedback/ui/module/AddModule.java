@@ -2,34 +2,80 @@ package com.example.androidfeedback.ui.module;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.SurfaceControl;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.example.androidfeedback.MainActivity;
 import com.example.androidfeedback.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import common.ValidationEditText;
+import common.serviceAPI.CallGet;
+import common.serviceAPI.CallPost;
+import common.serviceAPI.CallPut;
+import common.serviceAPI.RetrofitInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class AddModule extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-    private TextView datePickerEnd , txtAddModuleName,txtAdminID,txtFBTitle, datePickerStart, fbDatePickerStart,fbDatePickerEnd,tvAddModule;
+    private EditText datePickerEnd, txtAddModuleName, datePickerStart, fbDatePickerStart,fbDatePickerEnd;
+    private Spinner spAdminName,spFBTitle;
+    private AdminModel adminModel;
+    private int a,moduleID;
+    private boolean isEdit = false;
+    private FeedbackModel feedbackModel;
     private Context context = this ;
     private Button btnBack ;
     private Button btnSave ;
-    private int dateAdd = 0 ;    // choose which date pick is press by user
+    private TextView erModuleName,erDatePickerStart,erDatePickerEnd,erFBDatePickerStart,erFBDatePickerEnd,tvAddModule;
+    private boolean check;
+    private int dateAdd = 0 ;
+    private LocalDate start,end,fbStart,fbEnd;
+    private ValidationEditText validationEditText;
+    private ArrayList<AdminModel> listAdmin;
+    private ArrayList<FeedbackModel> listFeedback;
+    // choose which date pick is press by user
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.module_add_layout);
         final NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         txtAddModuleName = findViewById(R.id.txtAddModuleName);
-        txtAdminID = findViewById(R.id.txtAddModuleAdmin);
-        txtFBTitle = findViewById(R.id.txtAddFBModuleTitle);
+        spAdminName = findViewById(R.id.spAddModuleAdmin);
+        spFBTitle = findViewById(R.id.spAddFBModuleTitle);
         tvAddModule = findViewById(R.id.tvAddModule);
+        //error message
+        erModuleName = findViewById(R.id.erAddModuleName);
+        erDatePickerStart = findViewById(R.id.erAddModuleStartDate);
+        erDatePickerEnd = findViewById(R.id.erAddModuleEndDate);
+        erFBDatePickerStart = findViewById(R.id.erModuleFBStartDate);
+        erFBDatePickerEnd = findViewById(R.id.erAddModuleFBEndDate);
+        check = true;
+        validationEditText = new ValidationEditText();
 
         datePickerStart = findViewById(R.id.txtAddModuleStartDate);
         datePickerStart.setOnClickListener(new View.OnClickListener() {
@@ -90,11 +136,64 @@ public class AddModule extends AppCompatActivity implements DatePickerDialog.OnD
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                check = check();
+                if(check){
+                    //save Module
+
+                    if(!isEdit){
+                        AddModuleModel module = new AddModuleModel(spAdminName.toString(),txtAddModuleName.getText().toString()
+                                ,toDate(start),toDate(end),false,toDate(fbStart),toDate(fbEnd),a);
+                        Retrofit retrofit = RetrofitInstance.getClient();
+                        CallPost callPost = retrofit.create(CallPost.class);
+                        Call<AddModuleModel> addModuleAPI = callPost.addModuleAPI(module);
+
+                        addModuleAPI.enqueue(new Callback<AddModuleModel>() {
+                            @Override
+                            public void onResponse(Call<AddModuleModel> call, Response<AddModuleModel> response) {
+                                String res = response.message();
+                                Toast.makeText(context,res, Toast.LENGTH_SHORT).show();
+
+                                SharedPreferences pref = getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = pref.edit();
+                                editor.putBoolean("shouldReload",true);
+                                editor.apply();
 
 
+                                finish();
+                                navController.navigate(R.id.nav_class);
+                            }
 
-                finish();
-                navController.navigate(R.id.nav_module);
+                            @Override
+                            public void onFailure(Call<AddModuleModel> call, Throwable t) {
+
+                            }
+                        });
+                    }
+                    else{
+                        EditModuleModel editModuleModel = new EditModuleModel(spAdminName.toString(),moduleID,txtAddModuleName.getText().toString()
+                                    ,toDate(start),toDate(end),false
+                                    ,toDate(fbStart),toDate(fbEnd),a);
+                        Retrofit retrofit = RetrofitInstance.getClient();
+                        CallPut callPut = retrofit.create(CallPut.class);
+                        Call<EditModuleModel> updateModuleAPI = callPut.updateModuleAPI(editModuleModel);
+
+                        updateModuleAPI.enqueue(new Callback<EditModuleModel>() {
+                            @Override
+                            public void onResponse(Call<EditModuleModel> call, Response<EditModuleModel> response) {
+                                String res = response.message();
+                                Toast.makeText(context,res, Toast.LENGTH_SHORT).show();
+                                finish();
+                                navController.navigate(R.id.nav_class);
+                            }
+
+                            @Override
+                            public void onFailure(Call<EditModuleModel> call, Throwable t) {
+
+                            }
+                        });
+                    }
+
+                }
             }
         });
 
@@ -103,19 +202,39 @@ public class AddModule extends AppCompatActivity implements DatePickerDialog.OnD
             @Override
             public void onClick(View v) {
                 finish();
-                navController.navigate(R.id.nav_module);
+                navController.navigate(R.id.nav_class);
             }
         });
+
+        //Get list  module
+        Retrofit retrofit = RetrofitInstance.getClient();
+
+        CallGet callGet = retrofit.create(CallGet.class);
+
+        Call<AddModuleSpinner> getListAddModule = callGet.getListAddModule();
+
+        getListAddModule.enqueue(new Callback<AddModuleSpinner>() {
+            @Override
+            public void onResponse(Call<AddModuleSpinner> call, Response<AddModuleSpinner> response) {
+                listAdmin = (ArrayList<AdminModel>) response.body().getListAdminID();
+                listFeedback = (ArrayList<FeedbackModel>) response.body().listFeedbackID;
+                setAdminSpinner(spAdminName,listAdmin);
+                setFeedbackTitleSpinner(spFBTitle,listFeedback);
+            }
+
+            @Override
+            public void onFailure(Call<AddModuleSpinner> call, Throwable t) {
+
+            }
+        });
+
 
         // get current data if edit
         Bundle b = getIntent().getExtras();
         try {
+            moduleID = b.getInt("moduleID");
             String moduleName = b.getString("moduleName");  // get data passing from other activity
             txtAddModuleName.setText(moduleName);
-            String adminID = b.getString("adminID");  // get data passing from other activity
-            txtAdminID.setText(adminID);
-            String fbTitle = b.getString("fbTitle");  // get data passing from other activity
-            txtFBTitle.setText(fbTitle);
             String dateEnd = b.getString("endDate");  // get data passing from other activity
             datePickerEnd.setText(dateEnd);
             String dateStart = b.getString("startDate");  // get data passing from other activity
@@ -124,20 +243,202 @@ public class AddModule extends AppCompatActivity implements DatePickerDialog.OnD
             fbDatePickerEnd.setText(fbDateEnd);
             String fbDateStart = b.getString("fbStartDate");  // get data passing from other activity
             fbDatePickerStart.setText(fbDateStart);
+            start = toDate(dateStart).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            end = toDate(dateEnd).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            fbStart = toDate(fbDateStart).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            fbEnd = toDate(fbDateEnd).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             tvAddModule.setText("Edit Module List");
+            moduleID = b.getInt("moduleID");
+            isEdit = true;
         } catch (Exception e) {
             return;
         }
+
+    }
+
+    public Date toDate(String input) throws ParseException {
+        Date output = new SimpleDateFormat("dd/MM/yyyy").parse(input);
+        return output;
+
+    }
+    public Date toHaftDate(String input) throws ParseException {
+        Date output = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss aaa").parse(input);
+        return output;
+
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
         if (dateAdd == 1) {
-            datePickerStart.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+            datePickerStart.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+            start = LocalDate.of(year,month+1,dayOfMonth);
+            dateAdd = 0;  // return default value
+        }
+        else if (dateAdd == 2) {
+            datePickerEnd.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+            end = LocalDate.of(year,month+1,dayOfMonth);
+            dateAdd = 0;  // return default value
+        }
+        else if (dateAdd == 3) {
+            fbDatePickerStart.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+            fbStart = LocalDate.of(year,month+1,dayOfMonth);
             dateAdd = 0;  // return default value
         }
         else{
-            datePickerEnd.setText(dayOfMonth +"-" + (month + 1) + "-" + year);
+            fbEnd = LocalDate.of(year,month+1,dayOfMonth);
+            fbDatePickerEnd.setText(dayOfMonth +"/" + (month + 1) + "/" + year);
         }
     }
+
+    public Boolean checkNow(LocalDate date){
+        LocalDate now = LocalDate.now();
+        if(now.isAfter(date))
+            return true;
+        return false;
+    }
+
+    public Boolean checkStartEnd(LocalDate startDate, LocalDate endDate){
+        if(endDate.isAfter(startDate))
+            return true;
+        return false;
+    }
+    public boolean check(){
+        boolean c =true;
+        //error message
+        erModuleName = findViewById(R.id.erAddModuleName);
+        c = validationEditText.validateEditText(txtAddModuleName,erModuleName);
+        erDatePickerStart = findViewById(R.id.erAddModuleStartDate);
+        erDatePickerEnd = findViewById(R.id.erAddModuleEndDate);
+        if(!validationEditText.validateEditText(datePickerStart,erDatePickerStart)){
+            c=false;
+        }else{
+            erDatePickerStart = findViewById(R.id.erAddModuleStartDate1);
+            if(checkNow(start)){
+                validationEditText.validateEditText(erDatePickerStart,true);
+                c=false;
+            }else{
+                validationEditText.validateEditText(erDatePickerStart,false);
+                if(!datePickerEnd.getText().toString().isEmpty()){
+                    erDatePickerStart = findViewById(R.id.erAddModuleStartDate2);
+                    if(!checkStartEnd(start,end)){
+                        validationEditText.validateEditText(erDatePickerStart,true);
+                        c=false;
+                    }
+                    else
+                        validationEditText.validateEditText(erDatePickerStart,false);
+                }
+
+            }
+        }
+
+        if(!validationEditText.validateEditText(datePickerEnd,erDatePickerEnd)){
+            c=false;
+        }else{
+            erDatePickerEnd = findViewById(R.id.erAddModuleEndDate1);
+            if(checkNow(end)){
+                validationEditText.validateEditText(erDatePickerEnd,true);
+                c=false;
+            }else{
+                validationEditText.validateEditText(erDatePickerEnd,false);
+                if(!datePickerStart.getText().toString().isEmpty()){
+                    erDatePickerEnd = findViewById(R.id.erAddModuleEndDate2);
+                    if(!checkStartEnd(start,end)){
+                        validationEditText.validateEditText(erDatePickerEnd,true);
+                        c=false;
+                    }
+                    else
+                        validationEditText.validateEditText(erDatePickerEnd,false);
+                }
+            }
+        }
+
+        erFBDatePickerStart = findViewById(R.id.erModuleFBStartDate);
+        erFBDatePickerEnd = findViewById(R.id.erAddModuleFBEndDate);
+        if(!validationEditText.validateEditText(fbDatePickerStart,erFBDatePickerStart)){
+            c=false;
+        }else{
+            erFBDatePickerStart = findViewById(R.id.erModuleFBStartDate1);
+            if(checkNow(fbStart)){
+                validationEditText.validateEditText(erFBDatePickerStart,true);
+                c=false;
+            }else{
+                validationEditText.validateEditText(erFBDatePickerStart,false);
+                if(!fbDatePickerEnd.getText().toString().isEmpty()){
+                    erFBDatePickerStart = findViewById(R.id.erModuleFBStartDate2);
+                    if(!checkStartEnd(fbStart,fbEnd)){
+                        validationEditText.validateEditText(erFBDatePickerStart,true);
+                        c=false;
+                    }
+                    else
+                        validationEditText.validateEditText(erFBDatePickerStart,false);
+                }
+
+            }
+        }
+
+
+        if(!validationEditText.validateEditText(fbDatePickerEnd,erFBDatePickerEnd)){
+            c=false;
+        }else{
+            erFBDatePickerEnd = findViewById(R.id.erAddModuleFBEndDate1);
+            if(checkNow(fbEnd)){
+                validationEditText.validateEditText(erFBDatePickerEnd,true);
+                c=false;
+            }else{
+                validationEditText.validateEditText(erFBDatePickerEnd,false);
+                if(!fbDatePickerStart.getText().toString().isEmpty()){
+                    erFBDatePickerEnd = findViewById(R.id.erAddModuleFBEndDate2);
+                    if(!checkStartEnd(fbStart,fbEnd)){
+                        validationEditText.validateEditText(erFBDatePickerEnd,true);
+                        c=false;
+                    }
+                    else
+                        validationEditText.validateEditText(erFBDatePickerEnd,false);
+                }
+
+            }
+        }
+        return c;
+    }
+
+    private void setAdminSpinner(Spinner spinner, List<AdminModel> listData){
+        ArrayAdapter dataAdapter = new ArrayAdapter(AddModule.this,
+                android.R.layout.simple_spinner_dropdown_item,listData);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+        // When user select a List-Item.
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                adminModel = (AdminModel) parent.getSelectedItem();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+    private void setFeedbackTitleSpinner(Spinner spinner, List<FeedbackModel> listData){
+        ArrayAdapter dataAdapter = new ArrayAdapter(AddModule.this,
+                android.R.layout.simple_spinner_dropdown_item,listData);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+        // When user select a List-Item.
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                feedbackModel = (FeedbackModel) parent.getSelectedItem();
+                a = feedbackModel.feedbackID;
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+    public Date toDate(LocalDate date){
+        return Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
+
 }

@@ -41,7 +41,7 @@ public class DoFeedbackTopicAdapter extends RecyclerView.Adapter<DoFeedbackTopic
 //        final FeedbackViewModel feedbacks = listFeedback.get(position);
         final int topic = listTopic[position];
         ArrayList<QuestionViewModel> listQuestion = new ArrayList<QuestionViewModel>();
-        QuestionViewModel question = new QuestionViewModel(1,"dui dẻ hong quạo",topic,"ai biết");
+        QuestionViewModel question = new QuestionViewModel(1,"dui dẻ hong quạo",1);
         listQuestion.add(question);
         listQuestion.add(question);
         listQuestion.add(question);

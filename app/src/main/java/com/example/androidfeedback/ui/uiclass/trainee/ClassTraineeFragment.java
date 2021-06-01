@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +29,15 @@ import com.example.androidfeedback.ui.uiclass.trainee.TraineeClassAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
+
+import common.serviceAPI.CallGet;
+import common.serviceAPI.RetrofitInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class ClassTraineeFragment extends Fragment{
 
@@ -44,14 +53,29 @@ public class ClassTraineeFragment extends Fragment{
         listClass = new ArrayList<ClassViewModel>();
         recyclerClass = root.findViewById(R.id.recyclerTraineeClassView);
 
-        ClassViewModel classes = new ClassViewModel(0,"","Name","tt",
-                "11",false);
-        classes.setClassId(1);
-        classes.setClassName("duy");
-        classes.setStartDate("11");
-        classes.setEndDate("22");
-        classes.setCapacity("40");
-        listClass.add(classes);
+        SharedPreferences pref = getActivity().getSharedPreferences("GetSession",Context.MODE_PRIVATE);
+        String userId = pref.getString("userId", "");
+        String userName = pref.getString("userName", "");
+        String role  = pref.getString("role", "");
+        // call api to get list question
+        Retrofit retrofit = RetrofitInstance.getClient();
+
+        CallGet callGet = retrofit.create(CallGet.class);
+
+        Call<List<ClassViewModel>> getListClass = callGet.getListClass(role,userId);
+
+        getListClass.enqueue(new Callback<List<ClassViewModel>>() {
+            @Override
+            public void onResponse(Call<List<ClassViewModel>> call, Response<List<ClassViewModel>> response) {
+                listClass = (ArrayList<ClassViewModel>) response.body();
+                reload(listClass, root );
+            }
+
+            @Override
+            public void onFailure(Call<List<ClassViewModel>> call, Throwable t) {
+                String a = t.getMessage();
+            }
+        });
         reload(listClass,root);
         return root ;
     }

@@ -7,8 +7,12 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -18,6 +22,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.androidfeedback.R;
+import com.example.androidfeedback.ui.assignment.TrainerModel;
 import com.example.androidfeedback.ui.question.AddQuestion;
 import com.example.androidfeedback.ui.uiclass.AddClass;
 import com.example.androidfeedback.ui.uiclass.ClassViewModel;
@@ -49,6 +54,8 @@ public class EditEnrollment extends AppCompatActivity {
         txtEnTraineeName = findViewById(R.id.txtEnEditTraineeName);
         txtEnTraineeId = findViewById(R.id.txtEnEditTraineeID);
         txtEnClassName = findViewById(R.id.txtEnEditClassName);
+
+
 
         btnSave = findViewById(R.id.btnEnSaveEdit);
 
@@ -89,9 +96,14 @@ public class EditEnrollment extends AppCompatActivity {
                     public void onResponse(Call<EnrollmentViewModel> call, Response<EnrollmentViewModel> response) {
                     String a = response.message();
 
-                        finish();
-                        navController.navigate(R.id.nav_enrollment);
 
+
+                        SharedPreferences pref = getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putBoolean("shouldReload",true);
+                        editor.apply();
+                        finish();
+                        navController.navigate(R.id.nav_class);
                     }
 
                     @Override
@@ -136,9 +148,11 @@ public class EditEnrollment extends AppCompatActivity {
             public void onClick(View v) {
                 //load current fragment
                 finish();
-                navController.navigate(R.id.nav_enrollment);
+                navController.navigate(R.id.nav_class);
             }
         });
+
+
 
 
         txtEnClassName.setOnClickListener(new View.OnClickListener() {
@@ -165,4 +179,5 @@ public class EditEnrollment extends AppCompatActivity {
             }
         });
     }
+
 }

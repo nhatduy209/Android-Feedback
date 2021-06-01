@@ -9,15 +9,19 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
+import com.example.androidfeedback.ui.question.QuestionFragment;
+import com.example.androidfeedback.ui.uiclass.ClassFragment;
 import com.example.androidfeedback.ui.uiclass.ClassViewModel;
 
 import java.util.ArrayList;
@@ -37,21 +41,36 @@ public class EnrollmentFragment extends Fragment {
     ArrayList<ClassViewModel> listClass;
     Button btnAdd;
     Spinner filterSpinner ;
+    private boolean allowRefresh = false ;
     private String filterName = "All";
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         final View root = inflater.inflate(R.layout.fragment_enrollment,null);
+
         enrollmentList = new ArrayList<>();
         listClass = new ArrayList<>();
         recyclerEnrollmentView = root.findViewById(R.id.recyclerEnrollmentView);
         filterSpinner = root.findViewById(R.id.spEnListClassName);
 
 
-
-
         btnAdd = root.findViewById(R.id.btnAddEnrollment);
 
         ArrayList<String> arrayList = new ArrayList<>();
+
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
+
+        SharedPreferences prefs = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+        boolean shouldAttach = prefs.getBoolean("shouldAttach", true);
+        if(shouldAttach){
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("shouldAttach",false);
+            editor.putBoolean("shouldReload",false);
+            editor.apply();
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.replace(this.getId(),new EnrollmentFragment()).commit();
+        }
 
         //call api get name class
         // get seesion
@@ -126,10 +145,30 @@ public class EnrollmentFragment extends Fragment {
         return root;
     }
     public void reload(ArrayList<EnrollmentViewModel> listEnrollment, View view){
-        enrollmentAdapter = new EnrollmentAdapter(getActivity().getApplicationContext(), listEnrollment);
+        enrollmentAdapter = new EnrollmentAdapter(getActivity(), listEnrollment);
         enrollmentAdapter.notifyDataSetChanged();
         // recyclerCategoryView.setHasFixedSize(true);
         recyclerEnrollmentView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerEnrollmentView.setAdapter(enrollmentAdapter);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences prefs = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        boolean shouldReload = prefs.getBoolean("shouldReload", false);
+
+        if (allowRefresh) {
+            // get seesion
+            allowRefresh = false;
+            editor.putBoolean("shouldAttach",false);
+            editor.apply();
+        }
+        if(shouldReload){
+            editor.putBoolean("shouldReload",false);
+            editor.apply();
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.replace(this.getId(),new EnrollmentFragment()).commit();
+        }
     }
 }

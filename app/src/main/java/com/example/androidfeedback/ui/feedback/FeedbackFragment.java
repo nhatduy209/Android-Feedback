@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,6 +47,9 @@ public class FeedbackFragment extends Fragment {
         final View root = inflater.inflate(R.layout.fragment_feedback, null  );
         listFeedback = new ArrayList<FeedbackViewModel>();
         recyclerFeedback = root.findViewById(R.id.recyclerFeedbackView);
+
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
 
         btnAdd = root.findViewById(R.id.btn_add);
         btnAdd.setOnClickListener(new View.OnClickListener(){

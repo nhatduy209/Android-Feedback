@@ -9,11 +9,19 @@ public class ModuleViewModel {
     private int moduleId;
 
     @SerializedName("adminID")
-    private int adminId;
+    private String adminId;
 
+    @SerializedName("moduleName")
     private String moduleName;
+
+    @SerializedName("startDate")
     private String startDate;
+
+    @SerializedName("endDate")
     private String endDate;
+//    private String moduleName;
+//    private String startDate;
+//    private String endDate;
 
     @SerializedName("feedbackTitleID")
     private String fbTitle;
@@ -40,7 +48,7 @@ public class ModuleViewModel {
     private String success ;
 
     public ModuleViewModel(int moduleId,
-            int adminId,
+            String adminId,
             String moduleName,
             String startDate,
             String endDate,
@@ -61,7 +69,7 @@ public class ModuleViewModel {
         return moduleId;
     }
 
-    public int getAdminId() {
+    public String getAdminId() {
         return adminId;
     }
 
@@ -93,7 +101,7 @@ public class ModuleViewModel {
         this.moduleId = moduleId;
     }
 
-    public void setAdminId(int adminId) {
+    public void setAdminId(String adminId) {
         this.adminId = adminId;
     }
 
@@ -119,5 +127,11 @@ public class ModuleViewModel {
 
     public void setFbEndDate(String fbEndDate) {
         this.fbEndDate = fbEndDate;
+    }
+
+    // Text show in Spinner
+    @Override
+    public String toString()  {
+        return this.getModuleName();
     }
 }

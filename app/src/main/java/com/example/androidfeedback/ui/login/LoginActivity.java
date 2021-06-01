@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,8 +18,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidfeedback.MainActivity;
 import com.example.androidfeedback.R;
+import com.example.androidfeedback.ui.enrollment.EnrollmentViewModel;
+import com.example.androidfeedback.ui.uiclass.ClassViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import common.ValidationEditText;
+import common.serviceAPI.CallGet;
 import common.serviceAPI.CallPost;
 import common.serviceAPI.RetrofitInstance;
 import retrofit2.Call;
@@ -28,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
     private TextView username , password , errorUsername , errorPassword  ;
     private CheckBox rememberMe;
     private Boolean saveLogin;
+    private Spinner roleSpinner;
+    private String role ;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -36,7 +47,31 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.txtPassword);
         errorUsername = findViewById(R.id.vldUsername);
         errorPassword = findViewById(R.id.vldPassword);
+        roleSpinner = findViewById(R.id.spnRole);
 
+        List<String> listRole = new ArrayList<>();
+        listRole.add("Admin");
+        listRole.add("Trainer");
+        listRole.add("Trainee");
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, listRole);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        roleSpinner.setAdapter(arrayAdapter);
+
+        roleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                role = parent.getItemAtPosition(position).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView <?> parent) {
+
+            }
+        });
+        SharedPreferences sharedPreferences= this.getSharedPreferences("Refresh", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("shouldAttach", true );
+        editor.putBoolean("shouldReload", false  );
+        editor.apply();
 
         // handle remember me
         rememberMe = findViewById(R.id.cbRememberMe);
@@ -82,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 // get value user type
 
-                LoginModel loginModel = new LoginModel(username.getText().toString(),password.getText().toString(), "Admin");
+                LoginModel loginModel = new LoginModel(username.getText().toString(),password.getText().toString(), role);
                 // call API login
                 Retrofit retrofit = RetrofitInstance.getClient();
 
@@ -97,6 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                     String res = response.message();
                     if( response.body().getSuccess()){
                         // sharedPreferences and get Session
+                        btnLogin.setEnabled(true);
                         SharedPreferences sharedPreferences= LoginActivity.this.getSharedPreferences("GetSession", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("userId", response.body().getUserId() );
@@ -108,6 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                     else{
+                        btnLogin.setEnabled(true);
                         Toast.makeText(LoginActivity.this ,  response.body().getMessage(), Toast.LENGTH_LONG).show();
                         return;
                     }
