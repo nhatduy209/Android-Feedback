@@ -2,6 +2,7 @@ package com.example.androidfeedback.ui.uiclass;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -158,6 +159,12 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
                            String res = response.message();
                            Toast.makeText(context , response.body().getMessage(), Toast.LENGTH_LONG).show();
                            // load fragment again
+
+                           SharedPreferences pref = getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+                           SharedPreferences.Editor editor = pref.edit();
+                           editor.putBoolean("shouldReload",true);
+                           editor.apply();
+
                            finish();
                            navController.navigate(R.id.nav_class);
                            // load fragment again

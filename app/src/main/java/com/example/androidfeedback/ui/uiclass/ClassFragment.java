@@ -51,20 +51,16 @@ public class ClassFragment extends Fragment{
     private Button btnAdd ;
     private ImageView btnEdit  ;
     private Context finalContext;
-    private boolean allowRefresh = false ;
-
+    private boolean allowRefresh  = false ;
+    private boolean allowResume = false ;
     public View onCreateView(@NonNull  LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         final View root = inflater.inflate(R.layout.fragment_class, null  );
 //       final View smallRoot  = inflater.inflate(R.layout.class_recycler_view_item, null );
         listClass = new ArrayList<ClassViewModel>();
         recyclerClass = root.findViewById(R.id.recyclerClassView);
         btnAdd = root.findViewById(R.id.btn_add);
-
-
-
-        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
-        fl.removeAllViews();
 
 
         btnAdd.setOnClickListener(new View.OnClickListener(){
@@ -76,6 +72,21 @@ public class ClassFragment extends Fragment{
             }
         });
 
+
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
+
+        // get seesion
+        SharedPreferences prefs = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+        boolean shouldAttach = prefs.getBoolean("shouldAttach", true);
+        if(shouldAttach){
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("shouldAttach",false);
+            editor.putBoolean("shouldReload",false);
+            editor.apply();
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.replace(this.getId(),new ClassFragment()).commit();
+        }
         // get seesion
             SharedPreferences pref = getActivity().getSharedPreferences("GetSession",Context.MODE_PRIVATE);
             String userId = pref.getString("userId", "");
@@ -114,19 +125,36 @@ public class ClassFragment extends Fragment{
     @Override
     public void onPause() {
         super.onPause();
-        if (!allowRefresh){
+        SharedPreferences prefs = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        boolean shouldReload = prefs.getBoolean("shouldReload", false);
+        if (!allowRefresh && shouldReload){
             allowRefresh = true;
+            SharedPreferences pref = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+            editor = pref.edit();
+            editor.putBoolean("shouldAttach",true);
+            editor.apply();
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        SharedPreferences prefs = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        boolean shouldReload = prefs.getBoolean("shouldReload", false);
+
         if (allowRefresh) {
-            FrameLayout fl = getActivity().findViewById(this.getId());
-            fl.removeAllViews();
+            // get seesion
+            allowRefresh = false;
+            editor.putBoolean("shouldAttach",false);
+            editor.apply();
+        }
+        if(shouldReload){
+            editor.putBoolean("shouldReload",false);
+            editor.apply();
             FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-            ft.replace(this.getId(),new ClassFragment()).commitAllowingStateLoss();
+            ft.replace(this.getId(),new ClassFragment()).commit();
         }
     }
 }

@@ -67,6 +67,11 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+        SharedPreferences sharedPreferences= this.getSharedPreferences("Refresh", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("shouldAttach", true );
+        editor.putBoolean("shouldReload", false  );
+        editor.apply();
 
         // handle remember me
         rememberMe = findViewById(R.id.cbRememberMe);

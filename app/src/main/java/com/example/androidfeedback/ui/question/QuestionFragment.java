@@ -2,8 +2,10 @@ package com.example.androidfeedback.ui.question;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -23,6 +25,7 @@ import com.example.androidfeedback.R;
 import com.example.androidfeedback.ui.enrollment.EnrollmentViewModel;
 import com.example.androidfeedback.ui.uiclass.ClassFragment;
 import com.example.androidfeedback.ui.uiclass.ClassViewModel;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +47,20 @@ public class QuestionFragment extends Fragment {
     private String topicName ;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        // get seesion
+        SharedPreferences pref = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+        boolean shouldAttach = pref.getBoolean("shouldAttach", true);
+
+        if(shouldAttach){
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.replace(this.getId(),new QuestionFragment()).commit();
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putBoolean("shouldAttach",false);
+            editor.apply();
+        }
+
+
         final View root = inflater.inflate(R.layout.fragment_question,null);
         final View smallRoot = inflater.inflate(R.layout.question_recycler_view_item,null );
         questionList = new ArrayList<QuestionViewModel>();
@@ -54,14 +71,13 @@ public class QuestionFragment extends Fragment {
 
         // spinner here
         ArrayList<String> list = new ArrayList<String>();
+        list.add("all");
         list.add("Training program and content");
         list.add("Trainer Coach" );
         list.add("Course organizations" );
         list.add("Other");
 
-        setSpinner(spinner , list );
-
-
+        setSpinner(spinner , list ,root );
 
 
         FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
@@ -77,26 +93,6 @@ public class QuestionFragment extends Fragment {
             }
         });
 
-        // call api to get list question
-        Retrofit retrofit = RetrofitInstance.getClient();
-
-        CallGet callGet = retrofit.create(CallGet.class);
-
-        Call<List<QuestionViewModel>> getListQuestions = callGet.getListQuestion();
-
-        getListQuestions.enqueue(new Callback<List<QuestionViewModel>>() {
-            @Override
-            public void onResponse(Call<List<QuestionViewModel>> call, Response<List<QuestionViewModel>> response) {
-                questionList = (ArrayList<QuestionViewModel>) response.body();
-                reload(questionList, root );
-            }
-
-            @Override
-            public void onFailure(Call<List<QuestionViewModel>> call, Throwable t) {
-
-            }
-        });
-
         return root;
     }
     public void reload(ArrayList<QuestionViewModel> listQuestion, View view){
@@ -106,7 +102,7 @@ public class QuestionFragment extends Fragment {
         recyclerQuestionView.setAdapter(questionAdapter);
     }
 
-    private void setSpinner( Spinner spinner, List<String> listData){
+    private void setSpinner(Spinner spinner, List<String> listData , final View root ){
         ArrayAdapter dataAdapter = new ArrayAdapter(getActivity(),
                 android.R.layout.simple_spinner_dropdown_item,listData);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -116,6 +112,26 @@ public class QuestionFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 topicName = (String) parent.getSelectedItem();
+
+                // call api to get list question
+                Retrofit retrofit = RetrofitInstance.getClient();
+
+                CallGet callGet = retrofit.create(CallGet.class);
+
+                Call<List<QuestionViewModel>> getListQuestions = callGet.getListQuestion(topicName);
+
+                getListQuestions.enqueue(new Callback<List<QuestionViewModel>>() {
+                    @Override
+                    public void onResponse(Call<List<QuestionViewModel>> call, Response<List<QuestionViewModel>> response) {
+                        questionList = (ArrayList<QuestionViewModel>) response.body();
+                        reload(questionList, root );
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<QuestionViewModel>> call, Throwable t) {
+
+                    }
+                });
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -129,6 +145,10 @@ public class QuestionFragment extends Fragment {
         super.onPause();
         if (!allowRefresh){
             allowRefresh = true;
+            SharedPreferences pref = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putBoolean("shouldAttach",true);
+            editor.apply();
         }
     }
 
@@ -136,10 +156,7 @@ public class QuestionFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (allowRefresh) {
-            FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
-            fl.removeAllViews();
-            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-            ft.replace(this.getId(),new QuestionFragment()).commitAllowingStateLoss();
+            allowRefresh = false;
         }
     }
 }

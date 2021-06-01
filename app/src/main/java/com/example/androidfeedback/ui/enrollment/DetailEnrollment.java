@@ -31,7 +31,7 @@ import retrofit2.Retrofit;
 public class DetailEnrollment extends AppCompatActivity {
     private Context context = this ;
     private TextView txtEnTraineeId,txtEnTraineeName,txtEnClassName,txtInfoClassID,
-            txtInfoCapacity,txtInfoClassName,txtInfoStartTime,txtInfoEndTime,
+            txtInfoCapacity,txtInfoClassName,txtInfoStartTime,txtInfoEndTime,txtInfoPhone,
     txtInfoEmail,txtInfoAddress;
     private Button btnBack;
     private String classID ;
@@ -51,6 +51,7 @@ public class DetailEnrollment extends AppCompatActivity {
         txtInfoEndTime = findViewById(R.id.txtInfoEndTime);
         txtInfoEmail = findViewById(R.id.txtInfoEmail);
         txtInfoAddress  = findViewById(R.id.txtInfoAddress);
+        txtInfoPhone = findViewById(R.id.txtInfoPhone);
         // call api to detail class
         // get current data if edit
         Bundle b = getIntent().getExtras();
@@ -89,6 +90,7 @@ public class DetailEnrollment extends AppCompatActivity {
                 setTextTextView(txtEnTraineeName,detailEnrollment.getTraineeName());
                 setTextTextView(txtInfoEmail,detailEnrollment.getEmail());
                 setTextTextView(txtInfoAddress,detailEnrollment.getAddress());
+                setTextTextView(txtInfoPhone, detailEnrollment.getPhone());
             }
 
             @Override
@@ -110,12 +112,9 @@ public class DetailEnrollment extends AppCompatActivity {
     }
 
     public void setTextTextView(TextView textView , String text){
-        if(text.length() == 0 ){
-            text = "empty";
-            textView.setText(text);
-            return;
-        }
-        else{
+        if(text == null ){
+            textView.setText("empty");
+        }else{
             textView.setText(text);
         }
     }

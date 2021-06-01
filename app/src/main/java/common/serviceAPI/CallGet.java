@@ -21,8 +21,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface CallGet {
-    @GET("api/question")
-    Call<List<QuestionViewModel>> getListQuestion();
+    @GET("api/question/{filter}")
+    Call<List<QuestionViewModel>> getListQuestion(@Path("filter") String filter);
 
     @GET("api/classes")
     Call<List<ClassViewModel>> getListClass( @Query("role") String role ,  @Query("userId") String userId);
