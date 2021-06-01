@@ -34,31 +34,60 @@ public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull final StatisticAdapter.ViewHolder holder, int position) {
-        final PieBaseOnTopic pieData = new PieBaseOnTopic();
-        holder.txtTopic.setText(pieData.getData().first);
-//        holder.classID.setText(feedback.getTraineeClassID());
-//        holder.className.setText(feedback.getTraineeClassName());
-//        holder.moduleId.setText(feedback.getTraineeModuleID());
-//        String moduleName = "<b>Module Name: </b>" + feedback.getTraineeModuleName();
-//        holder.moduleName.setText(android.text.Html.fromHtml(moduleName));
-//        holder.endTime.setText(feedback.getTraineeEndTime());
-//        if(feedback.isStatus()){
-//            holder.status.setText("Complete");
-////            holder.btnDoFeedback.setVisibility(View.GONE);
-//        }
-//        else
-//            holder.status.setText("Incomplete");
-//        holder.btnDoFeedback.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                holder.btnDoFeedback.setVisibility(View.GONE);
-////                String AdminID = feedbackes.getAdminId();
-//                Intent intent = new Intent(context, DoFeedback.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-////                intent.putExtra("li",AdminID);
-//                context.startActivity(intent);
-//            }
-//        });
+        final PieBaseOnTopic pieDataTopic = listPieData.get(position);
+        holder.txtTopic.setText(pieDataTopic.getData().first);
+        pieChart.setUsePercentValues(true);
+        ArrayList<PieChartViewModel> pieDataAPI= pieDataTopic.getData().second;
+//
+//        pieDataAPI.add( new PieChartViewModel(1,50));
+//        pieDataAPI.add( new PieChartViewModel(2,50));
+
+        ArrayList<PieEntry> label = new ArrayList<>();
+        for(int i=0;i<pieDataAPI.size();i++){
+            label.add(new PieEntry(pieDataAPI.get(i).getPercent(),
+                    description.getString(pieDataAPI.get(i).getValue())));
+        }
+
+        // set label
+        pieChart.setEntryLabelColor(Color.WHITE);
+        //create the DATA
+        PieDataSet pieDataSet=new PieDataSet(label,"");
+        pieDataSet.setSliceSpace(0);
+        pieDataSet.setValueTextSize(20);
+//        pieDataSet.setLabel("HIHI");
+        //remove hole in center
+        pieChart.setDrawHoleEnabled(false);
+        pieChart.setDrawCenterText(true);
+        pieChart.setDrawCenterText(false);
+        pieChart.setDrawEntryLabels(false);
+        //add colors to dataSet
+        ArrayList<Integer> colors=new ArrayList<>();
+        //strongly agree
+        colors.add(Color.rgb(254,81,44));
+        // agree
+        colors.add(Color.rgb(255,102,70));
+        //neural
+        colors.add(Color.rgb(255,103,69));
+        //disagree
+        colors.add(Color.rgb(245,144,122));
+        //strongly disagree
+        colors.add(Color.rgb(247,193,181));
+        pieDataSet.setDrawValues(false);
+        pieChart.getDescription().setEnabled(false);
+        pieChart.setDrawCenterText(true);
+        pieDataSet.setColors(colors);
+        //add legend to chart
+        Legend legend=pieChart.getLegend();
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
+        legend.setDrawInside(true);
+        legend.setEnabled(true);
+        //create a pieData object
+        PieData pieData=new PieData(pieDataSet);
+        pieChart.setData(pieData);
+        pieChart.invalidate();
     }
 
 
@@ -74,7 +103,7 @@ public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.View
         public ViewHolder(@NonNull View itemView){
             super(itemView);
             txtTopic = itemView.findViewById(R.id.txtTitleStatistic);
-            pieChart=itemView.findViewById(R.id.pieChart);
+            pieChart=itemView.findViewById(R.id.pieChartTopic);
         }
     }
 

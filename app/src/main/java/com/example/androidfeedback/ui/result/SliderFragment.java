@@ -17,15 +17,18 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.androidfeedback.R;
 import com.example.androidfeedback.ui.statistic.ClassStatisticViewModel;
 import com.example.androidfeedback.ui.statistic.ModuleStatisticViewModel;
+import com.example.androidfeedback.ui.statistic.PieBaseOnTopic;
 import com.example.androidfeedback.ui.statistic.PieChartViewModel;
+import com.example.androidfeedback.ui.statistic.StatisticAdapter;
 import com.example.androidfeedback.ui.statistic.StatisticDescription;
 import com.example.androidfeedback.ui.statistic.StatisticViewModel;
 import com.github.mikephil.charting.charts.PieChart;
@@ -35,6 +38,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import common.serviceAPI.CallGet;
 import common.serviceAPI.RetrofitInstance;
@@ -44,6 +48,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class SliderFragment extends Fragment {
+    private RecyclerView recyclerView;
+    private StatisticAdapter statisticAdapter;
     private ViewPager mSliderViewPager;
     private Button btnViewComment;
     private Spinner spinnerClass;
@@ -55,8 +61,8 @@ public class SliderFragment extends Fragment {
     private Retrofit retrofit;
     private CallGet callGet;
     private ArrayList<PieChartViewModel> pieData;
+    private ArrayList<PieBaseOnTopic> pieDataTopic;
     private PieChart pieChart;
-    private PieChart pieChart2;
     private ArrayList<PieEntry> pieEntries = new ArrayList();
     StatisticDescription description;
     private FragmentTransaction fragmentTransaction;
@@ -69,8 +75,9 @@ public class SliderFragment extends Fragment {
         retrofit= RetrofitInstance.getClient();
         callGet = retrofit.create(CallGet.class);
         description= new StatisticDescription();
-        fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
-        ViewCommentFragment fragment2 = new ViewCommentFragment();
+
+        pieDataTopic= new ArrayList<>();
+        recyclerView = root.findViewById(R.id.recyclerCommentResult);
 
         btnViewComment = (Button)root.findViewById(R.id.btnViewComment);
         btnViewComment.setOnClickListener(new View.OnClickListener() {
@@ -79,12 +86,10 @@ public class SliderFragment extends Fragment {
 //                Intent intent = new Intent(getActivity(),ViewComment.class);
 //                startActivity(intent);
                 mSliderViewPager.setVisibility(View.GONE);
-
                 Toast.makeText(getActivity(), "On click", Toast.LENGTH_SHORT).show();
-
-                FragmentManager fragmentManager = getFragmentManager();
-//                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.container, (Fragment)fragment2);
+                ViewCommentFragment fragment2 = new ViewCommentFragment();
+                FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.container, (Fragment)fragment2,"VIEW_COMMENT");
                 fragmentTransaction.commit();
             }
         });
@@ -94,18 +99,23 @@ public class SliderFragment extends Fragment {
         btnShowOverview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View root2 = inflater.inflate(R.layout.fragment_slider2, container, false);
+                mSliderViewPager.setVisibility(View.VISIBLE);
                 createSliderPage();
-
-                TextView className = root.findViewById(R.id.txtClassNameStatistic);
+                View root2 = inflater.inflate(R.layout.fragment_slider2,container,false);
+                TextView className = root2.findViewById(R.id.txtClassNameStatistic);
                 className.setText(currentClass.second);
-                TextView moduleName = root.findViewById(R.id.txtModuleNameStatistic);
+                TextView moduleName =root2.findViewById(R.id.txtModuleNameStatistic);
                 moduleName.setText(currentModule.second);
+                List fragments = getActivity().getSupportFragmentManager().getFragments();
+                Fragment mCurrentFragment = (Fragment) fragments.get(fragments.size()-1);
+                if(fragments.size()==2){
+                    getActivity().getSupportFragmentManager().beginTransaction().remove(mCurrentFragment).commit();
+                }
 
-                fragmentTransaction.remove(fragment2).commit();
                 pieChart= root.findViewById(R.id.pieChart);
 
-                callPieChart();
+//                callPieChart();
+//                callPieChartBaseTopic();
 
             }
         });
@@ -136,6 +146,10 @@ public class SliderFragment extends Fragment {
         });
 
         return root;
+    }
+    private void callAdapter(){
+
+
     }
     private void createSliderPage( ){
         int layouts[]= {
@@ -245,7 +259,26 @@ public class SliderFragment extends Fragment {
             }
         });
     }
+    private void callPieChartBaseTopic(){
+        Call<ArrayList<PieBaseOnTopic>> getDataPieChart =callGet.getPieChartBaseOnTopic(currentClass.first,currentModule.first);
+        getDataPieChart.enqueue(new Callback<ArrayList<PieBaseOnTopic>>() {
+            @Override
+            public void onResponse(Call<ArrayList<PieBaseOnTopic>> call, Response<ArrayList<PieBaseOnTopic>> response) {
+                String a= response.message();
+                pieDataTopic=(ArrayList<PieBaseOnTopic>)response.body();
+                statisticAdapter = new StatisticAdapter(getActivity().getApplicationContext(),pieDataTopic);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+                recyclerView.setAdapter(statisticAdapter);
+                int i=1;
+            }
 
+            @Override
+            public void onFailure(Call<ArrayList<PieBaseOnTopic>> call, Throwable t) {
+                String a= t.getMessage();
+                int aa=1;
+            }
+        });
+    }
     private void drawChart(ArrayList<PieChartViewModel> pieDataAPI) {
         pieChart.setUsePercentValues(true);
 //
