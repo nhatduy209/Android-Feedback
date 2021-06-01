@@ -2,6 +2,7 @@ package com.example.androidfeedback.ui.assignment;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -99,6 +100,10 @@ public class EditAssignment extends AppCompatActivity {
                         String res = response.message();
                         Toast.makeText(context , response.body().getMessage(), Toast.LENGTH_LONG).show();
                         // load fragment again
+                        SharedPreferences pref = getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putBoolean("shouldReload",true);
+                        editor.apply();
                         finish();
                         navController.navigate(R.id.nav_assignment);
 

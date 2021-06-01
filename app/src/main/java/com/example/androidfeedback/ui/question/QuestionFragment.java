@@ -137,6 +137,20 @@ public class QuestionFragment extends Fragment {
             }
         });
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        SharedPreferences prefs = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        boolean shouldReload = prefs.getBoolean("shouldReload", false);
+        if (!allowRefresh && shouldReload){
+            allowRefresh = true;
+            SharedPreferences pref = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+            editor = pref.edit();
+            editor.putBoolean("shouldAttach",true);
+            editor.apply();
+        }
+    }
 
     @Override
     public void onResume() {

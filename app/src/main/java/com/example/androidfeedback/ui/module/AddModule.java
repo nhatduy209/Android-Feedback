@@ -182,8 +182,13 @@ public class AddModule extends AppCompatActivity implements DatePickerDialog.OnD
                             public void onResponse(Call<EditModuleModel> call, Response<EditModuleModel> response) {
                                 String res = response.message();
                                 Toast.makeText(context,res, Toast.LENGTH_SHORT).show();
+                                SharedPreferences pref = getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = pref.edit();
+                                editor.putBoolean("shouldReload",true);
+                                editor.apply();
                                 finish();
                                 navController.navigate(R.id.nav_class);
+
                             }
 
                             @Override

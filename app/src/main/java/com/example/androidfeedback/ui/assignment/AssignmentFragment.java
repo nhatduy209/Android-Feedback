@@ -103,21 +103,13 @@ public class AssignmentFragment extends Fragment {
                         getSearchAssignments.enqueue(new Callback<List<AssignmentModel>>() {
                             @Override
                             public void onResponse(Call<List<AssignmentModel>> call, Response<List<AssignmentModel>> response) {
-                                String res = response.message();
-                                if(res!=null)
-                                {
-                                    Toast.makeText(getActivity() ,res, Toast.LENGTH_LONG).show();
-                                }
-                                else
-                                {
                                     listAssignment = (ArrayList<AssignmentModel>) response.body();
                                     reload(listAssignment, root );
-                                }
                             }
 
                             @Override
                             public void onFailure(Call<List<AssignmentModel>> call, Throwable t) {
-
+                                Toast.makeText(getActivity() ,"Not found!", Toast.LENGTH_LONG).show();
                             }
 
                         });
@@ -164,6 +156,20 @@ public class AssignmentFragment extends Fragment {
 
         return root;
 
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        SharedPreferences prefs = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        boolean shouldReload = prefs.getBoolean("shouldReload", false);
+        if (!allowRefresh && shouldReload){
+            allowRefresh = true;
+            SharedPreferences pref = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+            editor = pref.edit();
+            editor.putBoolean("shouldAttach",true);
+            editor.apply();
+        }
     }
     public void reload(ArrayList<AssignmentModel> listAssignment, View view){
         assignmentAdapter = new AssignmentAdapter(getActivity(), listAssignment);
