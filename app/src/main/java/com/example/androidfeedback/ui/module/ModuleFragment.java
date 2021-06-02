@@ -104,6 +104,22 @@ public class ModuleFragment extends Fragment{
                 });
                 btnAdd.setVisibility(View.INVISIBLE);
                 break;
+            case "Trainer" :
+                Call<List<ModuleViewModel>> getListModuleTraineer = callGet.getListModuleTrainer(userId);
+
+                getListModuleTraineer.enqueue(new Callback<List<ModuleViewModel>>() {
+                    @Override
+                    public void onResponse(Call<List<ModuleViewModel>> call, Response<List<ModuleViewModel>> response) {
+                        listModule = (ArrayList<ModuleViewModel>) response.body();
+                        reload(listModule, root );
+                    }
+                    @Override
+                    public void onFailure(Call<List<ModuleViewModel>> call, Throwable t) {
+
+                    }
+                });
+                btnAdd.setVisibility(View.INVISIBLE);
+                break;
         }
 
 

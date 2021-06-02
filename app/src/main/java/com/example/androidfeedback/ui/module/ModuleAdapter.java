@@ -60,7 +60,7 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder
             btnDelete = itemView.findViewById(R.id.btnDeleteModule);
             btnEdit = itemView.findViewById(R.id.btnEditModule);
 
-            if(role.contentEquals("Trainee")){
+            if(role.contentEquals("Trainee") || role.contentEquals("Trainer") ){
                 btnEdit.setVisibility(itemView.GONE);
                 btnDelete.setVisibility(itemView.GONE);
             }
