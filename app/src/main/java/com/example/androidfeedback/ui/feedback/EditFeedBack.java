@@ -43,7 +43,7 @@ public class EditFeedBack extends AppCompatActivity {
     AddFeedbackModel feedbackModel;
     String act;
 //    private int[] listTopic;
-    private ArrayList<TopicFeedbackModel> listTopic;
+    private TopicResult listTopic;
 
     protected void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState);
         setContentView(R.layout.feedback_review_edit_layout);
@@ -158,25 +158,25 @@ public class EditFeedBack extends AppCompatActivity {
 
         Retrofit retrofit = RetrofitInstance.getClient();
         CallGet callGet = retrofit.create(CallGet.class);
-        Call<List<TopicFeedbackModel>> listTopicFeedback = callGet.getListTopicFeedback();
-        listTopicFeedback.enqueue(new Callback<List<TopicFeedbackModel>>() {
+        Call<TopicResult> listTopicFeedback = callGet.getListTopicFeedback();
+        listTopicFeedback.enqueue(new Callback<TopicResult>() {
             @Override
-            public void onResponse(Call<List<TopicFeedbackModel>> call, Response<List<TopicFeedbackModel>> response) {
-                listTopic = (ArrayList<TopicFeedbackModel>) response.body();
+            public void onResponse(Call<TopicResult> call, Response<TopicResult> response) {
+                listTopic = (TopicResult) response.body();
                 String questions = new String();
-                for (int i=0;i<listTopic.size();i++){
-                    questions += "<b>" + listTopic.get(i).getTopicName() + "</b><br/>";
-                    for(int j =0; j<listTopic.get(i).getQuestions().size();j++){
+                for (int i=0;i<listTopic.getTopicFeedbackModels().size();i++){
+                    questions += "<b>" + listTopic.getTopicFeedbackModels().get(i).getTopicName() + "</b><br/>";
+                    for(int j =0; j<listTopic.getTopicFeedbackModels().get(i).getQuestions().size();j++){
                         for( int k=0; k < listQuestionchecked.length;k++)
-                            if(listQuestionchecked[k] == listTopic.get(i).getQuestions().get(j).getQuestionID())
-                                questions += "- "+ listTopic.get(i).getQuestions().get(j).getQuestionContent() +" <br/>";
+                            if(listQuestionchecked[k] == listTopic.getTopicFeedbackModels().get(i).getQuestions().get(j).getQuestionID())
+                                questions += "- "+ listTopic.getTopicFeedbackModels().get(i).getQuestions().get(j).getQuestionContent() +" <br/>";
                     }
                 }
                 txtQuestions.setText(android.text.Html.fromHtml(questions));
             }
 
             @Override
-            public void onFailure(Call<List<TopicFeedbackModel>> call, Throwable t) {
+            public void onFailure(Call<TopicResult> call, Throwable t) {
 
             }
         });

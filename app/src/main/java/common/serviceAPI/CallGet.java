@@ -7,6 +7,7 @@ import com.example.androidfeedback.ui.enrollment.EnrollmentDetailModel;
 import com.example.androidfeedback.ui.enrollment.EnrollmentViewModel;
 import com.example.androidfeedback.ui.feedback.FeedbackViewModel;
 import com.example.androidfeedback.ui.feedback.TopicFeedbackModel;
+import com.example.androidfeedback.ui.feedback.TopicResult;
 import com.example.androidfeedback.ui.feedback.TypeFeedbackModel;
 import com.example.androidfeedback.ui.module.AddModuleSpinner;
 import com.example.androidfeedback.ui.module.ModuleViewModel;
@@ -43,7 +44,7 @@ public interface CallGet {
     Call<List<FeedbackViewModel>> getListFeedback();
 
     @GET("api/feedback/add")
-    Call<List<TopicFeedbackModel>> getListTopicFeedback();
+    Call<TopicResult> getListTopicFeedback();
 
     @GET("api/assignment")
     Call<List<AssignmentModel>> getListAssignment();
