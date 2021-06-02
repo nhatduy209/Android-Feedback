@@ -54,8 +54,13 @@ public class HomeFragment extends Fragment {
         if(role.matches("Admin")){
             final View root = inflater.inflate(R.layout.fragment_assignment, container, false);
 
-            FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
-            fl.removeAllViews();
+            try{
+                FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+                fl.removeAllViews();
+            }
+             catch(Exception a ){
+                String aa = a.toString();
+           }
 
             Button btnAdd = root.findViewById(R.id.btnAddAssignment);
             Button btnSearch = root.findViewById(R.id.btnSearchAssignment);

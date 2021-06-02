@@ -71,7 +71,6 @@ public class ClassFragment extends Fragment{
             }
         });
 
-
         FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
         fl.removeAllViews();
 

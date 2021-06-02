@@ -97,7 +97,7 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
             @Override
             public void onClick(View v) {
                 finish();
-                navController.navigate(R.id.nav_class);
+                navController.navigate(R.id.nav_assignment);
             }
         });
 
@@ -127,14 +127,16 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
                        @Override
                        public void onResponse(Call<ClassViewModel> call, Response<ClassViewModel> response) {
                            String res = response.message();
-
                            // load fragment again
+
+                           SharedPreferences pref = getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+                           SharedPreferences.Editor editor = pref.edit();
+                           editor.putBoolean("shouldReload",true);
+                           editor.apply();
+
                            List<Fragment> frag = AddClass.this.getSupportFragmentManager().getFragments();
-
-
                            finish();
-                           navController.navigate(R.id.nav_class);
-
+                           navController.navigate(R.id.nav_assignment);
                        }
 
                        @Override
@@ -167,7 +169,7 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
                            editor.apply();
 
                            finish();
-                           navController.navigate(R.id.nav_class);
+                           navController.navigate(R.id.nav_assignment);
                            // load fragment again
 
                        }
