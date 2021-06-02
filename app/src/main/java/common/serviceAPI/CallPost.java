@@ -3,6 +3,7 @@ package common.serviceAPI;
 import com.example.androidfeedback.ui.assignment.AddAssignmentModel;
 import com.example.androidfeedback.ui.assignment.AssignmentModel;
 import com.example.androidfeedback.ui.assignment.EditAssignmentModel;
+import com.example.androidfeedback.ui.feedback.AddFeedbackModel;
 import com.example.androidfeedback.ui.join.JoinViewModel;
 import com.example.androidfeedback.ui.login.LoginModel;
 import com.example.androidfeedback.ui.module.AddModuleModel;
@@ -23,6 +24,9 @@ public interface CallPost {
 
     @POST("api/classes")
     Call<ClassViewModel> addClassAPI(@Body ClassViewModel classViewModel );
+
+    @POST("api/feedback/add")
+    Call<AddFeedbackModel> addFeedbackAPI(@Body AddFeedbackModel addFeedbackModel );
 
     @POST("api/module/add")
     Call<AddModuleModel> addModuleAPI(@Body AddModuleModel module );

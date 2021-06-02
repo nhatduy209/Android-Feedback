@@ -6,6 +6,8 @@ import com.example.androidfeedback.ui.assignment.TrainerModel;
 import com.example.androidfeedback.ui.enrollment.EnrollmentDetailModel;
 import com.example.androidfeedback.ui.enrollment.EnrollmentViewModel;
 import com.example.androidfeedback.ui.feedback.FeedbackViewModel;
+import com.example.androidfeedback.ui.feedback.TopicFeedbackModel;
+import com.example.androidfeedback.ui.feedback.TypeFeedbackModel;
 import com.example.androidfeedback.ui.module.AddModuleSpinner;
 import com.example.androidfeedback.ui.module.ModuleViewModel;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
@@ -62,6 +64,9 @@ public interface CallGet {
 
     @GET("api/statistic/comment")
     Call<ArrayList<CommentViewModel>> getListComment(@Query("classID") int classID, @Query("moduleID") int moduleID);
+    @GET("api/feedback/add")
+    Call<List<TopicFeedbackModel>> getListTopicFeedback();
+
     @GET("api/assignment")
     Call<List<AssignmentModel>> getListAssignment();
 

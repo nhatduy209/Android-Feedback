@@ -11,13 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
+import com.example.androidfeedback.ui.question.QuestionTopicModel;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
 
 import java.util.ArrayList;
 
 public class FeedbackQuestionAdapter extends RecyclerView.Adapter<FeedbackQuestionAdapter.ViewHolder>{
     Context context;
-    private ArrayList<QuestionViewModel> listQuestion;
+    private ArrayList<QuestionTopicModel> listQuestion;
     private int position;
     private FeedbackReviewModel reviewModel;
     private ArrayList<QuestionViewModel> listReview;
@@ -31,7 +32,7 @@ public class FeedbackQuestionAdapter extends RecyclerView.Adapter<FeedbackQuesti
         this.position = position;
     }
 
-    public FeedbackQuestionAdapter(Context context, ArrayList<QuestionViewModel> listQuestion,FeedbackTopicAdapter feedbackTopicAdapter){
+    public FeedbackQuestionAdapter(Context context, ArrayList<QuestionTopicModel> listQuestion, FeedbackTopicAdapter feedbackTopicAdapter){
         this.context = context;
         this.listQuestion = listQuestion;
         this.feedbackTopicAdapter = feedbackTopicAdapter;
@@ -55,7 +56,7 @@ public class FeedbackQuestionAdapter extends RecyclerView.Adapter<FeedbackQuesti
 
     @Override
     public void onBindViewHolder(@NonNull final FeedbackQuestionAdapter.ViewHolder holder, final int position){
-        final QuestionViewModel question = listQuestion.get(position);
+        final QuestionTopicModel question = listQuestion.get(position);
         holder.cb.setText(question.getQuestionContent());
         holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
