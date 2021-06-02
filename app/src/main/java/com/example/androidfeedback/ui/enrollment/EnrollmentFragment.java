@@ -20,8 +20,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
-import com.example.androidfeedback.ui.question.QuestionFragment;
-import com.example.androidfeedback.ui.uiclass.ClassFragment;
 import com.example.androidfeedback.ui.uiclass.ClassViewModel;
 
 import java.util.ArrayList;

@@ -8,13 +8,9 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.androidfeedback.R;
-import com.example.androidfeedback.ui.gallery.GalleryViewModel;
 
 public class ContactFragment extends Fragment {
     private TextView txtEmail,txtAddress, txtPhone;

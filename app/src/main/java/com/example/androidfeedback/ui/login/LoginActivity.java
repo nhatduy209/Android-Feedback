@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,14 +17,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidfeedback.MainActivity;
 import com.example.androidfeedback.R;
-import com.example.androidfeedback.ui.enrollment.EnrollmentViewModel;
-import com.example.androidfeedback.ui.uiclass.ClassViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import common.ValidationEditText;
-import common.serviceAPI.CallGet;
 import common.serviceAPI.CallPost;
 import common.serviceAPI.RetrofitInstance;
 import retrofit2.Call;
@@ -118,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                 LoginModel loginModel = new LoginModel(username.getText().toString(),password.getText().toString(), role);
                 // call API login
                 Retrofit retrofit = RetrofitInstance.getClient();
+
 
             CallPost callPost = retrofit.create(CallPost.class);
 
