@@ -12,6 +12,8 @@ import com.example.androidfeedback.ui.module.AddModuleSpinner;
 import com.example.androidfeedback.ui.module.ModuleViewModel;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
 import com.example.androidfeedback.ui.uiclass.ClassViewModel;
+import com.example.androidfeedback.ui.uiclass.trainee.ClassDetailModel;
+import com.example.androidfeedback.ui.uiclass.trainee.DetailClassTrainee;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,8 +65,17 @@ public interface CallGet {
     Call<List<ModuleViewModel>> getListModuleTrainee(@Query("traineeID") String TraineeID );
 
     @GET("api/classes/detail")
-    Call<List<ClassViewModel>> getListClassDetail(@Query("id") String idClass ,@Query("role") String role ,  @Query("userId") String userId );
+    Call<List<ClassDetailModel>> getListClassDetail(@Query("id") int idClass , @Query("role") String role , @Query("userId") String userId );
 
     @GET("api/module/trainer")
     Call<List<ModuleViewModel>> getListModuleTrainer(@Query("trainerID") String TraineeID );
+
+    @GET("api/assignment/trainer/{trainerId}")
+    Call<List<AssignmentModel>> getListAssignmentByTrainer(@Path("trainerId") String trainerId);
+
+    @GET("api/assignment/trainer/{trainerId}/{inputText}")
+    Call<List<AssignmentModel>> searchAssignmentByTrainer(@Path("trainerId") String trainerId,@Path("inputText")String inputText);
+
+
+
 }

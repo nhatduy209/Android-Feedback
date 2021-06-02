@@ -58,6 +58,8 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
             public void onClick(View view) {
                 Intent intent = new Intent(context.getApplicationContext(), DetailClassTrainee.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("className",classes.getClassName());
+                intent.putExtra("classId",classes.getClassId());
                 context.startActivity(intent);
             }
         });

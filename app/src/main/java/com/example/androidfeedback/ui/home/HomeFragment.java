@@ -95,7 +95,7 @@ public class HomeFragment extends Fragment {
             return root ;
         }
         else if(role.matches("Trainer")){
-            View root = inflater.inflate(R.layout.fragment_assignment, container, false);
+            final View root = inflater.inflate(R.layout.fragment_assignment, container, false);
 
             FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
             fl.removeAllViews();
@@ -106,6 +106,31 @@ public class HomeFragment extends Fragment {
             btnAdd.setVisibility(View.GONE);
             btnSearch.setVisibility(View.GONE);
             txtSearch.setVisibility(View.GONE);
+
+            listAssignment = new ArrayList<AssignmentModel>();
+            //createAssignmentList();
+            recyclerAssignment = root.findViewById(R.id.recyclerAssignment);
+            assignmentAdapter = new AssignmentAdapter(getActivity().getApplicationContext(),listAssignment);
+
+            // call api to get list assignment
+            Retrofit retrofit = RetrofitInstance.getClient();
+
+            CallGet callGet = retrofit.create(CallGet.class);
+            Call<List<AssignmentModel>> getListAssignmentsByTrainer = callGet.getListAssignmentByTrainer(userId);
+
+            getListAssignmentsByTrainer.enqueue(new Callback<List<AssignmentModel>>() {
+                @Override
+                public void onResponse(Call<List<AssignmentModel>> call, Response<List<AssignmentModel>> response) {
+                    listAssignment = (ArrayList<AssignmentModel>) response.body();
+                    reloadByTrainer(listAssignment, root );
+                }
+
+                @Override
+                public void onFailure(Call<List<AssignmentModel>> call, Throwable t) {
+
+                }
+
+            });
             return root ;
         }
         else {
@@ -138,5 +163,11 @@ public class HomeFragment extends Fragment {
         // recyclerCategoryView.setHasFixedSize(true);
         recyclerFeedback.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerFeedback.setAdapter(feedbackAdapter);
+    }
+    public void reloadByTrainer(ArrayList<AssignmentModel> listAssignment, View view){
+        assignmentAdapter = new AssignmentAdapter(getActivity(), listAssignment);
+        // recyclerCategoryView.setHasFixedSize(true);
+        recyclerAssignment.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerAssignment.setAdapter(assignmentAdapter);
     }
 }
