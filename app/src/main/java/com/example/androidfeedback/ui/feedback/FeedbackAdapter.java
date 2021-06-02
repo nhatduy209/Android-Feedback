@@ -38,10 +38,12 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        final FeedbackViewModel feedbackes = listFeedback.get(position);
-        holder.feedbackID.setText(String.valueOf(feedbackes.getFeedbackId()));
-        holder.feedbackTitle.setText(feedbackes.getFeedbackTitle());
-        holder.adminId.setText(feedbackes.getAdminId());
+        final FeedbackViewModel feedback = listFeedback.get(position);
+        String title = "<b>Feedback Title: </b>" + feedback.getFeedbackTitle();
+        String id = "<b>Admin ID: </b>" + feedback.getAdminId();
+        holder.feedbackID.setText(String.valueOf(feedback.getFeedbackId()));
+        holder.feedbackTitle.setText(android.text.Html.fromHtml(title));
+        holder.adminId.setText(android.text.Html.fromHtml(id));
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,7 +64,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.ViewHo
                         CallDelete callDelete = retrofit.create(CallDelete.class);
 
                         Call<FeedbackViewModel> deleteFeedback = callDelete
-                                .deleteFeedback(feedbackes.getFeedbackId());
+                                .deleteFeedback(feedback.getFeedbackId());
 
                         // call callback
                         deleteFeedback.enqueue(new Callback<FeedbackViewModel>() {
@@ -70,7 +72,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.ViewHo
                             public void onResponse(Call<FeedbackViewModel> call, Response<FeedbackViewModel> response) {
                                 String res = response.message();
                                 Toast.makeText(context , response.body().getMessage(), Toast.LENGTH_LONG).show();
-                                removeItem(feedbackes);
+                                removeItem(feedback);
                                 dialog.dismiss();
                             }
 
@@ -94,7 +96,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.ViewHo
         holder.btnDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String AdminID = feedbackes.getAdminId();
+                String AdminID = feedback.getAdminId();
                 Intent intent = new Intent(context, EditFeedBack.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("AdminID",AdminID);
@@ -104,7 +106,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.ViewHo
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String AdminID = feedbackes.getAdminId();
+                String AdminID = feedback.getAdminId();
                 Intent intent = new Intent(context, AddFeedback.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("li",AdminID);

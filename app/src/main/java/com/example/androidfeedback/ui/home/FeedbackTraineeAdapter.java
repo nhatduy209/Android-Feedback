@@ -46,7 +46,7 @@ public class FeedbackTraineeAdapter extends RecyclerView.Adapter<FeedbackTrainee
         holder.btnDoFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                holder.btnDoFeedback.setVisibility(View.GONE);
+                holder.btnDoFeedback.setVisibility(View.GONE);
 //                String AdminID = feedbackes.getAdminId();
                 Intent intent = new Intent(context, DoFeedback.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

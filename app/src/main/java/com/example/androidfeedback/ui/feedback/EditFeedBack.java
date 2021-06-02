@@ -54,16 +54,16 @@ public class EditFeedBack extends AppCompatActivity {
         tvTitle.setText("Review New Feedback");
         txtFBTitle.setText("Feedback Title");
         txtAdminID.setText("Admin ID");
-//        Bundle b = getIntent().getExtras();
-//        try{
-//             listQuestionchecked = b.getIntArray("listQuestion");  // get data passing from other activity
-//            String feedbackTitle = b.getString("feedbackTitle");
-//            txtFBTitle.setText(feedbackTitle);
-//            tvTitle.setText("Edit New Feedback");
-//        }catch(Exception e){
-//            String AdminId = b.getString("AdminID");
-//            tvTitle.setText("Edit New Feedback");
-//        }
+        Bundle b = getIntent().getExtras();
+        try{
+             listQuestionchecked = b.getIntArray("listQuestion");  // get data passing from other activity
+            String feedbackTitle = b.getString("feedbackTitle");
+            txtFBTitle.setText(feedbackTitle);
+            tvTitle.setText("Edit New Feedback");
+        }catch(Exception e){
+            String AdminId = b.getString("AdminID");
+            tvTitle.setText("Edit New Feedback");
+        }
 
         listTopic = new int[]{1,2,3};
         //list question in topic
