@@ -54,7 +54,7 @@
             android:text="@string/error_add_class_name"
             android:textColor="#ED0A0A"
             android:textSize="12sp"
-            android:visibility="invisible" />
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textView16"
@@ -80,7 +80,7 @@
             android:text="@string/error_add_class_capacity"
             android:textColor="#ED0A0A"
             android:textSize="12sp"
-            android:visibility="invisible" />
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textView17"
@@ -91,7 +91,7 @@
             android:text="Start Date"
             android:textSize="18sp" />
 
-        <TextView
+        <EditText
             android:id="@+id/date_picker_start"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -109,7 +109,25 @@
             android:text="@string/error_add_class_date"
             android:textColor="#ED0A0A"
             android:textSize="12sp"
-            android:visibility="invisible" />
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/errorTextClassDateStart1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Please choose start date after now date"
+            android:textColor="#ED0A0A"
+            android:textSize="12sp"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/errorTextClassDateStart2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Please choose start date before end date"
+            android:textColor="#ED0A0A"
+            android:textSize="12sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textEnd"
@@ -120,7 +138,7 @@
             android:text="End Date"
             android:textSize="18sp" />
 
-        <TextView
+        <EditText
             android:id="@+id/date_picker_end"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -138,7 +156,25 @@
             android:text="@string/error_add_class_date"
             android:textColor="#ED0A0A"
             android:textSize="12sp"
-            android:visibility="invisible" />
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/errorTextClassDateEnd1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Please choose start date after now date"
+            android:textColor="#ED0A0A"
+            android:textSize="12sp"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/errorTextClassDateEnd2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Please choose start date after start date"
+            android:textColor="#ED0A0A"
+            android:textSize="12sp"
+            android:visibility="gone" />
 
     </LinearLayout>
 

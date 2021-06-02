@@ -27,6 +27,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -50,6 +51,8 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
     private int dateAdd = 0 ,classId ;    // choose which date pick is press by user
     private String dateStartAdd , dateEndAdd ;
     private boolean isEditing = false ;
+    private LocalDate start,end;
+    private boolean check;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,78 +109,79 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                check = check();
                 // validation error
-               boolean canAdd =  validationError();
+//               boolean canAdd =  validationError();
 
-               if(canAdd == false ){
-                   return;
+               if(check ){
+                   // check if user click add or edit
+                   if(!isEditing){
+                       ClassViewModel classModel = new ClassViewModel(0,classNameEditText.getText().toString()
+                               , dateStartAdd,dateEndAdd , capacityEditText.getText().toString(),false);
+                       Retrofit retrofit = RetrofitInstance.getClient();
+                       CallPost callPost = retrofit.create(CallPost.class);
+                       Call<ClassViewModel> addClass  = callPost.addClassAPI(classModel);
+
+                       // call callback
+                       addClass.enqueue(new Callback<ClassViewModel>() {
+                           @Override
+                           public void onResponse(Call<ClassViewModel> call, Response<ClassViewModel> response) {
+                               String res = response.message();
+
+                               // load fragment again
+                               List<Fragment> frag = AddClass.this.getSupportFragmentManager().getFragments();
+
+
+                               finish();
+                               navController.navigate(R.id.nav_class);
+
+                           }
+
+                           @Override
+                           public void onFailure(Call<ClassViewModel> call, Throwable t) {
+
+                           }
+                       });
+                   }
+                   else {
+                       ClassViewModel classModel = new ClassViewModel(classId,classNameEditText.getText().toString()
+                               , dateStartAdd,dateEndAdd , capacityEditText.getText().toString(),false);
+
+                       Retrofit retrofit = RetrofitInstance.getClient();
+
+                       CallPut callPost = retrofit.create(CallPut.class);
+
+                       Call<ClassViewModel> updateClass  = callPost.updateClassAPI(classId,classModel);
+
+                       // call callback
+                       updateClass.enqueue(new Callback<ClassViewModel>() {
+                           @Override
+                           public void onResponse(Call<ClassViewModel> call, Response<ClassViewModel> response) {
+                               String res = response.message();
+                               Toast.makeText(context , response.body().getMessage(), Toast.LENGTH_LONG).show();
+                               // load fragment again
+
+                               SharedPreferences pref = getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+                               SharedPreferences.Editor editor = pref.edit();
+                               editor.putBoolean("shouldReload",true);
+                               editor.apply();
+
+                               finish();
+                               navController.navigate(R.id.nav_class);
+                               // load fragment again
+
+                           }
+
+                           @Override
+                           public void onFailure(Call<ClassViewModel> call, Throwable t) {
+
+                           }
+                       });
+                   }
                }
 
 
-               // check if user click add or edit
-               if(!isEditing){
-                   ClassViewModel classModel = new ClassViewModel(0,classNameEditText.getText().toString()
-                           , dateStartAdd,dateEndAdd , capacityEditText.getText().toString(),false);
-                   Retrofit retrofit = RetrofitInstance.getClient();
-                   CallPost callPost = retrofit.create(CallPost.class);
-                   Call<ClassViewModel> addClass  = callPost.addClassAPI(classModel);
 
-                   // call callback
-                   addClass.enqueue(new Callback<ClassViewModel>() {
-                       @Override
-                       public void onResponse(Call<ClassViewModel> call, Response<ClassViewModel> response) {
-                           String res = response.message();
-
-                           // load fragment again
-                           List<Fragment> frag = AddClass.this.getSupportFragmentManager().getFragments();
-
-
-                           finish();
-                           navController.navigate(R.id.nav_class);
-
-                       }
-
-                       @Override
-                       public void onFailure(Call<ClassViewModel> call, Throwable t) {
-
-                       }
-                   });
-               }
-               else {
-                   ClassViewModel classModel = new ClassViewModel(classId,classNameEditText.getText().toString()
-                           , dateStartAdd,dateEndAdd , capacityEditText.getText().toString(),false);
-
-                   Retrofit retrofit = RetrofitInstance.getClient();
-
-                   CallPut callPost = retrofit.create(CallPut.class);
-
-                   Call<ClassViewModel> updateClass  = callPost.updateClassAPI(classId,classModel);
-
-                   // call callback
-                   updateClass.enqueue(new Callback<ClassViewModel>() {
-                       @Override
-                       public void onResponse(Call<ClassViewModel> call, Response<ClassViewModel> response) {
-                           String res = response.message();
-                           Toast.makeText(context , response.body().getMessage(), Toast.LENGTH_LONG).show();
-                           // load fragment again
-
-                           SharedPreferences pref = getSharedPreferences("Refresh",Context.MODE_PRIVATE);
-                           SharedPreferences.Editor editor = pref.edit();
-                           editor.putBoolean("shouldReload",true);
-                           editor.apply();
-
-                           finish();
-                           navController.navigate(R.id.nav_class);
-                           // load fragment again
-
-                       }
-
-                       @Override
-                       public void onFailure(Call<ClassViewModel> call, Throwable t) {
-
-                       }
-                   });
-               }
 
 
 
@@ -212,15 +216,93 @@ public class AddClass extends AppCompatActivity implements DatePickerDialog.OnDa
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         if (dateAdd == 1) {
             datePickerStart.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+            start = LocalDate.of(year,month+1,dayOfMonth);
             dateStartAdd = year + "-" + (month + 1) + "-" + dayOfMonth;
             dateAdd = 0;  // return default value
         }
         else{
             datePickerEnd.setText(dayOfMonth +"-" + (month + 1) + "-" + year);
             dateEndAdd = year + "-" + (month + 1) + "-" + dayOfMonth;
+            end = LocalDate.of(year,month+1,dayOfMonth);
         }
     }
 
+    public Boolean checkNow(LocalDate date){
+        LocalDate now = LocalDate.now();
+        if(now.isAfter(date))
+            return true;
+        return false;
+    }
+
+    public Boolean checkStartEnd(LocalDate startDate, LocalDate endDate){
+        if(endDate.isAfter(startDate))
+            return true;
+        return false;
+    }
+
+    public boolean check(){
+        boolean c = true;
+        EditText className , Capacity ;
+        EditText   dateEnd , dateStart;
+        className = findViewById(R.id.editTextClassName);
+        Capacity  = findViewById(R.id.EditTextCapacity);
+        dateEnd = findViewById(R.id.date_picker_end);
+        dateStart = findViewById(R.id.date_picker_start);
+        TextView errorClassName , errorEmptyDateEnd , errorCapacity,errorEmptyDateStart;
+        errorClassName = findViewById(R.id.errorTextClassName);
+        errorCapacity = findViewById(R.id.errorTextCapacity);
+        errorEmptyDateEnd = findViewById(R.id.errorTextClassDateEnd);
+        errorEmptyDateStart = findViewById(R.id.errorTextClassDateStart);
+        ValidationEditText validate = new ValidationEditText();
+        c = validate.validateEditText(className,errorClassName);
+        if(c)
+           validate.validateEditText(Capacity,errorCapacity);
+        else
+            c = validate.validateEditText(Capacity,errorCapacity);
+        if(!validate.validateEditText(dateStart,errorEmptyDateStart)){
+            c=false;
+        }else{
+            errorEmptyDateStart = findViewById(R.id.errorTextClassDateStart1);
+            if(checkNow(start)){
+                validate.validateEditText(errorEmptyDateStart,true);
+                c=false;
+            }else{
+                validate.validateEditText(errorEmptyDateStart,false);
+                if(!dateEnd.getText().toString().isEmpty()){
+                    errorEmptyDateStart = findViewById(R.id.errorTextClassDateStart2);
+                    if(!checkStartEnd(start,end)){
+                        validate.validateEditText(errorEmptyDateStart,true);
+                        c=false;
+                    }
+                    else
+                        validate.validateEditText(errorEmptyDateStart,false);
+                }
+
+            }
+        }
+        if(!validate.validateEditText(dateEnd,errorEmptyDateEnd)){
+            c=false;
+        }else{
+            errorEmptyDateEnd = findViewById(R.id.errorTextClassDateEnd1);
+            if(checkNow(end)){
+                validate.validateEditText(errorEmptyDateEnd,true);
+                c=false;
+            }else{
+                validate.validateEditText(errorEmptyDateEnd,false);
+                if(!dateStart.getText().toString().isEmpty()){
+                    errorEmptyDateEnd = findViewById(R.id.errorTextClassDateEnd2);
+                    if(!checkStartEnd(start,end)){
+                        validate.validateEditText(errorEmptyDateEnd,true);
+                        c=false;
+                    }
+                    else
+                        validate.validateEditText(errorEmptyDateEnd,false);
+                }
+
+            }
+        }
+        return c;
+    }
     public boolean validationError(){
         EditText className , Capacity ;
         TextView   dateEnd , dateStart;

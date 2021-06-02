@@ -93,44 +93,6 @@ public class EditFeedBack extends AppCompatActivity {
             }
         });
 
-//        ArrayList<QuestionTopicModel> list = new ArrayList<>();
-//        QuestionTopicModel question = new QuestionTopicModel(58,"Question Edit",4);
-//        list.add(question);
-//        question = new QuestionTopicModel(60,"123",4);
-//        list.add(question);
-//        question = new QuestionTopicModel(61,"1234",4);
-//        list.add(question);
-//        question = new QuestionTopicModel(62,"321duy",4);
-//        list.add(question);
-//        question = new QuestionTopicModel(65,"",4);
-//        list.add(question);
-//        question = new QuestionTopicModel(67,"aaaa",4);
-//        list.add(question);
-//        TopicFeedbackModel topic = new TopicFeedbackModel("Training program and content",list);
-//        listTopic = new ArrayList<TopicFeedbackModel>();
-//        listTopic.add(topic);
-//
-//
-//        list =new ArrayList<QuestionTopicModel>();
-//        question = new QuestionTopicModel(63,"Question cho topic 5",5);
-//        list.add(question);
-//        question = new QuestionTopicModel(68,"Ai cho 10d dep trai nhat\\n",5);
-//        list.add(question);
-//        topic = new TopicFeedbackModel("Trainer Coach", list);
-//        listTopic.add(topic);
-//
-//        list=new ArrayList<QuestionTopicModel>();
-//        question = new QuestionTopicModel(64, "Question Topic 6",6);
-//        list.add(question);
-//        topic = new TopicFeedbackModel("Course organizations",list);
-//        listTopic.add(topic);
-//
-//        list = new ArrayList<QuestionTopicModel>();
-//        question = new QuestionTopicModel(59,"Vui vẻ không",7);
-//        list.add(question);
-//        topic = new TopicFeedbackModel("Other",list);
-//        listTopic.add(topic);
-
         listQuestionchecked= new int[]{};
         String feedbackTitle = txtFBTitle.getText().toString();
         int feedbackType =0;
