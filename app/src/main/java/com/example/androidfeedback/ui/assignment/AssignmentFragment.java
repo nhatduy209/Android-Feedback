@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -64,8 +65,8 @@ public class AssignmentFragment extends Fragment {
             }
         });
         btnSearchAssignment = root.findViewById(R.id.btnSearchAssignment);
-//        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
-//        fl.removeAllViews();
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
 
         SharedPreferences prefs = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
         boolean shouldAttach = prefs.getBoolean("shouldAttach", true);

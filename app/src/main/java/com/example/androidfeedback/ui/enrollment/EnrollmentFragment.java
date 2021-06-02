@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -55,8 +56,8 @@ public class EnrollmentFragment extends Fragment {
 
         ArrayList<String> arrayList = new ArrayList<>();
 
-//        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
-//        fl.removeAllViews();
+        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+        fl.removeAllViews();
 
         SharedPreferences prefs = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
         boolean shouldAttach = prefs.getBoolean("shouldAttach", true);

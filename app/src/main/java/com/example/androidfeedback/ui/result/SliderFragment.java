@@ -1,6 +1,7 @@
 package com.example.androidfeedback.ui.result;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Pair;
@@ -15,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,6 +30,7 @@ import com.example.androidfeedback.ui.statistic.PieBaseOnTopic;
 import com.example.androidfeedback.ui.statistic.PieChartViewModel;
 import com.example.androidfeedback.ui.statistic.StatisticAdapter;
 import com.example.androidfeedback.ui.statistic.StatisticDescription;
+import com.example.androidfeedback.ui.statistic.StatisticDetail;
 import com.example.androidfeedback.ui.statistic.StatisticViewModel;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -55,6 +56,7 @@ public class SliderFragment extends Fragment {
     private ViewPager mSliderViewPager;
     private Button btnViewComment;
     private Context context;
+    private ArrayList<StatisticDetail> listData;
     private Spinner spinnerClass;
     private Spinner spinnerModule;
     private ArrayList<ClassStatisticViewModel> listClass;
@@ -66,17 +68,14 @@ public class SliderFragment extends Fragment {
     private ArrayList<PieChartViewModel> pieData;
     private ArrayList<PieBaseOnTopic> pieDataTopic;
     private PieChart pieChart;
-    private ResultCommentAdapter commentAdapter;
     private ArrayList<PieEntry> pieEntries = new ArrayList();
     StatisticDescription description;
     private View root;
-    private FragmentTransaction fragmentTransaction;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         root = inflater.inflate(R.layout.fragment_result, container, false);
-        View rootTopic = inflater.inflate(R.layout.fragment_statistic_topic, container, false);
 
         retrofit= RetrofitInstance.getClient();
         callGet = retrofit.create(CallGet.class);
@@ -84,13 +83,20 @@ public class SliderFragment extends Fragment {
         recyclerViewQuestion = root.findViewById(R.id.recyclerCommentResult);
         pieDataTopic= new ArrayList<>();
         recyclerView = root.findViewById(R.id.recyclerCommentResult);
+        listData= new ArrayList<>();
+        mSliderViewPager= root.findViewById(R.id.slideViewPager);
+
+        listClass= new ArrayList<ClassStatisticViewModel>();
+        listModule= new ArrayList<ModuleStatisticViewModel>() ;
+        pieData= new ArrayList<PieChartViewModel>();
+        // spinner here
+        spinnerClass =(Spinner)root.findViewById(R.id.spinnerClass);
+        spinnerModule = (Spinner)root.findViewById(R.id.spinnerModule);
 
         btnViewComment = (Button)root.findViewById(R.id.btnViewComment);
         btnViewComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(),ViewComment.class);
-//                startActivity(intent);
                 mSliderViewPager.setVisibility(View.GONE);
                 Toast.makeText(getActivity(), "On click", Toast.LENGTH_SHORT).show();
                 ViewCommentFragment fragment2 = new ViewCommentFragment();
@@ -99,7 +105,6 @@ public class SliderFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
-        mSliderViewPager= root.findViewById(R.id.slideViewPager);
 
         Button btnShowOverview= root.findViewById(R.id.btnShowOverview);
         btnShowOverview.setOnClickListener(new View.OnClickListener() {
@@ -107,14 +112,11 @@ public class SliderFragment extends Fragment {
             public void onClick(View v) {
                 mSliderViewPager.setVisibility(View.VISIBLE);
                 createSliderPage();
-                View rootSlide3 = inflater.inflate(R.layout.fragment_slider3,container,false);
+
                 TextView className = root.findViewById(R.id.txtClassNameStatistic);
                 className.setText(currentClass.second);
                 TextView moduleName =root.findViewById(R.id.txtModuleNameStatistic);
                 moduleName.setText(currentModule.second);
-                TextView test =root.findViewById(R.id.textView1234);
-                test.setText("huhuh");
-                recyclerViewTopic=rootSlide3.findViewById(R.id.recyclerStatisticResultView);
                 List fragments = getActivity().getSupportFragmentManager().getFragments();
                 Fragment mCurrentFragment = (Fragment) fragments.get(fragments.size()-1);
                 if(fragments.size()==2){
@@ -125,34 +127,51 @@ public class SliderFragment extends Fragment {
 
                 callPieChart();
                 callPieChartBaseTopic(root);
-//                pieDataTopic.add(new PieBaseOnTopic(data))
             }
         });
 
-        listClass= new ArrayList<ClassStatisticViewModel>();
-        listModule= new ArrayList<ModuleStatisticViewModel>() ;
-        pieData= new ArrayList<PieChartViewModel>();
+        // get session
+        SharedPreferences pref = getActivity().getSharedPreferences("GetSession", Context.MODE_PRIVATE);
+        String userId = pref.getString("userId", "");
+        final String role  = pref.getString("role", "");
+        switch (role){
+            case "Admin":
+                Call<StatisticViewModel> getSelectListVM = callGet.getSelectList();
+                getSelectListVM.enqueue(new Callback<StatisticViewModel>() {
+                    @Override
+                    public void onResponse(Call<StatisticViewModel> call, Response<StatisticViewModel> response) {
+                        String a= response.message();
+                        listClass=(ArrayList<ClassStatisticViewModel>)response.body().getClasses();
+                        listModule=(ArrayList<ModuleStatisticViewModel>)response.body().getCourses();
+                        setSpinnerClass(spinnerClass,listClass);
+                        setSpinnerModule(spinnerModule,listModule);
+                    }
 
-        // spinner here
-        spinnerClass =(Spinner)root.findViewById(R.id.spinnerClass);
-        spinnerModule = (Spinner)root.findViewById(R.id.spinnerModule);
+                    @Override
+                    public void onFailure(Call<StatisticViewModel> call, Throwable t) {
+                        String a= t.getMessage();
+                    }
+                });
+                break;
+            case "Trainer":
+                Call<StatisticViewModel> getSelectListForTrainer = callGet.getSelectListForTrainer(userId);
+                getSelectListForTrainer.enqueue(new Callback<StatisticViewModel>() {
+                    @Override
+                    public void onResponse(Call<StatisticViewModel> call, Response<StatisticViewModel> response) {
+                        String a= response.message();
+                        listClass=(ArrayList<ClassStatisticViewModel>)response.body().getClasses();
+                        listModule=(ArrayList<ModuleStatisticViewModel>)response.body().getCourses();
+                        setSpinnerClass(spinnerClass,listClass);
+                        setSpinnerModule(spinnerModule,listModule);
+                    }
 
-        Call<StatisticViewModel> getSelectListVM = callGet.getSelectList();
-        getSelectListVM.enqueue(new Callback<StatisticViewModel>() {
-            @Override
-            public void onResponse(Call<StatisticViewModel> call, Response<StatisticViewModel> response) {
-                String a= response.message();
-                listClass=(ArrayList<ClassStatisticViewModel>)response.body().getClasses();
-                listModule=(ArrayList<ModuleStatisticViewModel>)response.body().getCourses();
-                setSpinnerClass(spinnerClass,listClass);
-                setSpinnerModule(spinnerModule,listModule);
-            }
-
-            @Override
-            public void onFailure(Call<StatisticViewModel> call, Throwable t) {
-                String a= t.getMessage();
-            }
-        });
+                    @Override
+                    public void onFailure(Call<StatisticViewModel> call, Throwable t) {
+                        String a= t.getMessage();
+                    }
+                });
+                break;
+        }
 
         return root;
     }
@@ -187,22 +206,6 @@ public class SliderFragment extends Fragment {
             public void destroyItem(@NonNull  ViewGroup container, int position, @NonNull  Object object) {
                 View view =(View) object;
                 container.removeView(view);
-            }
-        });
-        mSliderViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                Toast.makeText(getActivity(), "onPageSelected", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
             }
         });
 
@@ -269,22 +272,14 @@ public class SliderFragment extends Fragment {
             }
         });
     }
-    private void callPieChartBaseTopic(View view){
+    private void callPieChartBaseTopic(View root){
         Call<ArrayList<PieBaseOnTopic>> getDataPieChart =callGet.getPieChartBaseOnTopic(currentClass.first,currentModule.first);
         getDataPieChart.enqueue(new Callback<ArrayList<PieBaseOnTopic>>() {
             @Override
             public void onResponse(Call<ArrayList<PieBaseOnTopic>> call, Response<ArrayList<PieBaseOnTopic>> response) {
                 String a= response.message();
                 pieDataTopic=(ArrayList<PieBaseOnTopic>)response.body();
-//                StatisticAdapter statisticAdapter = new StatisticAdapter(getActivity(),pieDataTopic);
-                StatisticAdapter statisticAdapter = new StatisticAdapter(context,pieDataTopic);
-
-                recyclerViewTopic=getActivity().findViewById(R.id.recyclerStatisticResultView);
-                LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false);
-                recyclerViewTopic.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-//                recyclerViewTopic.setLayoutManager(layoutManager);
-                recyclerViewTopic.setAdapter(statisticAdapter);
-
+                reload(pieDataTopic,root);
                 int i=1;
             }
 
@@ -297,28 +292,25 @@ public class SliderFragment extends Fragment {
     }
     private void drawChart(ArrayList<PieChartViewModel> pieDataAPI) {
         pieChart.setUsePercentValues(true);
-//
-//        pieDataAPI.add( new PieChartViewModel(1,50));
-//        pieDataAPI.add( new PieChartViewModel(2,50));
 
         ArrayList<PieEntry> label = new ArrayList<>();
         for(int i=0;i<pieDataAPI.size();i++){
             label.add(new PieEntry(pieDataAPI.get(i).getPercent(),
                     description.getString(pieDataAPI.get(i).getValue())));
         }
-
         // set label
         pieChart.setEntryLabelColor(Color.WHITE);
+
         //create the DATA
         PieDataSet pieDataSet=new PieDataSet(label,"");
         pieDataSet.setSliceSpace(0);
-        pieDataSet.setValueTextSize(20);
-//        pieDataSet.setLabel("HIHI");
+        pieDataSet.setValueTextSize(10);
+        //remove hole in center
         //remove hole in center
         pieChart.setDrawHoleEnabled(false);
-        pieChart.setDrawCenterText(true);
         pieChart.setDrawCenterText(false);
         pieChart.setDrawEntryLabels(false);
+
         //add colors to dataSet
         ArrayList<Integer> colors=new ArrayList<>();
         //strongly agree
@@ -345,59 +337,33 @@ public class SliderFragment extends Fragment {
         legend.setEnabled(true);
         //create a pieData object
         PieData pieData=new PieData(pieDataSet);
+        pieData.setValueTextColor(Color.WHITE);
         pieChart.setData(pieData);
         pieChart.invalidate();
 
     }
+    public void reload(ArrayList<PieBaseOnTopic> listData, View view){
+        recyclerViewTopic=root.findViewById(R.id.recyclerStatisticResultView);
+        StatisticAdapter statisticAdapter = new StatisticAdapter(listData);
+        recyclerViewTopic.setLayoutManager(new LinearLayoutManager(root.getContext(),RecyclerView.HORIZONTAL,false));
+        recyclerViewTopic.setAdapter(statisticAdapter);
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        Toast.makeText(getActivity(), "SliderFragment: onCreate", Toast.LENGTH_SHORT).show();
-
-        super.onCreate(savedInstanceState);
     }
 
+    private void getDetail(){
+        Call<ArrayList<StatisticDetail>> getStatisticAnswer = callGet.getStatisticAnswer(currentClass.first,currentModule.first);
+        getStatisticAnswer.enqueue(new Callback<ArrayList<StatisticDetail>>() {
+            @Override
+            public void onResponse(Call<ArrayList<StatisticDetail>> call, Response<ArrayList<StatisticDetail>> response) {
+                String a= response.message();
+                listData =response.body();
+            }
 
-    @Override
-    public void onStart() {
-        Toast.makeText(getActivity(), "SliderFragment: onStart", Toast.LENGTH_SHORT).show();
-
-        super.onStart();
-    }
-
-    @Override
-    public void onResume() {
-        Toast.makeText(getActivity(), "SliderFragment: onResume", Toast.LENGTH_SHORT).show();
-
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        Toast.makeText(getActivity(), "SliderFragment: onPause", Toast.LENGTH_SHORT).show();
-
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        Toast.makeText(getActivity(), "SliderFragment: onStop", Toast.LENGTH_SHORT).show();
-
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroyView() {
-        Toast.makeText(getActivity(), "SliderFragment: onDestroyView", Toast.LENGTH_SHORT).show();
-
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onDestroy() {
-        Toast.makeText(getActivity(), "SliderFragment: onDestroy", Toast.LENGTH_SHORT).show();
-
-        super.onDestroy();
+            @Override
+            public void onFailure(Call<ArrayList<StatisticDetail>> call, Throwable t) {
+                String a= t.getMessage();
+            }
+        });
     }
 
 }

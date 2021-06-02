@@ -7,55 +7,73 @@
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart"
-        android:layout_width="357dp"
-        android:layout_height="172dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/txtModuleNameStatistic"
-        app:layout_constraintTop_toBottomOf="@+id/txtModuleNameStatistic" />
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="170dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitle6" />
+
+    <TextView
+        android:id="@+id/txtTitle5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="17dp"
+        android:text="Feedback Statistic of Class"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/txtTitle6"
+        app:layout_constraintEnd_toStartOf="@+id/txtClassNameStatistic"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtModuleNameStatistic"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="640dp"
+        android:text="txtModuleNameStatistic"
+        android:textColor="#FFEB3B"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtTitle6"
+        app:layout_constraintTop_toBottomOf="@+id/txtClassNameStatistic" />
 
     <TextView
         android:id="@+id/txtTitle6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="2dp"
-        android:text="Feedback Statistic of Module"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="81dp"
+        android:text="Feedback statistics of module"
+        app:layout_constraintBottom_toTopOf="@+id/pieChart"
         app:layout_constraintEnd_toStartOf="@+id/txtModuleNameStatistic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTitle5" />
 
     <TextView
-        android:id="@+id/txtTitle5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
-        android:text="Feedback Statistic of Class"
-        app:layout_constraintEnd_toEndOf="@+id/txtTitle6"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtModuleNameStatistic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="txtModuleNameStatistic"
-        android:textSize="14dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/txtTitle6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtTitle6" />
-
-    <TextView
         android:id="@+id/txtClassNameStatistic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginBottom="17dp"
         android:text="txtClassName"
-        android:textSize="14dp"
+        android:textColor="#FFEB3B"
+        android:textSize="18dp"
         app:layout_constraintBottom_toTopOf="@+id/txtModuleNameStatistic"
-        app:layout_constraintStart_toStartOf="@+id/txtModuleNameStatistic" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtTitle5"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

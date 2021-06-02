@@ -41,9 +41,7 @@ public class ViewCommentFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        Toast.makeText(getActivity(), "ViewCommentFragment"+": onCreate", Toast.LENGTH_SHORT).show();
-        super.onCreate(savedInstanceState);
-
+         super.onCreate(savedInstanceState);
     }
 
 
@@ -76,8 +74,6 @@ public class ViewCommentFragment extends Fragment {
                 commentAdapter = new ResultCommentAdapter(context,listComment);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
                 recyclerView.setAdapter(commentAdapter);
-//                reload(listComment, root );
-                String z="1";
             }
 
             @Override
@@ -90,46 +86,6 @@ public class ViewCommentFragment extends Fragment {
         return root;
     }
 
-    @Override
-    public void onStart() {
-        Toast.makeText(getActivity(), "ViewCommentFragment: onStart", Toast.LENGTH_SHORT).show();
-
-        super.onStart();
-    }
-
-    @Override
-    public void onResume() {
-        Toast.makeText(getActivity(), "ViewCommentFragment: onResume", Toast.LENGTH_SHORT).show();
-
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        Toast.makeText(getActivity(), "ViewCommentFragment: onPause", Toast.LENGTH_SHORT).show();
-
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        Toast.makeText(getActivity(), "ViewCommentFragment: onStop", Toast.LENGTH_SHORT).show();
-
-        super.onStop();
-    }
-
-
-    @Override
-    public void onDestroyView() {
-        Toast.makeText(getActivity(), "ViewCommentFragment: onDestroyView", Toast.LENGTH_SHORT).show();
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onDestroy() {
-        Toast.makeText(getActivity(), "ViewCommentFragment: onDestroy", Toast.LENGTH_SHORT).show();
-        super.onDestroy();
-    }
     public void reload(ArrayList<CommentViewModel> listComment, View view){
         commentAdapter = new  ResultCommentAdapter(context,listComment);
         // recyclerCategoryView.setHasFixedSize(true);

@@ -1,22 +1,29 @@
 package com.example.androidfeedback.ui.statistic;
 
-import android.util.Pair;
-
 import java.util.ArrayList;
 
 public class PieBaseOnTopic {
-    private Pair<String, ArrayList<PieChartViewModel>> data;
+    private String topicName;
+    private ArrayList<PieChartViewModel> value;
 
-
-    public PieBaseOnTopic(Pair<String, ArrayList<PieChartViewModel>> data) {
-        this.data = data;
+    public PieBaseOnTopic(String topicName, ArrayList<PieChartViewModel> value) {
+        this.topicName = topicName;
+        this.value = value;
     }
 
-    public Pair<String, ArrayList<PieChartViewModel>> getData() {
-        return data;
+    public ArrayList<PieChartViewModel> getValue() {
+        return value;
     }
 
-    public void setData(Pair<String, ArrayList<PieChartViewModel>> data) {
-        this.data = data;
+    public void setValue(ArrayList<PieChartViewModel> value) {
+        this.value = value;
+    }
+
+    public String getTopicName() {
+        return topicName;
+    }
+
+    public void setTopicName(String topicName) {
+        this.topicName = topicName;
     }
 }

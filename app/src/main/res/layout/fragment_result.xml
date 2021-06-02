@@ -7,48 +7,50 @@
 
     <Spinner
         android:id="@+id/spinnerModule"
-        android:layout_width="343dp"
+        android:layout_width="159dp"
         android:layout_height="24dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/container"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="683dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView26"
-        android:layout_width="94dp"
-        android:layout_height="0dp"
+        android:layout_width="53dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="683dp"
         android:text="Class"
         android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView27"
-        app:layout_constraintEnd_toStartOf="@+id/spinnerModule"
-        app:layout_constraintStart_toStartOf="@+id/spinnerModule"
-        app:layout_constraintTop_toTopOf="@+id/spinnerClass" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/spinnerClass"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView27"
-        app:layout_constraintEnd_toStartOf="@+id/textView27"
-        app:layout_constraintStart_toEndOf="@+id/textView26"
-        app:layout_constraintTop_toTopOf="@+id/textView27" />
+        android:layout_width="130dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="682dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView27"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
-        android:layout_marginEnd="130dp"
+        android:layout_width="47dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="194dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="681dp"
         android:text="Module"
         android:textSize="14dp"
-        app:layout_constraintEnd_toEndOf="@+id/spinnerModule"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.viewpager.widget.ViewPager
