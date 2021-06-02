@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
+import com.example.androidfeedback.ui.uiclass.trainee.DetailClassTrainee;
 
 import java.util.ArrayList;
 
@@ -52,6 +53,14 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
         holder.endDate.setText(classes.getEndDate());
         holder.capacity.setText(classes.getCapacity());
         holder.numberOfTrainee.setText(String.valueOf(classes.getNumberOfTrainee()));
+        holder.btnDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context.getApplicationContext(), DetailClassTrainee.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
         holder.btnEdit.setOnClickListener(new View.OnClickListener(){
 
             @Override
