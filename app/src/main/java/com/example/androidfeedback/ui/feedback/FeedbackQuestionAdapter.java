@@ -20,7 +20,7 @@ public class FeedbackQuestionAdapter extends RecyclerView.Adapter<FeedbackQuesti
     private ArrayList<QuestionViewModel> listQuestion;
     private int position;
     private FeedbackReviewModel reviewModel;
-    private ArrayList<FeedbackReviewModel> listReview;
+    private ArrayList<QuestionViewModel> listReview;
     private FeedbackTopicAdapter feedbackTopicAdapter;
     //get position of item
     public int getPosition() {
@@ -48,7 +48,8 @@ public class FeedbackQuestionAdapter extends RecyclerView.Adapter<FeedbackQuesti
 
     public FeedbackQuestionAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.question_item_in_topic, parent, false);
-        reviewModel = new FeedbackReviewModel(position,new ArrayList<QuestionViewModel>());
+        listReview = new ArrayList<QuestionViewModel>();
+//        reviewModel = new FeedbackReviewModel(position,new ArrayList<QuestionViewModel>());
         return new FeedbackQuestionAdapter.ViewHolder(view);
     }
 

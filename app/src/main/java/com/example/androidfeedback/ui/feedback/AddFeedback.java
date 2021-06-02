@@ -26,9 +26,9 @@ public class AddFeedback extends AppCompatActivity{
     private Button btnBack ;
     private TextView txtFBType,txtFBTitle;
     private RecyclerView recyclerTopic;
-    private int[] listTopic;
+    private ArrayList<TopicFeedbackModel> listTopic;
     private FeedbackTopicAdapter feedbackTopicAdapter;
-    private int[] list;
+    private int[] listID;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.feedback_add_layout);
@@ -45,7 +45,47 @@ public class AddFeedback extends AppCompatActivity{
 
         txtFBTitle = findViewById(R.id.txtAddFeedbackTitle);
         recyclerTopic = findViewById(R.id.recyclerFBTopic);
-        listTopic = new int[]{1,2,3};
+
+        ArrayList<QuestionViewModel> list = new ArrayList<>();
+        QuestionViewModel question = new QuestionViewModel(58,"Question Edit",4);
+        list.add(question);
+        question = new QuestionViewModel(60,"123",4);
+        list.add(question);
+        question = new QuestionViewModel(61,"1234",4);
+        list.add(question);
+        question = new QuestionViewModel(62,"321duy",4);
+        list.add(question);
+        question = new QuestionViewModel(65,"",4);
+        list.add(question);
+        question = new QuestionViewModel(67,"aaaa",4);
+        list.add(question);
+        TopicFeedbackModel topic = new TopicFeedbackModel("Training program and content",list);
+        listTopic = new ArrayList<TopicFeedbackModel>();
+        listTopic.add(topic);
+
+
+        list =new ArrayList<QuestionViewModel>();
+        question = new QuestionViewModel(63,"Question cho topic 5",5);
+        list.add(question);
+        question = new QuestionViewModel(68,"Ai cho 10d dep trai nhat\\n",5);
+        list.add(question);
+        topic = new TopicFeedbackModel("Trainer Coach", list);
+        listTopic.add(topic);
+
+        list=new ArrayList<QuestionViewModel>();
+        question = new QuestionViewModel(64, "Question Topic 6",6);
+        list.add(question);
+        topic = new TopicFeedbackModel("Course organizations",list);
+        listTopic.add(topic);
+
+        list = new ArrayList<QuestionViewModel>();
+        question = new QuestionViewModel(59,"Vui vẻ không",7);
+        list.add(question);
+        topic = new TopicFeedbackModel("Other",list);
+        listTopic.add(topic);
+
+
+
 
 //        Bundle b = getIntent().getExtras();
 //        try{
@@ -66,14 +106,14 @@ public class AddFeedback extends AppCompatActivity{
                 String fbTitle = txtFBTitle.getText().toString();
                 if(!fbTitle.isEmpty()){
                     ArrayList<QuestionViewModel> review = feedbackTopicAdapter.getListReview();
-                    list = new int[100];
+                    listID = new int[100];
                     for(int i=0; i < review.size();i++)
                     {
-                        list[i] = (review.get(i).getQuestionID());
+                        listID[i] = (review.get(i).getQuestionID());
                     }
                     Intent intent = new Intent(getApplicationContext(), EditFeedBack.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    intent.putExtra("listQuestion",list);
+                    intent.putExtra("listQuestion",listID);
 //                    intent.putExtra("feedbackTitle",fbTitle);
                     startActivity(intent);
                 }
