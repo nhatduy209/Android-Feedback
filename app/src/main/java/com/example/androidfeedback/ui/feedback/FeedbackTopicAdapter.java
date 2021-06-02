@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
+import com.example.androidfeedback.ui.question.QuestionTopicModel;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class FeedbackTopicAdapter  extends RecyclerView.Adapter<FeedbackTopicAda
     private ArrayList<TopicFeedbackModel> listTopic;
     Context context;
     private int position;
-    private ArrayList<QuestionViewModel>  listReview;
+    private ArrayList<QuestionTopicModel>  listReview;
     private FeedbackQuestionAdapter feedbackQuestionAdapter;
 
     //get position of item
@@ -31,11 +32,11 @@ public class FeedbackTopicAdapter  extends RecyclerView.Adapter<FeedbackTopicAda
         this.position = position;
     }
 
-    public ArrayList<QuestionViewModel> getListReview(){
+    public ArrayList<QuestionTopicModel> getListReview(){
         return listReview;
     }
 
-    public void setListReview(QuestionViewModel questionViewModel){
+    public void setListReview(QuestionTopicModel questionViewModel){
         listReview.add(questionViewModel);
     }
 
@@ -66,7 +67,7 @@ public class FeedbackTopicAdapter  extends RecyclerView.Adapter<FeedbackTopicAda
 
     public FeedbackTopicAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.question_in_topic_view, parent, false);
-        listReview = new ArrayList<QuestionViewModel>();
+        listReview = new ArrayList<QuestionTopicModel>();
         return new FeedbackTopicAdapter.ViewHolder(view);
     }
 
