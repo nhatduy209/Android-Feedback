@@ -62,7 +62,6 @@ public class ClassFragment extends Fragment{
         recyclerClass = root.findViewById(R.id.recyclerClassView);
         btnAdd = root.findViewById(R.id.btn_add);
 
-
         btnAdd.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -93,6 +92,10 @@ public class ClassFragment extends Fragment{
             String userName = pref.getString("userName", "");
             String role  = pref.getString("role", "");
             // call api to get list question
+
+            if(role.contentEquals("Trainee")){
+                btnAdd.setVisibility(View.INVISIBLE);
+            }
             Retrofit retrofit = RetrofitInstance.getClient();
 
             CallGet callGet = retrofit.create(CallGet.class);

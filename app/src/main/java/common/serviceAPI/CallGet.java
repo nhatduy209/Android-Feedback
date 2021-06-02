@@ -53,4 +53,10 @@ public interface CallGet {
     @GET("api/enrollment/getDetail/{id}/{trainneID}")
     Call<EnrollmentDetailModel> getDetailEnrollment(@Path("id") String idClass , @Path("trainneID") String traineeID );
 
+    @GET("api/module/trainee")
+    Call<List<ModuleViewModel>> getListModuleTrainee(@Query("traineeID") String TraineeID );
+
+    @GET("api/classes/detail")
+    Call<List<ClassViewModel>> getListClassDetail(@Query("id") String idClass ,@Query("role") String role ,  @Query("userId") String userId );
+
 }

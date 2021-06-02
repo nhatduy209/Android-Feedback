@@ -31,16 +31,16 @@ public class ClassViewModel {
     @SerializedName("success")
     private String success ;
 
-    public String getMessage() {
-        return message;
-    }
-
-    public String getSuccess() {
-        return success;
-    }
-
     @SerializedName("isDeleted")
     private boolean isDeleted ;
+
+
+    @SerializedName("numberOfTrainee")
+    private int numberOfTrainee ;
+
+    public int getNumberOfTrainee() {
+        return numberOfTrainee;
+    }
 
     public boolean isDeleted() {
         return isDeleted;
@@ -60,6 +60,13 @@ public class ClassViewModel {
         this.endDate =endDate;
         this.Capacity = Capacity;
         this.isDeleted = isDeleted;
+    }
+    public String getMessage() {
+        return message;
+    }
+
+    public String getSuccess() {
+        return success;
     }
 
     public int getClassId() {

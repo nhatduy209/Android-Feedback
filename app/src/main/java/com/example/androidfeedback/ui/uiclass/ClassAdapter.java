@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
     private int position;
     private Context context;
     ArrayList<ClassViewModel> listClass;
+    private String role ;
     @NonNull
     @Override
     public ClassAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -49,6 +51,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
         holder.startDate.setText(classes.getStartDate());
         holder.endDate.setText(classes.getEndDate());
         holder.capacity.setText(classes.getCapacity());
+        holder.numberOfTrainee.setText(String.valueOf(classes.getNumberOfTrainee()));
         holder.btnEdit.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -119,12 +122,16 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
     public ClassAdapter(Context context, ArrayList<ClassViewModel> listClass){
         this.context = context;
         this.listClass = listClass;
+        // get seesion
+        SharedPreferences pref = context.getSharedPreferences("GetSession",Context.MODE_PRIVATE);
+        role  = pref.getString("role", "");
     }
 
     //create view holder
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView classId, className,startDate, endDate , capacity ;
-        private Button btnEdit , btnDelete;
+        private TextView classId, className,startDate, endDate , capacity , numberOfTrainee,
+        textViewCapacity,textViewStartDate,textViewEndDate,textViewNumberOfTrainee;
+        private Button btnEdit , btnDelete , btnDetail;
         public ViewHolder(@NonNull View itemView){
         super(itemView);
             classId = itemView.findViewById(R.id.feedbackIDView);
@@ -134,7 +141,30 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
             btnEdit = itemView.findViewById(R.id.btn_edit);
             capacity = itemView.findViewById(R.id.adminID);
             btnDelete = itemView.findViewById(R.id.btn_delete);
-
+            numberOfTrainee = itemView.findViewById(R.id.numberOfTrainee);
+            btnDetail = itemView.findViewById(R.id.btn_classDetailTrainee);
+            textViewCapacity = itemView.findViewById(R.id.textView7);
+                    textViewStartDate =itemView.findViewById(R.id.textView8);
+                    textViewEndDate =  itemView.findViewById(R.id.textView9);
+                            textViewNumberOfTrainee =   itemView.findViewById(R.id.textView10);
+            switch(role){
+                case "Admin" :
+                    btnDetail.setVisibility(itemView.INVISIBLE);
+                    numberOfTrainee.setVisibility(itemView.GONE);
+                    textViewNumberOfTrainee.setVisibility(itemView.GONE);
+                    break;
+                case "Trainee" :
+                    btnEdit.setVisibility(itemView.GONE);
+                    startDate.setVisibility(itemView.GONE);
+                    endDate.setVisibility(itemView.GONE);
+                    btnDelete.setVisibility(itemView.GONE);
+                    capacity.setVisibility(itemView.GONE);
+                    textViewCapacity.setVisibility(itemView.GONE);
+                    textViewStartDate.setVisibility(itemView.GONE);
+                    textViewEndDate.setVisibility(itemView.GONE);
+                    btnEdit.setVisibility(itemView.GONE);
+                    break;
+            }
         }
     }
 
