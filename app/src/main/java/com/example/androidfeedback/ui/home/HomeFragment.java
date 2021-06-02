@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
         String role  = pref.getString("role", "");
         String userId = pref.getString("userId", "");
         if(role.matches("Admin")){
-            View root = inflater.inflate(R.layout.fragment_assignment, container, false);
+            final View root = inflater.inflate(R.layout.fragment_assignment, container, false);
 
             FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
             fl.removeAllViews();
@@ -63,34 +63,33 @@ public class HomeFragment extends Fragment {
 //            btnAdd.setVisibility(View.GONE);
             btnSearch.setVisibility(View.GONE);
             txtSearch.setVisibility(View.GONE);
+            btnAdd.setVisibility(View.GONE);
 
-            //Create Assignment Adapter
+            listAssignment = new ArrayList<AssignmentModel>();
+            //createAssignmentList();
+            recyclerAssignment = root.findViewById(R.id.recyclerAssignment);
+            assignmentAdapter = new AssignmentAdapter(getActivity().getApplicationContext(),listAssignment);
+
             // call api to get list assignment
-//            Retrofit retrofit = RetrofitInstance.getClient();
-//
-//            CallGet callGet = retrofit.create(CallGet.class);
-//
-//            Call<List<AssignmentModel>> getListAssignments = callGet.getListAssignment();
-//
-//            getListAssignments.enqueue(new Callback<List<AssignmentModel>>() {
-//                @Override
-//                public void onResponse(Call<List<AssignmentModel>> call, Response<List<AssignmentModel>> response) {
-//                    listAssignment = (ArrayList<AssignmentModel>) response.body();
-////                    reload(listAssignment, root );
-//                }
-//
-//                @Override
-//                public void onFailure(Call<List<AssignmentModel>> call, Throwable t) {
-//
-//                }
-//
-//            });
-//            assignmentAdapter = new AssignmentAdapter(getContext(),listAssignment);
-//            recyclerAssignment = root.findViewById(R.id.recyclerAssignment);
-//            //Set adapter to RecyclerView
-//            recyclerAssignment.setHasFixedSize(true);
-//            recyclerAssignment.setLayoutManager(new LinearLayoutManager(root.getContext()));
-//            recyclerAssignment.setAdapter(assignmentAdapter);
+            Retrofit retrofit = RetrofitInstance.getClient();
+
+            CallGet callGet = retrofit.create(CallGet.class);
+
+            Call<List<AssignmentModel>> getListAssignments = callGet.getListAssignment();
+
+            getListAssignments.enqueue(new Callback<List<AssignmentModel>>() {
+                @Override
+                public void onResponse(Call<List<AssignmentModel>> call, Response<List<AssignmentModel>> response) {
+                    listAssignment = (ArrayList<AssignmentModel>) response.body();
+                    reloadByTrainer(listAssignment, root );
+                }
+
+                @Override
+                public void onFailure(Call<List<AssignmentModel>> call, Throwable t) {
+
+                }
+
+            });
 
             return root ;
         }
