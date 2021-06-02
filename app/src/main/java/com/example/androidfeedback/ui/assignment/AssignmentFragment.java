@@ -17,10 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.androidfeedback.R;
-import com.example.androidfeedback.ui.enrollment.EnrollmentFragment;
-import com.example.androidfeedback.ui.uiclass.ClassFragment;
 
+import com.example.androidfeedback.R;
 
 import java.util.ArrayList;
 import java.util.List;

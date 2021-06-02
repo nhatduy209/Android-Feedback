@@ -92,7 +92,7 @@
             android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerCommentResult"
+                android:id="@+id/recyclerCommentResul1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
@@ -111,7 +111,7 @@
                 android:textAllCaps="false"
                 android:textColor="#fff"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerCommentResult" />
+                app:layout_constraintTop_toBottomOf="@+id/recyclerCommentResult2" />
 
             <Button
                 android:id="@+id/btnShowDetailComment"
@@ -125,7 +125,7 @@
                 android:textAllCaps="false"
                 android:textColor="#fff"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerCommentResult" />
+                app:layout_constraintTop_toBottomOf="@+id/recyclerCommentResult2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

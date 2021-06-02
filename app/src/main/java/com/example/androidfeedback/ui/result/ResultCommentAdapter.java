@@ -1,31 +1,25 @@
 package com.example.androidfeedback.ui.result;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
-import com.example.androidfeedback.ui.feedback.AddFeedback;
-import com.example.androidfeedback.ui.feedback.EditFeedBack;
-import com.example.androidfeedback.ui.feedback.FeedbackAdapter;
-import com.example.androidfeedback.ui.feedback.FeedbackViewModel;
-import com.example.androidfeedback.ui.uiclass.ClassViewModel;
+import com.example.androidfeedback.ui.statistic.CommentViewModel;
 
 import java.util.ArrayList;
 
 public class ResultCommentAdapter extends RecyclerView.Adapter<ResultCommentAdapter.ViewHolder>{
     private Context context;
 //    private ArrayList<ClassViewModel> listClass;
-    private int[] listClass;
+
     private int position;
+    private ArrayList<CommentViewModel> listComment;
     @NonNull
     @Override
     public ResultCommentAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,15 +29,16 @@ public class ResultCommentAdapter extends RecyclerView.Adapter<ResultCommentAdap
 
     @Override
     public void onBindViewHolder(@NonNull ResultCommentAdapter.ViewHolder holder, int position) {
-        holder.txtNo.setText("1");
-        holder.txtTraineeID.setText("TraineeID");
-        holder.txtContent.setText("content");
+        final CommentViewModel comment = listComment.get(position);
+        holder.txtNo.setText(String.valueOf(position));
+        holder.txtTraineeID.setText(comment.getTraineeID());
+        holder.txtContent.setText(comment.getContent());
     }
 
 //tạm thời dùng listInt để test
-    public ResultCommentAdapter(Context context, int[] listClass){
+    public ResultCommentAdapter(Context context,  ArrayList<CommentViewModel> listComment){
         this.context = context;
-        this.listClass = listClass;
+        this.listComment = listComment;
     }
 
     //create view holder
@@ -65,7 +60,7 @@ public class ResultCommentAdapter extends RecyclerView.Adapter<ResultCommentAdap
 
     @Override
     public int getItemCount() {
-        return listClass.length;
+        return listComment.size();
     }
 
     //get position of item

@@ -1,5 +1,6 @@
 package com.example.androidfeedback.ui.feedback;
 
+import com.example.androidfeedback.ui.question.QuestionTopicModel;
 import com.example.androidfeedback.ui.question.QuestionViewModel;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,28 +11,15 @@ public class TopicFeedbackModel {
     private String topicName;
 
     @SerializedName("questions")
-    private ArrayList<QuestionViewModel> questions;
+    private ArrayList<QuestionTopicModel> questions;
 
-    @SerializedName("message")
-    private String message ;
 
-    @SerializedName("success")
-    private String success ;
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getSuccess() {
-        return success;
-    }
-
-    public TopicFeedbackModel(String topicName, ArrayList<QuestionViewModel> questions){
+    public TopicFeedbackModel(String topicName, ArrayList<QuestionTopicModel> questions){
         this.topicName = topicName;
         this.questions = questions;
     }
 
-    public void setQuestions(ArrayList<QuestionViewModel> questions) {
+    public void setQuestions(ArrayList<QuestionTopicModel> questions) {
         this.questions = questions;
     }
 
@@ -39,7 +27,7 @@ public class TopicFeedbackModel {
         this.topicName = topicName;
     }
 
-    public ArrayList<QuestionViewModel> getQuestions() {
+    public ArrayList<QuestionTopicModel> getQuestions() {
         return questions;
     }
 
