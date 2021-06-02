@@ -7,24 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
-import com.example.androidfeedback.ui.gallery.GalleryViewModel;
-import com.example.androidfeedback.ui.question.QuestionViewModel;
-import com.example.androidfeedback.ui.uiclass.AddClass;
-import com.example.androidfeedback.ui.uiclass.ClassAdapter;
-import com.example.androidfeedback.ui.uiclass.ClassViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +37,8 @@ public class FeedbackFragment extends Fragment {
         listFeedback = new ArrayList<FeedbackViewModel>();
         recyclerFeedback = root.findViewById(R.id.recyclerFeedbackView);
 
-        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
-        fl.removeAllViews();
+//        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+//        fl.removeAllViews();
 
         btnAdd = root.findViewById(R.id.btn_add);
         btnAdd.setOnClickListener(new View.OnClickListener(){

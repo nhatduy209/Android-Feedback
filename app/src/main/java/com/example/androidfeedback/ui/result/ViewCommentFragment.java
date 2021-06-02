@@ -56,19 +56,22 @@ public class ViewCommentFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_comment, container, false);
 
         listComment= new ArrayList<>();
+        View temp=inflater.inflate(R.layout.fragment_result, container, false);
+
+        TextView classID=getActivity().findViewById(R.id.txtHideClassID);
+        TextView moduleID=getActivity().findViewById(R.id.txtHideModuleID);
 
         Retrofit retrofit = RetrofitInstance.getClient();
 
         CallGet callGet = retrofit.create(CallGet.class);
 
-        Call<ArrayList<CommentViewModel>> getListComment = callGet.getListComment(4,7);
+        Call<ArrayList<CommentViewModel>> getListComment = callGet.getListComment(Integer.valueOf(classID.getText().toString()),Integer.valueOf(moduleID.getText().toString()));
 
         getListComment.enqueue(new Callback<ArrayList<CommentViewModel>>() {
             @Override
             public void onResponse(Call<ArrayList<CommentViewModel>> call, Response<ArrayList<CommentViewModel>> response) {
                 listComment = (ArrayList<CommentViewModel>) response.body();
                 recyclerView = root.findViewById(R.id.recyclerCommentResult);
-                int[] listClass = new int[]{1,2,3,4};
 
                 commentAdapter = new ResultCommentAdapter(context,listComment);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));

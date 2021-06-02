@@ -1,7 +1,6 @@
 package com.example.androidfeedback.ui.statistic;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,20 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
 
-public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.ViewHolder>{
-    private int position;
-    private PieChart pieChart;
+public class StatisticAdapter extends   RecyclerView.Adapter<StatisticAdapter.ViewHolder>{
     private Context context;
-    StatisticDescription description = new StatisticDescription();
-    ArrayList<PieBaseOnTopic> listPieData;
+//    private ArrayList<ClassViewModel> listClass;
+
+    private int position;
+    private ArrayList<PieBaseOnTopic> listData;
     @NonNull
     @Override
     public StatisticAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,77 +27,28 @@ public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final StatisticAdapter.ViewHolder holder, int position) {
-        final PieBaseOnTopic pieDataTopic = listPieData.get(position);
-        holder.txtTopic.setText(pieDataTopic.getData().first);
-        pieChart.setUsePercentValues(true);
-        ArrayList<PieChartViewModel> pieDataAPI= pieDataTopic.getData().second;
-//
-//        pieDataAPI.add( new PieChartViewModel(1,50));
-//        pieDataAPI.add( new PieChartViewModel(2,50));
-
-        ArrayList<PieEntry> label = new ArrayList<>();
-        for(int i=0;i<pieDataAPI.size();i++){
-            label.add(new PieEntry(pieDataAPI.get(i).getPercent(),
-                    description.getString(pieDataAPI.get(i).getValue())));
-        }
-
-        // set label
-        pieChart.setEntryLabelColor(Color.WHITE);
-        //create the DATA
-        PieDataSet pieDataSet=new PieDataSet(label,"");
-        pieDataSet.setSliceSpace(0);
-        pieDataSet.setValueTextSize(20);
-//        pieDataSet.setLabel("HIHI");
-        //remove hole in center
-        pieChart.setDrawHoleEnabled(false);
-        pieChart.setDrawCenterText(true);
-        pieChart.setDrawCenterText(false);
-        pieChart.setDrawEntryLabels(false);
-        //add colors to dataSet
-        ArrayList<Integer> colors=new ArrayList<>();
-        //strongly agree
-        colors.add(Color.rgb(254,81,44));
-        // agree
-        colors.add(Color.rgb(255,102,70));
-        //neural
-        colors.add(Color.rgb(255,103,69));
-        //disagree
-        colors.add(Color.rgb(245,144,122));
-        //strongly disagree
-        colors.add(Color.rgb(247,193,181));
-        pieDataSet.setDrawValues(false);
-        pieChart.getDescription().setEnabled(false);
-        pieChart.setDrawCenterText(true);
-        pieDataSet.setColors(colors);
-        //add legend to chart
-        Legend legend=pieChart.getLegend();
-        legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
-        legend.setDrawInside(true);
-        legend.setEnabled(true);
-        //create a pieData object
-        PieData pieData=new PieData(pieDataSet);
-        pieChart.setData(pieData);
-        pieChart.invalidate();
+    public void onBindViewHolder(@NonNull  StatisticAdapter.ViewHolder holder, int position) {
+        final PieBaseOnTopic comment = listData.get(position);
+        holder.txtTittle.setText("hihi");
+//        holder.txtTraineeID.setText(comment.getTraineeID());
+//        holder.txtContent.setText(comment.getContent());
     }
 
-
-    public StatisticAdapter(Context context, ArrayList<PieBaseOnTopic> listPieData){
+    //tạm thời dùng listInt để test
+    public StatisticAdapter(Context context,  ArrayList<PieBaseOnTopic> listData){
         this.context = context;
-        this.listPieData = listPieData;
+        this.listData = listData;
     }
 
     //create view holder
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtTopic ;
-        private PieChart pieChart;
+        private TextView txtTittle ;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
-            txtTopic = itemView.findViewById(R.id.txtTitleStatistic);
-            pieChart=itemView.findViewById(R.id.pieChartTopic);
+            txtTittle =itemView.findViewById(R.id.txtTitleStatistic);
+            int x=1;
+//            txtTraineeID = itemView.findViewById(R.id.txtCommentTraineeID);
+//            txtContent = itemView.findViewById(R.id.txtCommentContent);
         }
     }
 
@@ -115,7 +60,7 @@ public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.View
 
     @Override
     public int getItemCount() {
-        return listPieData.size();
+        return listData.size();
     }
 
     //get position of item
@@ -125,60 +70,5 @@ public class StatisticAdapter extends RecyclerView.Adapter<StatisticAdapter.View
 
     public void setPosition(int position) {
         this.position = position;
-    }
-
-    private void drawChart(ArrayList<PieChartViewModel> pieDataAPI) {
-        pieChart.setUsePercentValues(true);
-
-        pieDataAPI.add( new PieChartViewModel(1,0.5f));
-        pieDataAPI.add( new PieChartViewModel(2,0.5f));
-
-        ArrayList<PieEntry> label = new ArrayList<>();
-        for(int i=0;i<pieDataAPI.size();i++){
-            label.add(new PieEntry(pieDataAPI.get(i).getPercent(),
-                    description.getString(pieDataAPI.get(i).getValue())));
-        }
-
-        // set label
-        pieChart.setEntryLabelColor(Color.WHITE);
-        //create the DATA
-
-        PieDataSet pieDataSet=new PieDataSet(label,"");
-        pieDataSet.setSliceSpace(0);
-        pieDataSet.setValueTextSize(12);
-//        pieDataSet.setLabel("HIHI");
-        //remove hole in center
-        pieChart.setDrawHoleEnabled(false);
-//        pieChart.setDrawCenterText(true);
-        pieChart.setDrawCenterText(false);
-        pieChart.setDrawEntryLabels(false);
-        //add colors to dataSet
-        ArrayList<Integer> colors=new ArrayList<>();
-        //strongly agree
-        colors.add(Color.rgb(254,81,44));
-        // agree
-        colors.add(Color.rgb(255,102,70));
-        //neural
-        colors.add(Color.rgb(255,103,69));
-        //disagree
-        colors.add(Color.rgb(245,144,122));
-        //strongly disagree
-        colors.add(Color.rgb(247,193,181));
-//        pieDataSet.setDrawValues(false);
-        pieChart.getDescription().setEnabled(false);
-        pieDataSet.setColors(colors);
-        //add legend to chart
-        Legend legend=pieChart.getLegend();
-        legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
-//        legend.setDrawInside(false);
-//        legend.setEnabled(true);
-        //create a pieData object
-        PieData pieData=new PieData(pieDataSet);
-        pieChart.setData(pieData);
-        pieChart.invalidate();
-
     }
 }

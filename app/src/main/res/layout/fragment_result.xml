@@ -79,6 +79,30 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <TextView
+        android:id="@+id/txtHideModuleID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hide Module"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+
+    <TextView
+        android:id="@+id/txtHideClassID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hide class"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="0dp"

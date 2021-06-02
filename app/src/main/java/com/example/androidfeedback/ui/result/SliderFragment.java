@@ -49,9 +49,12 @@ import retrofit2.Retrofit;
 
 public class SliderFragment extends Fragment {
     private RecyclerView recyclerView;
+    private RecyclerView recyclerViewTopic;
+    private RecyclerView recyclerViewQuestion;
     private StatisticAdapter statisticAdapter;
     private ViewPager mSliderViewPager;
     private Button btnViewComment;
+    private Context context;
     private Spinner spinnerClass;
     private Spinner spinnerModule;
     private ArrayList<ClassStatisticViewModel> listClass;
@@ -63,19 +66,22 @@ public class SliderFragment extends Fragment {
     private ArrayList<PieChartViewModel> pieData;
     private ArrayList<PieBaseOnTopic> pieDataTopic;
     private PieChart pieChart;
+    private ResultCommentAdapter commentAdapter;
     private ArrayList<PieEntry> pieEntries = new ArrayList();
     StatisticDescription description;
+    private View root;
     private FragmentTransaction fragmentTransaction;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View root = inflater.inflate(R.layout.fragment_result, container, false);
+        root = inflater.inflate(R.layout.fragment_result, container, false);
+        View rootTopic = inflater.inflate(R.layout.fragment_statistic_topic, container, false);
 
         retrofit= RetrofitInstance.getClient();
         callGet = retrofit.create(CallGet.class);
         description= new StatisticDescription();
-
+        recyclerViewQuestion = root.findViewById(R.id.recyclerCommentResult);
         pieDataTopic= new ArrayList<>();
         recyclerView = root.findViewById(R.id.recyclerCommentResult);
 
@@ -101,11 +107,14 @@ public class SliderFragment extends Fragment {
             public void onClick(View v) {
                 mSliderViewPager.setVisibility(View.VISIBLE);
                 createSliderPage();
-                View root2 = inflater.inflate(R.layout.fragment_slider2,container,false);
-                TextView className = root2.findViewById(R.id.txtClassNameStatistic);
+                View rootSlide3 = inflater.inflate(R.layout.fragment_slider3,container,false);
+                TextView className = root.findViewById(R.id.txtClassNameStatistic);
                 className.setText(currentClass.second);
-                TextView moduleName =root2.findViewById(R.id.txtModuleNameStatistic);
+                TextView moduleName =root.findViewById(R.id.txtModuleNameStatistic);
                 moduleName.setText(currentModule.second);
+                TextView test =root.findViewById(R.id.textView1234);
+                test.setText("huhuh");
+                recyclerViewTopic=rootSlide3.findViewById(R.id.recyclerStatisticResultView);
                 List fragments = getActivity().getSupportFragmentManager().getFragments();
                 Fragment mCurrentFragment = (Fragment) fragments.get(fragments.size()-1);
                 if(fragments.size()==2){
@@ -114,9 +123,9 @@ public class SliderFragment extends Fragment {
 
                 pieChart= root.findViewById(R.id.pieChart);
 
-//                callPieChart();
-//                callPieChartBaseTopic();
-
+                callPieChart();
+                callPieChartBaseTopic(root);
+//                pieDataTopic.add(new PieBaseOnTopic(data))
             }
         });
 
@@ -147,10 +156,7 @@ public class SliderFragment extends Fragment {
 
         return root;
     }
-    private void callAdapter(){
 
-
-    }
     private void createSliderPage( ){
         int layouts[]= {
                 R.layout.fragment_slider2,
@@ -214,6 +220,8 @@ public class SliderFragment extends Fragment {
                 ClassStatisticViewModel classes = (ClassStatisticViewModel) parent.getSelectedItem();
                 currentClass= new Pair<>(classes.getClassID(),
                         classes.getClassName());
+                TextView c = root.findViewById(R.id.txtHideClassID);
+                c.setText(String.valueOf(classes.getClassID()));
             }
 
             @Override
@@ -234,6 +242,8 @@ public class SliderFragment extends Fragment {
                 ModuleStatisticViewModel module = (ModuleStatisticViewModel) parent.getSelectedItem();
                 currentModule= new Pair<>(module.getModuleID(),
                         module.getModuleName());
+                TextView m = root.findViewById(R.id.txtHideModuleID);
+                m.setText(String.valueOf(module.getModuleID()));
             }
 
             @Override
@@ -259,16 +269,22 @@ public class SliderFragment extends Fragment {
             }
         });
     }
-    private void callPieChartBaseTopic(){
+    private void callPieChartBaseTopic(View view){
         Call<ArrayList<PieBaseOnTopic>> getDataPieChart =callGet.getPieChartBaseOnTopic(currentClass.first,currentModule.first);
         getDataPieChart.enqueue(new Callback<ArrayList<PieBaseOnTopic>>() {
             @Override
             public void onResponse(Call<ArrayList<PieBaseOnTopic>> call, Response<ArrayList<PieBaseOnTopic>> response) {
                 String a= response.message();
                 pieDataTopic=(ArrayList<PieBaseOnTopic>)response.body();
-                statisticAdapter = new StatisticAdapter(getActivity().getApplicationContext(),pieDataTopic);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-                recyclerView.setAdapter(statisticAdapter);
+//                StatisticAdapter statisticAdapter = new StatisticAdapter(getActivity(),pieDataTopic);
+                StatisticAdapter statisticAdapter = new StatisticAdapter(context,pieDataTopic);
+
+                recyclerViewTopic=getActivity().findViewById(R.id.recyclerStatisticResultView);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false);
+                recyclerViewTopic.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+//                recyclerViewTopic.setLayoutManager(layoutManager);
+                recyclerViewTopic.setAdapter(statisticAdapter);
+
                 int i=1;
             }
 
@@ -315,7 +331,7 @@ public class SliderFragment extends Fragment {
         colors.add(Color.rgb(245,144,122));
         //strongly disagree
         colors.add(Color.rgb(247,193,181));
-        pieDataSet.setDrawValues(false);
+        pieDataSet.setDrawValues(true);
         pieChart.getDescription().setEnabled(false);
         pieChart.setDrawCenterText(true);
         pieDataSet.setColors(colors);

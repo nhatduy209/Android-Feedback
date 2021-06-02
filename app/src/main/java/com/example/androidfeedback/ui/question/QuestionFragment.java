@@ -5,15 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -22,10 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
-import com.example.androidfeedback.ui.enrollment.EnrollmentViewModel;
-import com.example.androidfeedback.ui.uiclass.ClassFragment;
-import com.example.androidfeedback.ui.uiclass.ClassViewModel;
-import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,8 +43,8 @@ public class QuestionFragment extends Fragment {
 
         // get seesion
 
-        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
-        fl.removeAllViews();
+//        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+//        fl.removeAllViews();
 
         SharedPreferences prefs = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
         boolean shouldAttach = prefs.getBoolean("shouldAttach", true);

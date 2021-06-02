@@ -1,12 +1,9 @@
 package com.example.androidfeedback.ui.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,9 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidfeedback.R;
-import com.example.androidfeedback.ui.feedback.AddFeedback;
-import com.example.androidfeedback.ui.feedback.FeedbackAdapter;
-import com.example.androidfeedback.ui.feedback.FeedbackViewModel;
 
 import java.util.ArrayList;
 
@@ -30,8 +24,8 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
-        fl.removeAllViews();
+//        FrameLayout fl = (FrameLayout) getActivity().findViewById(this.getId());
+//        fl.removeAllViews();
 
         
         listFeedback = new ArrayList<FeedbackTraineeViewModel>();
