@@ -114,7 +114,7 @@ public class AddFeedback extends AppCompatActivity{
                     Intent intent = new Intent(getApplicationContext(), EditFeedBack.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("listQuestion",listID);
-//                    intent.putExtra("feedbackTitle",fbTitle);
+                    intent.putExtra("feedbackTitle",fbTitle);
                     startActivity(intent);
                 }
                 else

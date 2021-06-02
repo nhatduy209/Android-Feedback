@@ -26,14 +26,15 @@ public class DetailClassTrainee extends AppCompatActivity {
     ArrayList<ClassViewModel> listClass;
     private Context context;
     private TextView txtclassID, txtclassName;
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        final View root = inflater.inflate(R.layout.class_detail_trainee, null);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.class_detail_trainee);
+//        final View root = inflater.inflate(R.layout.class_detail_trainee, null);
         listClass = new ArrayList<ClassViewModel>();
-        recyclerDetailClass = root.findViewById(R.id.recyclerDetailTraineeClassView);
+        recyclerDetailClass = findViewById(R.id.recyclerDetailTraineeClassView);
         txtclassID = findViewById(R.id.txtDetailClassTraineeID);
         txtclassName = findViewById(R.id.txtDetailClassTraineeName);
-        ClassViewModel classes = new ClassViewModel(0,"", "Name", "tt",
+        ClassViewModel classes = new ClassViewModel(0, "", "Name", "tt",
                 "11", false);
         classes.setClassId(1);
         classes.setClassName("duy");
@@ -52,13 +53,12 @@ public class DetailClassTrainee extends AppCompatActivity {
 
         }
 
-        reload(listClass, root);
-        return root;
+        reload(listClass, getApplicationContext());
     }
-    public void reload(ArrayList<ClassViewModel> listClass, View view){
+    public void reload(ArrayList<ClassViewModel> listClass, Context context){
         classAdapter = new TraineeDetailClassAdapter(getApplicationContext(), listClass);
         // recyclerCategoryView.setHasFixedSize(true);
-        recyclerDetailClass.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerDetailClass.setLayoutManager(new LinearLayoutManager(context));
         recyclerDetailClass.setAdapter(classAdapter);
     }
 }
