@@ -93,7 +93,7 @@ public class ClassFragment extends Fragment{
             String role  = pref.getString("role", "");
             // call api to get list question
 
-            if(role.contentEquals("Trainee")){
+            if(role.contentEquals("Trainee") ||role.contentEquals("Trainer") ){
                 btnAdd.setVisibility(View.INVISIBLE);
             }
             Retrofit retrofit = RetrofitInstance.getClient();

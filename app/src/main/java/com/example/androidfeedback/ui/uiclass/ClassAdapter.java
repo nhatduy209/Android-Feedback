@@ -153,7 +153,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
                     numberOfTrainee.setVisibility(itemView.GONE);
                     textViewNumberOfTrainee.setVisibility(itemView.GONE);
                     break;
-                case "Trainee" :
+                default :
                     btnEdit.setVisibility(itemView.GONE);
                     startDate.setVisibility(itemView.GONE);
                     endDate.setVisibility(itemView.GONE);
