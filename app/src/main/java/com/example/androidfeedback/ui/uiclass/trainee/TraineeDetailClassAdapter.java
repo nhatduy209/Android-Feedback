@@ -20,7 +20,7 @@ public class TraineeDetailClassAdapter extends RecyclerView.Adapter<TraineeDetai
 
     private int position;
     private Context context;
-    ArrayList<ClassViewModel> listClass;
+    ArrayList<ClassDetailModel> listClass;
     @NonNull
     @Override
     public TraineeDetailClassAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -30,13 +30,13 @@ public class TraineeDetailClassAdapter extends RecyclerView.Adapter<TraineeDetai
 
     @Override
     public void onBindViewHolder(@NonNull final TraineeDetailClassAdapter.ViewHolder holder,final int position) {
-        final ClassViewModel classes = listClass.get(position);
-        holder.traineeNumber.setText(String.valueOf(position));
-        holder.traineeID.setText("TraineeID");
-        holder.traineeName.setText("TraineeName");
+        final ClassDetailModel classes = listClass.get(position);
+        holder.traineeNumber.setText(String.valueOf(classes.getNumber()));
+        holder.traineeID.setText(classes.getTraineeID());
+        holder.traineeName.setText(classes.getTraineeName());
     }
 
-    public TraineeDetailClassAdapter(Context context, ArrayList<ClassViewModel> listClass){
+    public TraineeDetailClassAdapter(Context context, ArrayList<ClassDetailModel> listClass){
         this.context = context;
         this.listClass = listClass;
     }
