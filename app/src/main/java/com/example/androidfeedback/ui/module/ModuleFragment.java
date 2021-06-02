@@ -59,7 +59,68 @@ public class ModuleFragment extends Fragment{
         listModule = new ArrayList<ModuleViewModel>();
         recyclerModule = root.findViewById(R.id.recyclerModuleView);
         btnAdd = root.findViewById(R.id.btnAddModule);
+        // get seesion
+        SharedPreferences pref = getActivity().getSharedPreferences("GetSession",Context.MODE_PRIVATE);
+        String userId = pref.getString("userId", "");
+        String role  = pref.getString("role", "");
 
+        // call api to get list question
+        Retrofit retrofit = RetrofitInstance.getClient();
+
+        CallGet callGet = retrofit.create(CallGet.class);
+        // check role
+        switch(role){
+            case "Admin" :
+                // call api to get list question
+                Call<List<ModuleViewModel>> getListModule = callGet.getListModule();
+
+                getListModule.enqueue(new Callback<List<ModuleViewModel>>() {
+                    @Override
+                    public void onResponse(Call<List<ModuleViewModel>> call, Response<List<ModuleViewModel>> response) {
+                        listModule = (ArrayList<ModuleViewModel>) response.body();
+                        reload(listModule, root );
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<ModuleViewModel>> call, Throwable t) {
+
+                    }
+                });
+                break;
+            case  "Trainee" :
+                Call<List<ModuleViewModel>> getListModuleTrainee = callGet.getListModuleTrainee(userId);
+
+                getListModuleTrainee.enqueue(new Callback<List<ModuleViewModel>>() {
+                    @Override
+                    public void onResponse(Call<List<ModuleViewModel>> call, Response<List<ModuleViewModel>> response) {
+                        listModule = (ArrayList<ModuleViewModel>) response.body();
+                        reload(listModule, root );
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<ModuleViewModel>> call, Throwable t) {
+
+                    }
+                });
+                btnAdd.setVisibility(View.INVISIBLE);
+                break;
+            case "Trainer" :
+                Call<List<ModuleViewModel>> getListModuleTraineer = callGet.getListModuleTrainer(userId);
+
+                getListModuleTraineer.enqueue(new Callback<List<ModuleViewModel>>() {
+                    @Override
+                    public void onResponse(Call<List<ModuleViewModel>> call, Response<List<ModuleViewModel>> response) {
+                        listModule = (ArrayList<ModuleViewModel>) response.body();
+                        reload(listModule, root );
+                    }
+                    @Override
+                    public void onFailure(Call<List<ModuleViewModel>> call, Throwable t) {
+
+                    }
+                });
+                btnAdd.setVisibility(View.INVISIBLE);
+                break;
+        }
 
 
         SharedPreferences prefs = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
@@ -82,26 +143,6 @@ public class ModuleFragment extends Fragment{
         });
 
 
-        // call api to get list question
-        Retrofit retrofit = RetrofitInstance.getClient();
-
-        CallGet callGet = retrofit.create(CallGet.class);
-
-        Call<List<ModuleViewModel>> getListModule = callGet.getListModule();
-
-        getListModule.enqueue(new Callback<List<ModuleViewModel>>() {
-            @Override
-            public void onResponse(Call<List<ModuleViewModel>> call, Response<List<ModuleViewModel>> response) {
-                listModule = (ArrayList<ModuleViewModel>) response.body();
-                reload(listModule, root );
-            }
-
-            @Override
-            public void onFailure(Call<List<ModuleViewModel>> call, Throwable t) {
-
-            }
-        });
-        reload(listModule,root);
         return root;
     }
 
@@ -110,6 +151,20 @@ public class ModuleFragment extends Fragment{
         // recyclerCategoryView.setHasFixedSize(true);
         recyclerModule.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerModule.setAdapter(classAdapter);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        SharedPreferences prefs = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        boolean shouldReload = prefs.getBoolean("shouldReload", false);
+        if (!allowRefresh && shouldReload){
+            allowRefresh = true;
+            SharedPreferences pref = getActivity().getSharedPreferences("Refresh",Context.MODE_PRIVATE);
+            editor = pref.edit();
+            editor.putBoolean("shouldAttach",true);
+            editor.apply();
+        }
     }
 
     @Override

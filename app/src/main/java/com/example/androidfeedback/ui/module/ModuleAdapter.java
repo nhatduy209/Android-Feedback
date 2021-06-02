@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder
     private Context context;
     ArrayList<ModuleViewModel> listModule;
     private int position;
-
+    private String role ;
     //get position of item
     public int getPosition() {
         return position;
@@ -58,6 +59,12 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder
             txtModuleFBEndDate = itemView.findViewById(R.id.txtModuleFBEndDate);
             btnDelete = itemView.findViewById(R.id.btnDeleteModule);
             btnEdit = itemView.findViewById(R.id.btnEditModule);
+
+            if(role.contentEquals("Trainee") || role.contentEquals("Trainer") ){
+                btnEdit.setVisibility(itemView.GONE);
+                btnDelete.setVisibility(itemView.GONE);
+            }
+
         }
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -67,6 +74,10 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ViewHolder
     public ModuleAdapter(Context context, ArrayList<ModuleViewModel> listModule){
         this.context = context;
         this.listModule = listModule;
+        // get seesion
+        SharedPreferences pref = context.getSharedPreferences("GetSession",Context.MODE_PRIVATE);
+        role  = pref.getString("role", "");
+
     }
     @NonNull
     @Override

@@ -54,8 +54,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case "Trainer" :
                 setContentView(R.layout.activity_main_trainer);
+                break;
             case "Trainee" :
                 setContentView(R.layout.activity_main_trainee);
+                break;
         }
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");

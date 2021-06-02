@@ -16,7 +16,7 @@ import com.example.androidfeedback.ui.question.QuestionViewModel;
 import java.util.ArrayList;
 
 public class FeedbackTopicAdapter  extends RecyclerView.Adapter<FeedbackTopicAdapter.ViewHolder> {
-    private int[] listTopic;
+    private ArrayList<TopicFeedbackModel> listTopic;
     Context context;
     private int position;
     private ArrayList<QuestionViewModel>  listReview;
@@ -48,21 +48,16 @@ public class FeedbackTopicAdapter  extends RecyclerView.Adapter<FeedbackTopicAda
             recyclerListQuestion = itemView.findViewById(R.id.recyclerQuestionInTopic);
         }
     }
-    public FeedbackTopicAdapter(Context context, int[] listTopic){
+    public FeedbackTopicAdapter(Context context, ArrayList<TopicFeedbackModel> listTopic){
         this.context = context;
         this.listTopic = listTopic;
     }
     @Override
     public void onBindViewHolder(@NonNull final FeedbackTopicAdapter.ViewHolder holder, final int position){
         //truyền id của topic vào để truy vấn cho đúng luôn chứ mệt mủi
-        final int topic = listTopic[position];
-        ArrayList<QuestionViewModel> listQuestion = new ArrayList<QuestionViewModel>();
-        QuestionViewModel question = new QuestionViewModel(1,"dui dẻ hong quạo",topic);
-        listQuestion.add(question);
-        listQuestion.add(question);
-        listQuestion.add(question);
-        feedbackQuestionAdapter = new FeedbackQuestionAdapter(context,listQuestion,this);
-        holder.txtTopicName.setText(String.valueOf(topic));
+        final TopicFeedbackModel topic = listTopic.get(position);
+        feedbackQuestionAdapter = new FeedbackQuestionAdapter(context,topic.getQuestions(),this);
+        holder.txtTopicName.setText(topic.getTopicName());
         holder.recyclerListQuestion.setLayoutManager(new LinearLayoutManager(context));
         holder.recyclerListQuestion.setAdapter(feedbackQuestionAdapter);
     }
@@ -83,6 +78,6 @@ public class FeedbackTopicAdapter  extends RecyclerView.Adapter<FeedbackTopicAda
 
     @Override
     public int getItemCount() {
-        return listTopic.length;
+        return listTopic.size();
     }
 }
