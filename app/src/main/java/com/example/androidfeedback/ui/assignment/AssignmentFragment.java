@@ -51,7 +51,7 @@ public class AssignmentFragment extends Fragment {
 
         // get session
         SharedPreferences pref = getActivity().getSharedPreferences("GetSession", Context.MODE_PRIVATE);
-        String userId = pref.getString("userId", "");
+        final String userId = pref.getString("userId", "");
         final String role  = pref.getString("role", "");
 
 
@@ -87,17 +87,30 @@ public class AssignmentFragment extends Fragment {
                 String inputText = txtSearchAssignment.getText().toString().trim();
                 if(inputText!=null)
                 {
-                    if(role == "Trainer")
-                    {
+                    Retrofit retrofit = RetrofitInstance.getClient();
 
+                    CallGet callGet = retrofit.create(CallGet.class);
+                    if(role.equals("Trainer"))
+                    {
+                        Call<List<AssignmentModel>> getSearchAssignmentsByTrainer = callGet.searchAssignmentByTrainer(userId,inputText);
+
+                        getSearchAssignmentsByTrainer.enqueue(new Callback<List<AssignmentModel>>() {
+                            @Override
+                            public void onResponse(Call<List<AssignmentModel>> call, Response<List<AssignmentModel>> response) {
+                                listAssignment = (ArrayList<AssignmentModel>) response.body();
+                                reload(listAssignment, root );
+                            }
+
+                            @Override
+                            public void onFailure(Call<List<AssignmentModel>> call, Throwable t) {
+                                Toast.makeText(getActivity() ,"Not found!", Toast.LENGTH_LONG).show();
+                            }
+
+                        });
                     }
                     else
                     {
                         // call api to get list assignment search
-                        Retrofit retrofit = RetrofitInstance.getClient();
-
-                        CallGet callGet = retrofit.create(CallGet.class);
-
                         Call<List<AssignmentModel>> getSearchAssignments = callGet.searchAssignment(inputText);
 
                         getSearchAssignments.enqueue(new Callback<List<AssignmentModel>>() {
@@ -124,16 +137,31 @@ public class AssignmentFragment extends Fragment {
         recyclerAssignment.setAdapter(assignmentAdapter);
         recyclerAssignment.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
-        if(role =="Trainer")
-        {
+        // call api to get list assignment
+        Retrofit retrofit = RetrofitInstance.getClient();
 
+        CallGet callGet = retrofit.create(CallGet.class);
+
+        if(role.equals("Trainer"))
+        {
+            Call<List<AssignmentModel>> getListAssignmentsByTrainer = callGet.getListAssignmentByTrainer(userId);
+
+            getListAssignmentsByTrainer.enqueue(new Callback<List<AssignmentModel>>() {
+                @Override
+                public void onResponse(Call<List<AssignmentModel>> call, Response<List<AssignmentModel>> response) {
+                    listAssignment = (ArrayList<AssignmentModel>) response.body();
+                    reload(listAssignment, root );
+                }
+
+                @Override
+                public void onFailure(Call<List<AssignmentModel>> call, Throwable t) {
+
+                }
+
+            });
         }
         else
         {
-            // call api to get list assignment
-            Retrofit retrofit = RetrofitInstance.getClient();
-
-            CallGet callGet = retrofit.create(CallGet.class);
 
             Call<List<AssignmentModel>> getListAssignments = callGet.getListAssignment();
 
@@ -152,8 +180,6 @@ public class AssignmentFragment extends Fragment {
             });
 
         }
-
-
         return root;
 
     }
